@@ -6,7 +6,8 @@ import 'main.data.dart';
 void main() {
   runApp(
     ProviderScope(
-      overrides: [configureRepositoryLocalStorage()],
+      // TODO: Remove hack to make flutter data not crash
+      overrides: [configureRepositoryLocalStorage(clear: true)],
       child: const ComponentBusinessModelsApp(),
     ),
   );
@@ -25,7 +26,7 @@ class ComponentBusinessModelsApp extends ConsumerWidget {
                 loading: () => const CircularProgressIndicator(),
                 data: (_) {
                   final state = ref.models.watchAll(syncLocal: true);
-                  if (state.isLoading) {
+                  if (state.isLoading || !state.hasModel) {
                     return const CircularProgressIndicator();
                   } else {
                     return Container(

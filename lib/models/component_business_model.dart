@@ -6,6 +6,10 @@ part 'component_business_model.g.dart';
 
 mixin ModelAdapter on RemoteAdapter<Model> {
   @override
+  DataRequestMethod methodForSave(id, Map<String, dynamic> params) =>
+      id != null ? DataRequestMethod.PUT : DataRequestMethod.POST;
+
+  @override
   String get baseUrl => 'http://localhost:8888/';
   // String get baseUrl => const String.fromEnvironment("MODELS_BASE_URL");
 }
@@ -15,7 +19,7 @@ mixin ModelAdapter on RemoteAdapter<Model> {
 @DataRepository([ModelAdapter])
 class Model extends DataModel<Model> {
   Model({
-    this.id,
+    // this.id,
     required this.mid,
     required this.name,
     this.description,
@@ -23,17 +27,21 @@ class Model extends DataModel<Model> {
     this.layers,
   });
 
-  @override
-  final String? id;
+  // @override
+  // @JsonKey(name: '_id')
+  // final String? id;
   final String mid;
   final String name;
   final String? description;
   final bool isTemplate;
   late List<Layer>? layers;
 
-  static Model fromJson(Map<String, dynamic> json) => _$ModelFromJson(json);
+  @override
+  Object? get id => mid;
 
-  Map<String, dynamic> toJson() => _$ModelToJson(this);
+  // static Model fromJson(Map<String, dynamic> json) => _$ModelFromJson(json);
+
+  // Map<String, dynamic> toJson() => _$ModelToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false, explicitToJson: true)

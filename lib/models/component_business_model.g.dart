@@ -23,7 +23,7 @@ mixin $ModelLocalAdapter on LocalAdapter<Model> {
 
   @override
   Map<String, dynamic> serialize(model, {bool withRelationships = true}) {
-    final map = model.toJson();
+    final map = _$ModelToJson(model);
     return transformSerialize(map, withRelationships: withRelationships);
   }
 }
@@ -53,7 +53,6 @@ extension ModelRelationshipGraphNodeX on RelationshipGraphNode<Model> {}
 // **************************************************************************
 
 Model _$ModelFromJson(Map<String, dynamic> json) => Model(
-      id: json['id'] as String?,
       mid: json['mid'] as String,
       name: json['name'] as String,
       description: json['description'] as String?,
@@ -64,7 +63,10 @@ Model _$ModelFromJson(Map<String, dynamic> json) => Model(
     );
 
 Map<String, dynamic> _$ModelToJson(Model instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'mid': instance.mid,
+    'name': instance.name,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -72,9 +74,6 @@ Map<String, dynamic> _$ModelToJson(Model instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
-  val['mid'] = instance.mid;
-  val['name'] = instance.name;
   writeNotNull('description', instance.description);
   val['isTemplate'] = instance.isTemplate;
   writeNotNull('layers', instance.layers?.map((e) => e.toJson()).toList());

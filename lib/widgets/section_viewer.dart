@@ -1,60 +1,137 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cbmui/main.data.dart';
 import '../models/component_business_model.dart';
+import '../util.dart';
 import 'component_viewer.dart';
 
-class SectionViewer extends StatelessWidget {
-  const SectionViewer(
-      {super.key, required this.section, this.displayName = true});
+class SectionViewer extends ConsumerWidget {
+  const SectionViewer._(
+      {super.key,
+      this.section,
+      this.displayLabel = false,
+      required this.model,
+      required this.layer,
+      this.createSectionWidget = false});
 
-  final Section section;
-  final bool displayName;
+  final Section? section;
+  final bool displayLabel;
+  final Model model;
+  final Layer layer;
+  final bool createSectionWidget;
+
+  factory SectionViewer.createButton({
+    required Model model,
+    required Layer layer,
+    required bool shiftDownForLabel,
+  }) {
+    return SectionViewer._(
+      model: model,
+      layer: layer,
+      createSectionWidget: true,
+      displayLabel: shiftDownForLabel,
+    );
+  }
+
+  factory SectionViewer.contentWidget(
+      {required Model model,
+      required Layer layer,
+      required Section section,
+      required displayLabel}) {
+    return SectionViewer._(
+      key: ValueKey(section.id),
+      model: model,
+      layer: layer,
+      section: section,
+      displayLabel: displayLabel,
+    );
+  }
 
   @override
-  Widget build(BuildContext context) {
-    final componentsWidgets = section.components!
-        .map(
-          (c) => Padding(
-            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-            child: ComponentViewer(component: c),
-          ),
-        )
-        .toList();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final Widget mainWidget;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Visibility(
-          visible: displayName,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-            child: Text(
-              section.name,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    if (createSectionWidget) {
+      mainWidget = Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Visibility(
+            visible: displayLabel,
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+              child: Text(
+                "",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              await ModelApi.createSection(
+                  repository: ref.models, model: model, layer: layer);
+              return;
+            },
+            style: createButtonStyle.copyWith(
+                fixedSize: const MaterialStatePropertyAll(Size(10, 110))),
+            child: const Icon(Icons.add_box),
+          ),
+        ],
+      );
+    } else {
+      final componentsWidgets = [
+        ...section!.components!
+            .map(
+              (c) => Padding(
+                padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                child: ComponentViewer.contentWidget(
+                  component: c,
+                  section: section!,
+                  layer: layer,
+                  model: model,
+                ),
+              ),
+            )
+            .toList(),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: ComponentViewer.createButton(
+            model: model,
+            layer: layer,
+            section: section!,
+          ),
         ),
-        Visibility(
-          visible: displayName,
-          child: Card(
+      ];
+
+      mainWidget = Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Visibility(
+            visible: displayLabel,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+              child: Text(
+                (section != null) ? section!.name : " ",
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Container(
+            constraints: BoxConstraints.loose(const Size(600, double.infinity)),
+            decoration: BoxDecoration(
+                border: Border.all(width: 2.0, color: Colors.black)),
             child: Wrap(
+              direction: Axis.horizontal,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 5,
+              runSpacing: 5,
               children: componentsWidgets,
             ),
           ),
-        ),
-        Visibility(
-          visible: !displayName,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-            child: Wrap(
-              spacing: 10,
-              runSpacing: 10,
-              children: componentsWidgets,
-            ),
-          ),
-        ),
-      ],
-    );
+        ],
+      );
+    }
+
+    return mainWidget;
   }
 }
