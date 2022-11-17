@@ -37,50 +37,52 @@ class ModelViewer extends ConsumerWidget {
             const ModeSelector(),
           ],
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              minWidth: 500,
-              maxWidth: 2000,
-              maxHeight: 10000,
-            ),
-            child: ReorderableListView(
-              buildDefaultDragHandles: false,
-              onReorder: (int oldIndex, int newIndex) async {
-                // final oi = oldIndex < newIndex ? oldIndex - 1 : oldIndex;
-                final ni = oldIndex < newIndex ? newIndex - 1 : newIndex - 1;
-                final oi = oldIndex - 1;
-                // final ni = newIndex - 2;
-                dev.log("oldIndex: $oldIndex adjusted: $oi");
-                dev.log("newIndex: $newIndex adjusted: $ni");
-                dev.log("-------------------------");
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minWidth: 500,
+                maxWidth: 2000,
+                maxHeight: 10000,
+              ),
+              child: ReorderableListView(
+                buildDefaultDragHandles: false,
+                onReorder: (int oldIndex, int newIndex) async {
+                  // final oi = oldIndex < newIndex ? oldIndex - 1 : oldIndex;
+                  final ni = oldIndex < newIndex ? newIndex - 1 : newIndex - 1;
+                  final oi = oldIndex - 1;
+                  // final ni = newIndex - 2;
+                  dev.log("oldIndex: $oldIndex adjusted: $oi");
+                  dev.log("newIndex: $newIndex adjusted: $ni");
+                  dev.log("-------------------------");
 
-                final l = model.layers!.removeAt(oldIndex - 1);
+                  final l = model.layers!.removeAt(oldIndex - 1);
 
-                if (oldIndex < newIndex) {
-                  // Moving down adjust for create button and removed item
-                  model.layers!.insert(max(1, newIndex - 2), l);
-                } else {
-                  // Moving up adjust for create button
-                  model.layers!
-                      .insert(min(newIndex - 1, model.layers!.length - 1), l);
-                }
+                  if (oldIndex < newIndex) {
+                    // Moving down adjust for create button and removed item
+                    model.layers!.insert(max(1, newIndex - 2), l);
+                  } else {
+                    // Moving up adjust for create button
+                    model.layers!
+                        .insert(min(newIndex - 1, model.layers!.length - 1), l);
+                  }
 
-                model.layers!.insert(ni, l);
-                await ModelApi.saveModel(
-                  repository: ref.models,
-                  model: model,
-                );
-              },
-              children: [
-                LayerViewer.layerCreateButton(model: model),
-                ...model.layers!.map(
-                  (l) {
-                    return listRow(l, index);
-                  },
-                ).toList(),
-              ],
+                  model.layers!.insert(ni, l);
+                  await ModelApi.saveModel(
+                    repository: ref.models,
+                    model: model,
+                  );
+                },
+                children: [
+                  LayerViewer.layerCreateButton(model: model),
+                  ...model.layers!.map(
+                    (l) {
+                      return listRow(l, index);
+                    },
+                  ).toList(),
+                ],
+              ),
             ),
           ),
         ),
