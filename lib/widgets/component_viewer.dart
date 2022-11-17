@@ -1,3 +1,4 @@
+import 'package:cbmui/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cbmui/main.data.dart';
@@ -70,9 +71,12 @@ class ComponentViewer extends ConsumerWidget {
         child: Card(
           elevation: 3,
           child: Center(
-            child: Text(
-              component!.name,
-              textAlign: TextAlign.center,
+            child: LabelWidget(
+              label: component!.name,
+              width: 80,
+              fontSize: 14,
+              fontWeight: FontWeight.normal,
+              alignment: TextAlign.center,
             ),
           ),
         ),

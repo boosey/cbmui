@@ -1,3 +1,5 @@
+import 'package:cbmui/providers/mode_provider.dart';
+import 'package:cbmui/widgets/label_widget.dart';
 import 'package:cbmui/widgets/section_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,15 +39,17 @@ class LayerViewer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Widget labelWidget;
-    Widget rowWidget;
+    Widget content;
+
+    final isEditMode = ref.watch(isEditModeProvider);
 
     if (createLayerWidget) {
-      labelWidget = const Text(
-        "",
-        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      labelWidget = const LabelWidget(
+        label: "",
+        readonly: true,
       );
 
-      rowWidget = ElevatedButton(
+      content = ElevatedButton(
         onPressed: () async {
           await ModelApi.createLayer(repository: ref.models, model: model);
           return;
@@ -56,12 +60,12 @@ class LayerViewer extends ConsumerWidget {
         child: const Icon(Icons.add_box),
       );
     } else {
-      labelWidget = Text(
-        layer!.name,
-        style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      labelWidget = LabelWidget(
+        label: layer!.name,
+        fontSize: 28,
       );
 
-      rowWidget = Wrap(
+      content = Wrap(
         direction: Axis.horizontal,
         spacing: 8,
         runSpacing: 8,
@@ -77,10 +81,13 @@ class LayerViewer extends ConsumerWidget {
                 ),
               )
               .toList(),
-          SectionViewer.createButton(
-            model: model,
-            layer: layer!,
-            shiftDownForLabel: layer!.sections!.length > 1,
+          Visibility(
+            visible: isEditMode,
+            child: SectionViewer.createButton(
+              model: model,
+              layer: layer!,
+              shiftDownForLabel: layer!.sections!.length > 1,
+            ),
           ),
         ],
       );
@@ -103,7 +110,7 @@ class LayerViewer extends ConsumerWidget {
             flex: 5,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 2, 5, 0),
-              child: rowWidget,
+              child: content,
             ),
           ),
         ],

@@ -1,3 +1,5 @@
+import 'package:cbmui/providers/mode_provider.dart';
+import 'package:cbmui/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cbmui/main.data.dart';
@@ -51,6 +53,8 @@ class SectionViewer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Widget mainWidget;
 
+    final isEditMode = ref.watch(isEditModeProvider);
+
     if (createSectionWidget) {
       mainWidget = Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,9 +63,9 @@ class SectionViewer extends ConsumerWidget {
             visible: displayLabel,
             child: const Padding(
               padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-              child: Text(
-                "",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              child: LabelWidget(
+                label: "",
+                readonly: true,
               ),
             ),
           ),
@@ -94,10 +98,13 @@ class SectionViewer extends ConsumerWidget {
             .toList(),
         Padding(
           padding: const EdgeInsets.all(5.0),
-          child: ComponentViewer.createButton(
-            model: model,
-            layer: layer,
-            section: section!,
+          child: Visibility(
+            visible: isEditMode,
+            child: ComponentViewer.createButton(
+              model: model,
+              layer: layer,
+              section: section!,
+            ),
           ),
         ),
       ];
@@ -109,10 +116,10 @@ class SectionViewer extends ConsumerWidget {
             visible: displayLabel,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-              child: Text(
-                (section != null) ? section!.name : " ",
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              child: LabelWidget(
+                label: (section != null) ? section!.name : " ",
+                fontSize: 22,
+                width: 200,
               ),
             ),
           ),

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:cbmui/models/component_business_model.dart';
 import 'package:cbmui/providers/mode_provider.dart';
+import 'package:cbmui/widgets/label_widget.dart';
 import 'package:cbmui/widgets/layer_viewer.dart';
 import 'package:cbmui/widgets/mode_selector.dart';
 import 'package:flutter/material.dart';
@@ -17,22 +18,16 @@ class ModelViewer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mode = ref.watch(modeProvider);
+    // final mode = ref.watch(modeProvider);
+    final isEditMode = ref.watch(isEditModeProvider);
     int index = 1;
+
     return Column(
       children: [
         Row(
           children: [
             Expanded(
-              child: TextField(
-                controller: TextEditingController.fromValue(
-                    TextEditingValue(text: model.name)),
-                readOnly: mode != Mode.edit,
-                style: const TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              child: LabelWidget(label: model.name),
             ),
             const ModeSelector(),
           ],
@@ -75,7 +70,11 @@ class ModelViewer extends ConsumerWidget {
                   );
                 },
                 children: [
-                  LayerViewer.layerCreateButton(model: model),
+                  Visibility(
+                    key: ValueKey("layercreatevisibility${model.id}"),
+                    visible: isEditMode,
+                    child: LayerViewer.layerCreateButton(model: model),
+                  ),
                   ...model.layers!.map(
                     (l) {
                       return listRow(l, index);

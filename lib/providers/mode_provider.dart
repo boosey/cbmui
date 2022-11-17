@@ -16,3 +16,6 @@ class ModeNotifier extends StateNotifier<Mode> {
 
 final modeProvider =
     StateNotifierProvider<ModeNotifier, Mode>((_) => ModeNotifier(Mode.view));
+
+final isEditModeProvider =
+    Provider((ref) => ref.watch(modeProvider) == Mode.edit);
