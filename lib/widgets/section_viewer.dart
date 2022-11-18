@@ -2,7 +2,6 @@ import 'package:cbmui/providers/mode_provider.dart';
 import 'package:cbmui/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cbmui/main.data.dart';
 import '../models/component_business_model.dart';
 import '../util.dart';
 import 'component_viewer.dart';
@@ -71,8 +70,7 @@ class SectionViewer extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () async {
-              await ModelApi.createSection(
-                  repository: ref.models, model: model, layer: layer);
+              await ModelApi.createSection(model: model, layer: layer);
               return;
             },
             style: createButtonStyle.copyWith(
@@ -109,37 +107,53 @@ class SectionViewer extends ConsumerWidget {
         ),
       ];
 
-      mainWidget = Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      mainWidget = Stack(
         children: [
-          Visibility(
-            visible: displayLabel,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-              child: LabelWidget(
-                label: (section != null) ? section!.name : " ",
-                fontSize: 22,
-                width: 200,
-                onChanged: (s) async {
-                  section!.name = s;
-                  await ModelApi.saveModel(
-                    repository: ref.models,
-                    model: model,
-                  );
-                },
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Visibility(
+                visible: displayLabel,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                  child: LabelWidget(
+                    label: (section != null) ? section!.name : " ",
+                    fontSize: 22,
+                    width: 200,
+                    onChanged: (s) async {
+                      section!.name = s;
+                      await ModelApi.saveModel(
+                        model: model,
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
+              Container(
+                constraints:
+                    BoxConstraints.loose(const Size(600, double.infinity)),
+                decoration: BoxDecoration(
+                    border: Border.all(width: 2.0, color: Colors.black)),
+                child: Wrap(
+                  direction: Axis.horizontal,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 5,
+                  runSpacing: 5,
+                  children: componentsWidgets,
+                ),
+              ),
+            ],
           ),
-          Container(
-            constraints: BoxConstraints.loose(const Size(600, double.infinity)),
-            decoration: BoxDecoration(
-                border: Border.all(width: 2.0, color: Colors.black)),
-            child: Wrap(
-              direction: Axis.horizontal,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 5,
-              runSpacing: 5,
-              children: componentsWidgets,
+          Visibility(
+            visible: isEditMode && !createSectionWidget,
+            child: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () async {
+                layer.sections!.removeWhere((s) => section!.id == s.id);
+                await ModelApi.saveModel(
+                  model: model,
+                );
+              },
             ),
           ),
         ],

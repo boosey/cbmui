@@ -7,40 +7,34 @@ final createButtonStyle = ElevatedButton.styleFrom(
   fixedSize: const Size(30, 125),
   backgroundColor: Colors.white,
   foregroundColor: Colors.blue,
-// side: const BorderSide(width: 1, color: Colors.black),
 );
 
 class ModelApi {
-  static Future<void> saveModel(
-      {required Repository<Model> repository, required Model model}) async {
-    // await sendPut(
-    //   url: 'http://localhost:8888/models/${model.mid}/layers',
-    //   model: model.save(),
-    // );
+  static late Repository<Model> _repository;
+
+  static setRepository(Repository<Model> repo) => _repository = repo;
+
+  static Future<void> saveModel({required Model model}) async {
     await model.save();
-    await repository.findAll(syncLocal: true);
+    await _repository.findAll(syncLocal: true);
   }
 
-  static Future<void> createLayer(
-      {required Repository<Model> repository, required Model model}) async {
+  static Future<void> createLayer({required Model model}) async {
     await sendPost(url: 'http://localhost:8888/models/${model.id}/layers');
 
-    await repository.findAll(syncLocal: true);
+    await _repository.findAll(syncLocal: true);
   }
 
   static Future<void> createSection(
-      {required Repository<Model> repository,
-      required Model model,
-      required Layer layer}) async {
+      {required Model model, required Layer layer}) async {
     await sendPost(
         url:
             'http://localhost:8888/models/${model.id}/layers/${layer.id}/sections');
 
-    await repository.findAll(syncLocal: true);
+    await _repository.findAll(syncLocal: true);
   }
 
   static Future<void> createComponent({
-    required Repository<Model> repository,
     required Model model,
     required Layer layer,
     required Section section,
@@ -49,7 +43,7 @@ class ModelApi {
         url:
             'http://localhost:8888/models/${model.mid}/layers/${layer.id}/sections/${section.id}/components');
 
-    await repository.findAll(syncLocal: true);
+    await _repository.findAll(syncLocal: true);
   }
 
   static Future<void> sendPost({required String url}) async {

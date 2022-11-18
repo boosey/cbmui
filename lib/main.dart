@@ -1,3 +1,5 @@
+import 'package:cbmui/models/component_business_model.dart';
+import 'package:cbmui/util.dart';
 import 'package:cbmui/widgets/model_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +20,8 @@ class ComponentBusinessModelsApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ModelApi.setRepository(ref.read(modelsRepositoryProvider));
+
     return MaterialApp(
       home: Scaffold(
         body: Center(

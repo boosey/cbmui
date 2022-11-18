@@ -3,7 +3,7 @@ import 'package:cbmui/widgets/label_widget.dart';
 import 'package:cbmui/widgets/section_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cbmui/main.data.dart';
+
 import '../models/component_business_model.dart';
 import '../util.dart';
 
@@ -51,7 +51,7 @@ class LayerViewer extends ConsumerWidget {
 
       content = ElevatedButton(
         onPressed: () async {
-          await ModelApi.createLayer(repository: ref.models, model: model);
+          await ModelApi.createLayer(model: model);
           return;
         },
         style: createButtonStyle.copyWith(
@@ -66,7 +66,6 @@ class LayerViewer extends ConsumerWidget {
         onChanged: (s) async {
           layer!.name = s;
           await ModelApi.saveModel(
-            repository: ref.models,
             model: model,
           );
         },
@@ -100,28 +99,44 @@ class LayerViewer extends ConsumerWidget {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: labelWidget,
-            ),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: labelWidget,
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 2, 5, 0),
+                  child: content,
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            flex: 5,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 2, 5, 0),
-              child: content,
-            ),
+        ),
+        Visibility(
+          visible: isEditMode && !createLayerWidget,
+          child: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () async {
+              model.layers!.removeWhere((l) => layer!.id == l.id);
+              await ModelApi.saveModel(
+                model: model,
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -8,7 +8,7 @@ import 'package:cbmui/widgets/layer_viewer.dart';
 import 'package:cbmui/widgets/mode_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cbmui/main.data.dart';
+
 import '../util.dart';
 
 class ModelViewer extends ConsumerWidget {
@@ -32,7 +32,6 @@ class ModelViewer extends ConsumerWidget {
                 onChanged: (s) async {
                   model.name = s;
                   await ModelApi.saveModel(
-                    repository: ref.models,
                     model: model,
                   );
                 },
@@ -74,7 +73,6 @@ class ModelViewer extends ConsumerWidget {
 
                   model.layers!.insert(ni, l);
                   await ModelApi.saveModel(
-                    repository: ref.models,
                     model: model,
                   );
                 },

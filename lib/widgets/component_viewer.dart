@@ -1,7 +1,8 @@
+import 'package:cbmui/providers/mode_provider.dart';
 import 'package:cbmui/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cbmui/main.data.dart';
+
 import '../models/component_business_model.dart';
 import '../util.dart';
 
@@ -50,14 +51,13 @@ class ComponentViewer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isEditMode = ref.watch(isEditModeProvider);
+
     if (createComponentWidget) {
       return ElevatedButton(
         onPressed: () async {
           await ModelApi.createComponent(
-              repository: ref.models,
-              model: model,
-              layer: layer,
-              section: section);
+              model: model, layer: layer, section: section);
           return;
         },
         style: createButtonStyle.copyWith(
@@ -65,28 +65,43 @@ class ComponentViewer extends ConsumerWidget {
         child: const Icon(Icons.add_box),
       );
     } else {
-      return SizedBox(
-        width: 100,
-        height: 100,
-        child: Card(
-          elevation: 3,
-          child: Center(
-            child: LabelWidget(
-              label: component!.name,
-              width: 80,
-              fontSize: 14,
-              fontWeight: FontWeight.normal,
-              alignment: TextAlign.center,
-              onChanged: (s) async {
-                component!.name = s;
+      return Stack(
+        children: [
+          SizedBox(
+            width: 100,
+            height: 100,
+            child: Card(
+              elevation: 3,
+              child: Center(
+                child: LabelWidget(
+                  label: component!.name,
+                  width: 80,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  alignment: TextAlign.center,
+                  onChanged: (s) async {
+                    component!.name = s;
+                    await ModelApi.saveModel(
+                      model: model,
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: isEditMode && !createComponentWidget,
+            child: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () async {
+                section.components!.removeWhere((c) => component!.id == c.id);
                 await ModelApi.saveModel(
-                  repository: ref.models,
                   model: model,
                 );
               },
             ),
           ),
-        ),
+        ],
       );
     }
   }
