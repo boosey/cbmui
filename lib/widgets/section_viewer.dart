@@ -120,6 +120,13 @@ class SectionViewer extends ConsumerWidget {
                 label: (section != null) ? section!.name : " ",
                 fontSize: 22,
                 width: 200,
+                onChanged: (s) async {
+                  section!.name = s;
+                  await ModelApi.saveModel(
+                    repository: ref.models,
+                    model: model,
+                  );
+                },
               ),
             ),
           ),

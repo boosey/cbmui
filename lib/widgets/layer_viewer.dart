@@ -63,6 +63,13 @@ class LayerViewer extends ConsumerWidget {
       labelWidget = LabelWidget(
         label: layer!.name,
         fontSize: 28,
+        onChanged: (s) async {
+          layer!.name = s;
+          await ModelApi.saveModel(
+            repository: ref.models,
+            model: model,
+          );
+        },
       );
 
       content = Wrap(

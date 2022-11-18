@@ -31,9 +31,9 @@ class Model extends DataModel<Model> {
   // @JsonKey(name: '_id')
   // final String? id;
   final String mid;
-  final String name;
-  final String? description;
-  final bool isTemplate;
+  late String name;
+  late String? description;
+  late bool isTemplate;
   late List<Layer>? layers;
 
   @override
@@ -53,8 +53,8 @@ class Layer {
   });
 
   final String id;
-  final String name;
-  final String? description;
+  late String name;
+  late String? description;
   late List<Section>? sections;
 
   // ignore: sort_constructors_first
@@ -72,8 +72,8 @@ class Section {
   });
 
   final String id;
-  final String name;
-  final String? description;
+  late String name;
+  late String? description;
   late List<Component>? components;
 
   // ignore: sort_constructors_first
@@ -92,8 +92,8 @@ class Component {
   });
 
   final String id;
-  final String name;
-  final String? description;
+  late String name;
+  late String? description;
 
   // ignore: sort_constructors_first
   factory Component.fromJson(Map<String, dynamic> json) =>

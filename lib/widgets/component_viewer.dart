@@ -77,6 +77,13 @@ class ComponentViewer extends ConsumerWidget {
               fontSize: 14,
               fontWeight: FontWeight.normal,
               alignment: TextAlign.center,
+              onChanged: (s) async {
+                component!.name = s;
+                await ModelApi.saveModel(
+                  repository: ref.models,
+                  model: model,
+                );
+              },
             ),
           ),
         ),

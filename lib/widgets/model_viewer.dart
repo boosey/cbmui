@@ -27,7 +27,16 @@ class ModelViewer extends ConsumerWidget {
         Row(
           children: [
             Expanded(
-              child: LabelWidget(label: model.name),
+              child: LabelWidget(
+                label: model.name,
+                onChanged: (s) async {
+                  model.name = s;
+                  await ModelApi.saveModel(
+                    repository: ref.models,
+                    model: model,
+                  );
+                },
+              ),
             ),
             const ModeSelector(),
           ],

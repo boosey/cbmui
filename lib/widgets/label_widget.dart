@@ -59,6 +59,7 @@ class _LabelWidgetState extends ConsumerState<LabelWidget> {
               controller: labelController,
               style: style,
               textAlign: widget.alignment,
+              onSubmitted: widget.onChanged,
             ),
           )
         : Text(
