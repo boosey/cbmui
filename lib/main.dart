@@ -1,6 +1,6 @@
 import 'package:cbmui/models/component_business_model.dart';
 import 'package:cbmui/util.dart';
-import 'package:cbmui/widgets/model_viewer.dart';
+import 'package:cbmui/widgets/model_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'main.data.dart';
@@ -37,7 +37,7 @@ class ComponentBusinessModelsApp extends ConsumerWidget {
                       constraints: const BoxConstraints.expand(),
                       child: Padding(
                         padding: const EdgeInsets.all(30),
-                        child: ModelViewer(model: state.model!.first),
+                        child: ModelList(models: state.model!),
                       ),
                     );
                   }

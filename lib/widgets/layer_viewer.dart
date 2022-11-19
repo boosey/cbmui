@@ -41,7 +41,7 @@ class LayerViewer extends ConsumerWidget {
     Widget labelWidget;
     Widget content;
 
-    final isEditMode = ref.watch(isEditModeProvider);
+    final isEditMode = ref.watch(isModelViewerEditModeProvider);
 
     if (createLayerWidget) {
       labelWidget = const LabelWidget(

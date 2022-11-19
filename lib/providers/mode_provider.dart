@@ -14,14 +14,14 @@ class ModeNotifier extends StateNotifier<Mode> {
   void analyze() => state = Mode.analyze;
 }
 
-final modeProvider =
+final modelViewerModeProvider =
     StateNotifierProvider<ModeNotifier, Mode>((_) => ModeNotifier(Mode.view));
 
-final isEditModeProvider =
-    Provider((ref) => ref.watch(modeProvider) == Mode.edit);
+final isModelViewerEditModeProvider =
+    Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.edit);
 
-final isViewModeProvider =
-    Provider((ref) => ref.watch(modeProvider) == Mode.view);
+final isModelViewerViewModeProvider =
+    Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.view);
 
-final isAnalyzeModeProvider =
-    Provider((ref) => ref.watch(modeProvider) == Mode.analyze);
+final isModelViewerAnalyzeModeProvider =
+    Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.analyze);

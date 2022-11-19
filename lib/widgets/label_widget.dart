@@ -64,7 +64,7 @@ class _LabelWidgetState extends ConsumerState<LabelWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isEditMode = ref.watch(isEditModeProvider);
+    final isEditMode = ref.watch(isModelViewerEditModeProvider);
 
     return isEditMode && !widget.readonly
         ? SizedBox(

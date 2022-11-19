@@ -86,7 +86,7 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
 
   @override
   Widget build(BuildContext context) {
-    final isEditMode = ref.watch(isEditModeProvider);
+    final isEditMode = ref.watch(isModelViewerEditModeProvider);
 
     if (widget.createComponentWidget) {
       return IconButton(
@@ -107,7 +107,7 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
         children: [
           GestureDetector(
             onTap: () {
-              if (ref.read(isViewModeProvider)) {
+              if (ref.read(isModelViewerViewModeProvider)) {
                 _ratingDialog(context);
               }
             },

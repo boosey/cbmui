@@ -7,18 +7,18 @@ class ModeSelector extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mode = ref.watch(modeProvider);
+    final mode = ref.watch(modelViewerModeProvider);
     return ToggleButtons(
       onPressed: (index) {
         switch (index) {
           case 0:
-            ref.read(modeProvider.notifier).view();
+            ref.read(modelViewerModeProvider.notifier).view();
             break;
           case 1:
-            ref.read(modeProvider.notifier).edit();
+            ref.read(modelViewerModeProvider.notifier).edit();
             break;
           case 2:
-            ref.read(modeProvider.notifier).analyze();
+            ref.read(modelViewerModeProvider.notifier).analyze();
             break;
           default:
         }

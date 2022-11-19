@@ -52,7 +52,7 @@ class SectionViewer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Widget mainWidget;
 
-    final isEditMode = ref.watch(isEditModeProvider);
+    final isEditMode = ref.watch(isModelViewerEditModeProvider);
 
     if (createSectionWidget) {
       mainWidget = Column(
