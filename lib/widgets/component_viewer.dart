@@ -89,7 +89,9 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
     final isEditMode = ref.watch(isEditModeProvider);
 
     if (widget.createComponentWidget) {
-      return ElevatedButton(
+      return IconButton(
+        icon: const Icon(Icons.add_box),
+        color: Colors.blue,
         onPressed: () async {
           await ModelApi.createComponent(
               model: widget.model,
@@ -97,9 +99,8 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
               section: widget.section);
           return;
         },
-        style: createButtonStyle.copyWith(
-            fixedSize: const MaterialStatePropertyAll(Size(10, 60))),
-        child: const Icon(Icons.add_box),
+        // style: createButtonStyle.copyWith(
+        //     fixedSize: const MaterialStatePropertyAll(Size(10, 60))),
       );
     } else {
       return Stack(

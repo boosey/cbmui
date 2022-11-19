@@ -68,14 +68,13 @@ class SectionViewer extends ConsumerWidget {
               ),
             ),
           ),
-          ElevatedButton(
+          IconButton(
+            icon: const Icon(Icons.add_box),
+            color: Colors.blue,
             onPressed: () async {
               await ModelApi.createSection(model: model, layer: layer);
               return;
             },
-            style: createButtonStyle.copyWith(
-                fixedSize: const MaterialStatePropertyAll(Size(10, 110))),
-            child: const Icon(Icons.add_box),
           ),
         ],
       );
