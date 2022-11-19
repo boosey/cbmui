@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cbmui/providers/mode_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,14 +25,15 @@ class LabelWidget extends ConsumerStatefulWidget {
   final void Function(String)? onChanged;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() {
+  ConsumerState<LabelWidget> createState() {
     return _LabelWidgetState();
   }
 }
 
 class _LabelWidgetState extends ConsumerState<LabelWidget> {
-  late TextEditingController labelController;
-  late TextStyle style;
+  late final TextEditingController labelController;
+  late final TextStyle style;
+  Timer timer = Timer(const Duration(milliseconds: 0), () {});
 
   @override
   void initState() {
@@ -45,7 +48,18 @@ class _LabelWidgetState extends ConsumerState<LabelWidget> {
   @override
   void dispose() {
     labelController.dispose();
+    timer.cancel();
     super.dispose();
+  }
+
+  void onChanged(String s) {
+    timer.cancel();
+    timer = Timer(
+      const Duration(milliseconds: 1500),
+      () {
+        widget.onChanged!.call(s);
+      },
+    );
   }
 
   @override
@@ -60,6 +74,7 @@ class _LabelWidgetState extends ConsumerState<LabelWidget> {
               style: style,
               textAlign: widget.alignment,
               onSubmitted: widget.onChanged,
+              onChanged: (s) => onChanged(s),
             ),
           )
         : Text(

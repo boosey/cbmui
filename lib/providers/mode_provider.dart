@@ -19,3 +19,9 @@ final modeProvider =
 
 final isEditModeProvider =
     Provider((ref) => ref.watch(modeProvider) == Mode.edit);
+
+final isViewModeProvider =
+    Provider((ref) => ref.watch(modeProvider) == Mode.view);
+
+final isAnalyzeModeProvider =
+    Provider((ref) => ref.watch(modeProvider) == Mode.analyze);

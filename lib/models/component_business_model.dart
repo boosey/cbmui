@@ -88,12 +88,18 @@ class Component {
   Component({
     required this.id,
     required this.name,
-    this.description,
+    this.description = "",
+    this.strategic = 0,
+    this.relationship = 0,
+    this.notes = "",
   });
 
   final String id;
   late String name;
-  late String? description;
+  late String description;
+  late int strategic;
+  late int relationship;
+  late String notes;
 
   // ignore: sort_constructors_first
   factory Component.fromJson(Map<String, dynamic> json) =>

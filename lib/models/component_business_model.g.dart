@@ -134,21 +134,17 @@ Map<String, dynamic> _$SectionToJson(Section instance) {
 Component _$ComponentFromJson(Map<String, dynamic> json) => Component(
       id: json['id'] as String,
       name: json['name'] as String,
-      description: json['description'] as String?,
+      description: json['description'] as String? ?? "",
+      strategic: json['strategic'] as int? ?? 0,
+      relationship: json['relationship'] as int? ?? 0,
+      notes: json['notes'] as String? ?? "",
     );
 
-Map<String, dynamic> _$ComponentToJson(Component instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  return val;
-}
+Map<String, dynamic> _$ComponentToJson(Component instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'description': instance.description,
+      'strategic': instance.strategic,
+      'relationship': instance.relationship,
+      'notes': instance.notes,
+    };
