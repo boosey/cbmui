@@ -1,3 +1,4 @@
+import 'package:cbmui/providers/current_model_provider.dart';
 import 'package:cbmui/widgets/model_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,10 +43,13 @@ class ModelList extends ConsumerWidget {
                     height: 350,
                     child: GestureDetector(
                       onTap: () {
+                        ref
+                            .read(currentModelProvider.notifier)
+                            .setCurrentModel(m);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ModelViewer(model: m)),
+                              builder: (context) => ModelViewer(mid: m.mid)),
                         );
                       },
                       child: Padding(
@@ -65,11 +69,6 @@ class ModelList extends ConsumerWidget {
                                   ),
                                 ),
                               ),
-                              // Container(
-                              //   width: 150,
-                              //   height: 150,
-                              //   color: Colors.blueGrey,
-                              // ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(

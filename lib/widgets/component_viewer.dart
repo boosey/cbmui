@@ -11,47 +11,18 @@ import '../util.dart';
 import 'label_widget.dart';
 
 class ComponentViewer extends ConsumerStatefulWidget {
-  const ComponentViewer._(
-      {super.key,
-      this.component,
-      required this.section,
-      required this.model,
-      required this.layer,
-      this.createComponentWidget = false});
+  const ComponentViewer({
+    super.key,
+    required this.component,
+    required this.section,
+    required this.model,
+    required this.layer,
+  });
 
-  factory ComponentViewer.createButton({
-    required Model model,
-    required Layer layer,
-    required Section section,
-  }) {
-    return ComponentViewer._(
-      model: model,
-      layer: layer,
-      section: section,
-      createComponentWidget: true,
-    );
-  }
-
-  factory ComponentViewer.contentWidget({
-    required Model model,
-    required Layer layer,
-    required Section section,
-    required Component component,
-  }) {
-    return ComponentViewer._(
-      key: ValueKey(component.id),
-      model: model,
-      layer: layer,
-      section: section,
-      component: component,
-    );
-  }
-
-  final Component? component;
+  final Component component;
   final Section section;
   final Layer layer;
   final Model model;
-  final bool createComponentWidget;
 
   @override
   ConsumerState<ComponentViewer> createState() => _ComponentViewerState();
@@ -65,7 +36,7 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
   void initState() {
     super.initState();
     notesController = TextEditingController(
-      text: widget.component?.notes ?? "",
+      text: widget.component.notes,
     );
   }
 
@@ -78,7 +49,7 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
   void onNotesChanged(String s) {
     timer.cancel();
     timer = Timer(const Duration(milliseconds: 1500), () async {
-      widget.component!.notes = s;
+      widget.component.notes = s;
       await ModelApi.saveModel(model: widget.model);
       timer.cancel();
     });
@@ -88,68 +59,52 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
   Widget build(BuildContext context) {
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
 
-    if (widget.createComponentWidget) {
-      return IconButton(
-        icon: const Icon(Icons.add_box),
-        color: Colors.blue,
-        onPressed: () async {
-          await ModelApi.createComponent(
-              model: widget.model,
-              layer: widget.layer,
-              section: widget.section);
-          return;
-        },
-        // style: createButtonStyle.copyWith(
-        //     fixedSize: const MaterialStatePropertyAll(Size(10, 60))),
-      );
-    } else {
-      return Stack(
-        children: [
-          GestureDetector(
-            onTap: () {
-              if (ref.read(isModelViewerViewModeProvider)) {
-                _ratingDialog(context);
-              }
-            },
-            child: SizedBox(
-              width: 100,
-              height: 100,
-              child: Card(
-                elevation: 3,
-                child: Center(
-                  child: LabelWidget(
-                    label: widget.component!.name,
-                    width: 80,
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal,
-                    alignment: TextAlign.center,
-                    onChanged: (s) async {
-                      widget.component!.name = s;
-                      await ModelApi.saveModel(
-                        model: widget.model,
-                      );
-                    },
-                  ),
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () {
+            if (ref.read(isModelViewerViewModeProvider)) {
+              _ratingDialog(context);
+            }
+          },
+          child: SizedBox(
+            width: 100,
+            height: 100,
+            child: Card(
+              elevation: 3,
+              child: Center(
+                child: LabelWidget(
+                  label: widget.component.name,
+                  width: 80,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  alignment: TextAlign.center,
+                  onChanged: (s) async {
+                    widget.component.name = s;
+                    await ModelApi.saveModel(
+                      model: widget.model,
+                    );
+                  },
                 ),
               ),
             ),
           ),
-          Visibility(
-            visible: isEditMode && !widget.createComponentWidget,
-            child: IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () async {
-                widget.section.components!
-                    .removeWhere((c) => widget.component!.id == c.id);
-                await ModelApi.saveModel(
-                  model: widget.model,
-                );
-              },
-            ),
+        ),
+        Visibility(
+          visible: isEditMode,
+          child: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () async {
+              widget.section.components!
+                  .removeWhere((c) => widget.component.id == c.id);
+              await ModelApi.saveModel(
+                model: widget.model,
+              );
+            },
           ),
-        ],
-      );
-    }
+        ),
+      ],
+    );
   }
 
   Future<void> _ratingDialog(BuildContext context) {
@@ -171,7 +126,7 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
-                    widget.component!.name,
+                    widget.component.name,
                     style: const TextStyle(
                         fontSize: 28, fontWeight: FontWeight.bold),
                   ),
@@ -179,14 +134,14 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: StrategicWidget(
-                    component: widget.component!,
+                    component: widget.component,
                     model: widget.model,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: RelationshipWidget(
-                    component: widget.component!,
+                    component: widget.component,
                     model: widget.model,
                   ),
                 ),

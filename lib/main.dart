@@ -15,8 +15,6 @@ void main() {
   );
 }
 
-late final WidgetRef globalRef;
-
 class ComponentBusinessModelsApp extends ConsumerWidget {
   const ComponentBusinessModelsApp({super.key});
 
