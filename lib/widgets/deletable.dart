@@ -7,14 +7,16 @@ class Deletable extends ConsumerWidget {
     Key? key,
     required this.child,
     required this.onDeleteRequested,
+    this.modeProvider,
   }) : super(key: key);
 
   final Widget child;
   final void Function() onDeleteRequested;
+  final Provider? modeProvider;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isEditMode = ref.watch(isModelViewerEditModeProvider);
+    final isEditMode = ref.watch(modeProvider ?? isModelViewerEditModeProvider);
 
     return Stack(
       children: [
