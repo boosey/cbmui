@@ -1,5 +1,5 @@
-import 'package:cbmui/providers/mode_provider.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
+import 'package:cbmui/widgets/deletable.dart';
 import 'package:cbmui/widgets/label_widget.dart';
 import 'package:cbmui/widgets/section_viewer.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +20,6 @@ class LayerViewer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isEditMode = ref.watch(isModelViewerEditModeProvider);
-
     var label = Expanded(
       flex: 1,
       child: Padding(
@@ -39,32 +37,24 @@ class LayerViewer extends ConsumerWidget {
       ),
     );
 
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              label,
-              sections(),
-            ],
-          ),
+    return Deletable(
+      onDeleteRequested: () async {
+        model.layers!.removeWhere((l) => layer.id == l.id);
+        await ModelApi.saveModel(
+          model: model,
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            label,
+            sections(),
+          ],
         ),
-        Visibility(
-          visible: isEditMode,
-          child: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () async {
-              model.layers!.removeWhere((l) => layer.id == l.id);
-              await ModelApi.saveModel(
-                model: model,
-              );
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
 

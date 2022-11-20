@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cbmui/widgets/deletable.dart';
 import 'package:cbmui/widgets/relationship_widget.dart';
 import 'package:cbmui/widgets/strategic_widget.dart';
 import 'package:flutter/material.dart';
@@ -57,53 +58,43 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
 
   @override
   Widget build(BuildContext context) {
-    final isEditMode = ref.watch(isModelViewerEditModeProvider);
-
-    return Stack(
-      children: [
-        GestureDetector(
-          onTap: () {
-            if (ref.read(isModelViewerViewModeProvider)) {
-              _ratingDialog(context);
-            }
-          },
-          child: SizedBox(
-            width: 100,
-            height: 100,
-            child: Card(
-              elevation: 3,
-              child: Center(
-                child: LabelWidget(
-                  label: widget.component.name,
-                  width: 80,
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                  alignment: TextAlign.center,
-                  onChanged: (s) async {
-                    widget.component.name = s;
-                    await ModelApi.saveModel(
-                      model: widget.model,
-                    );
-                  },
-                ),
+    return Deletable(
+      onDeleteRequested: () async {
+        widget.section.components!
+            .removeWhere((c) => widget.component.id == c.id);
+        await ModelApi.saveModel(
+          model: widget.model,
+        );
+      },
+      child: GestureDetector(
+        onTap: () {
+          if (ref.read(isModelViewerViewModeProvider)) {
+            _ratingDialog(context);
+          }
+        },
+        child: SizedBox(
+          width: 100,
+          height: 100,
+          child: Card(
+            elevation: 3,
+            child: Center(
+              child: LabelWidget(
+                label: widget.component.name,
+                width: 80,
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+                alignment: TextAlign.center,
+                onChanged: (s) async {
+                  widget.component.name = s;
+                  await ModelApi.saveModel(
+                    model: widget.model,
+                  );
+                },
               ),
             ),
           ),
         ),
-        Visibility(
-          visible: isEditMode,
-          child: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () async {
-              widget.section.components!
-                  .removeWhere((c) => widget.component.id == c.id);
-              await ModelApi.saveModel(
-                model: widget.model,
-              );
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
 
