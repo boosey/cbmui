@@ -1,9 +1,0 @@
-import 'package:cbmui/providers/models_provider.dart.disabled';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../models/component_business_model.dart';
-
-final modelProvider = Provider.autoDispose.family<Model, String>((ref, id) {
-  final models = ref.watch(modelsProvider);
-  return models.firstWhere((m) => m.mid == id);
-});

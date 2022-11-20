@@ -1,29 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_data/flutter_data.dart';
 import 'package:http/http.dart' as http;
 import 'models/component_business_model.dart';
-
-const strategic = {
-  "Strategic": 5,
-  "Important": 4,
-  "Tactical": 3,
-  "Neutral": 2,
-  "None": 1,
-};
-
-const relationship = {
-  "Promoter": 5,
-  "Trusted": 4,
-  "Neutral": 3,
-  "None": 2,
-  "Negative": 1,
-};
-
-final createButtonStyle = ElevatedButton.styleFrom(
-  fixedSize: const Size(30, 125),
-  backgroundColor: Colors.white,
-  foregroundColor: Colors.blue,
-);
 
 class ModelApi {
   static late Repository<Model> _repository;

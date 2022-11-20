@@ -1,4 +1,3 @@
-import 'package:cbmui/providers/current_model_provider.dart';
 import 'package:cbmui/widgets/model_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,9 +42,6 @@ class ModelList extends ConsumerWidget {
                     height: 350,
                     child: GestureDetector(
                       onTap: () {
-                        ref
-                            .read(currentModelProvider.notifier)
-                            .setCurrentModel(m);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
