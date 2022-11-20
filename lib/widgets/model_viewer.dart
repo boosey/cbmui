@@ -18,9 +18,7 @@ class ModelViewer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final mode = ref.watch(modeProvider);
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
-    int index = 1;
 
     return Scaffold(
       body: Column(
@@ -94,7 +92,7 @@ class ModelViewer extends ConsumerWidget {
                     children: [
                       ...model.layers!.reversed.map(
                         (l) {
-                          return listRow(l, index);
+                          return listRow(l, model);
                         },
                       ).toList(),
                       Visibility(
@@ -113,35 +111,10 @@ class ModelViewer extends ConsumerWidget {
     );
   }
 
-  Widget listRow(Layer l, int index) {
+  Widget listRow(Layer l, Model model) {
     return LayerViewer.layerContentWidget(
       layer: l,
       model: model,
-    );
-  }
-
-  Widget listRow2(Layer l, int index) {
-    return Row(
-      key: ValueKey('rodslrow${l.id}'),
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Icon(
-          Icons.drag_handle,
-          size: 24,
-        ),
-        Flexible(
-          key: ValueKey('rodslflex${l.id}'),
-          fit: FlexFit.loose,
-          child: ReorderableDragStartListener(
-            key: ValueKey('rodsl${l.id}'),
-            index: index++,
-            child: LayerViewer.layerContentWidget(
-              layer: l,
-              model: model,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
