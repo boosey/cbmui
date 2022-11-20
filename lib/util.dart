@@ -7,6 +7,11 @@ class ModelApi {
 
   static setRepository(Repository<Model> repo) => _repository = repo;
 
+  static Future<void> createModel() async {
+    await sendPost(url: 'http://localhost:8888/models');
+    await _repository.findAll(syncLocal: true);
+  }
+
   static Future<void> saveModel({required Model model}) async {
     await model.save();
     await _repository.findAll(syncLocal: true);

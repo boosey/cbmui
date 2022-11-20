@@ -1,3 +1,4 @@
+import 'package:cbmui/util.dart';
 import 'package:cbmui/widgets/model_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,7 +22,9 @@ class ModelList extends ConsumerWidget {
             width: 250,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await ModelApi.createModel();
+              },
               child: const Text(
                 "Create",
                 style: TextStyle(
