@@ -25,3 +25,6 @@ final isModelViewerViewModeProvider =
 
 final isModelViewerAnalyzeModeProvider =
     Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.analyze);
+
+final isModelListEditModeProvider = 
+    Provider((ref) => true);

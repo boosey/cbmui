@@ -25,6 +25,11 @@ class ModelApi {
     await _repository.findAll(syncLocal: true);
   }
 
+  static Future<void> deleteModel({required String id}) async {
+    await sendDelete(url: 'http://localhost:8888/models/$id');
+    await _repository.findAll(syncLocal: true);
+  }
+
   static Future<void> saveModel({required Model model}) async {
     await model.save();
     await _repository.findAll(syncLocal: true);
@@ -63,6 +68,16 @@ class ModelApi {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: "{}",
+    );
+    return;
+  }
+
+  static Future<void> sendDelete({required String url}) async {
+    await http.delete(
+      Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      }
     );
     return;
   }
