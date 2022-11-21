@@ -14,81 +14,83 @@ class ModelAnalyzer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Column(
-              children: [
-                Row(
-                  children: [
-                    subquadrant(1, 4),
-                    subquadrant(2, 4),
-                  ],
-                ),
-                Row(
-                  children: [
-                    subquadrant(1, 3),
-                    subquadrant(2, 3),
-                  ],
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    subquadrant(3, 4),
-                    subquadrant(4, 4),
-                  ],
-                ),
-                Row(
-                  children: [
-                    subquadrant(3, 3),
-                    subquadrant(4, 3),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Column(
-              children: [
-                Row(
-                  children: [
-                    subquadrant(1, 2),
-                    subquadrant(2, 2),
-                  ],
-                ),
-                Row(
-                  children: [
-                    subquadrant(1, 1),
-                    subquadrant(2, 1),
-                  ],
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    subquadrant(3, 2),
-                    subquadrant(4, 2),
-                  ],
-                ),
-                Row(
-                  children: [
-                    subquadrant(3, 1),
-                    subquadrant(4, 1),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      subquadrant(1, 4),
+                      subquadrant(2, 4),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      subquadrant(1, 3),
+                      subquadrant(2, 3),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      subquadrant(3, 4),
+                      subquadrant(4, 4),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      subquadrant(3, 3),
+                      subquadrant(4, 3),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      subquadrant(1, 2),
+                      subquadrant(2, 2),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      subquadrant(1, 1),
+                      subquadrant(2, 1),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      subquadrant(3, 2),
+                      subquadrant(4, 2),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      subquadrant(3, 1),
+                      subquadrant(4, 1),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -119,7 +121,7 @@ class ModelAnalyzer extends ConsumerWidget {
       {required int strategic, required int relationship}) {
     return getComponentsFor(strategic: strategic, relationship: relationship)
         .map((c) => Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: 100,
                 height: 100,
@@ -140,8 +142,6 @@ class ModelAnalyzer extends ConsumerWidget {
     const thinBorder = BorderSide(width: 1);
 
     return Container(
-      // width: 200,
-      // height: 200,
       decoration: BoxDecoration(
           border: Border(
         left: strategic.isOdd ? thickBorder : thinBorder,
@@ -149,12 +149,18 @@ class ModelAnalyzer extends ConsumerWidget {
         top: relationship.isEven ? thickBorder : thinBorder,
         bottom: relationship.isOdd ? thickBorder : thinBorder,
       )),
-      child: Wrap(
-        key: ValueKey("$strategic,$relationship"),
-        children: [
-          ...getComponentViewersFor(
-              strategic: strategic, relationship: relationship)
-        ],
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          minWidth: 350,
+          minHeight: 350,
+        ),
+        child: Wrap(
+          key: ValueKey("$strategic,$relationship"),
+          children: [
+            ...getComponentViewersFor(
+                strategic: strategic, relationship: relationship)
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,19 @@ import 'package:flutter_data/flutter_data.dart';
 import 'package:http/http.dart' as http;
 import 'models/component_business_model.dart';
 
+Component findComponent(String cid, Model model) {
+  for (var l in model.layers!) {
+    for (var s in l.sections!) {
+      for (var c in s.components!) {
+        if (c.id == cid) {
+          return c;
+        }
+      }
+    }
+  }
+  throw NullThrownError();
+}
+
 class ModelApi {
   static late Repository<Model> _repository;
 

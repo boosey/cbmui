@@ -13,19 +13,9 @@ class StrategicWidget extends StatelessWidget {
   final Model model;
   final String componentId;
 
-  Component findComponent(String cid) {
-    late Component c;
-    for (var l in model.layers!) {
-      for (var s in l.sections!) {
-        c = s.components!.firstWhere((t) => t.id == cid);
-      }
-    }
-    return c;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final Component component = findComponent(componentId);
+    final Component component = findComponent(componentId, model);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
