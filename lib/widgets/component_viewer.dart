@@ -58,18 +58,20 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
 
   @override
   Widget build(BuildContext context) {
+    final c = widget.component;
+    final isRated = c.strategic > 0 && c.relationship > 0;
+
     return Deletable(
       onDeleteRequested: () async {
-        widget.section.components!
-            .removeWhere((c) => widget.component.id == c.id);
+        widget.section.components!.removeWhere((t) => c.id == t.id);
         await ModelApi.saveModel(
           model: widget.model,
         );
       },
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
           if (ref.read(isModelViewerViewModeProvider)) {
-            _ratingDialog(context);
+            await _ratingDialog(context);
           }
         },
         child: SizedBox(
@@ -77,19 +79,27 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
           height: 100,
           child: Card(
             elevation: 3,
-            child: Center(
-              child: LabelWidget(
-                label: widget.component.name,
-                width: 80,
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
-                alignment: TextAlign.center,
-                onChanged: (s) async {
-                  widget.component.name = s;
-                  await ModelApi.saveModel(
-                    model: widget.model,
-                  );
-                },
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: isRated ? Colors.green : Colors.transparent,
+                  width: 2,
+                ),
+              ),
+              child: Center(
+                child: LabelWidget(
+                  label: c.name,
+                  width: 80,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  alignment: TextAlign.center,
+                  onChanged: (s) async {
+                    c.name = s;
+                    await ModelApi.saveModel(
+                      model: widget.model,
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -99,6 +109,8 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
   }
 
   Future<void> _ratingDialog(BuildContext context) {
+    final c = widget.component;
+
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -117,7 +129,7 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
-                    widget.component.name,
+                    c.name,
                     style: const TextStyle(
                         fontSize: 28, fontWeight: FontWeight.bold),
                   ),
@@ -125,14 +137,14 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: StrategicWidget(
-                    component: widget.component,
+                    componentId: c.id,
                     model: widget.model,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: RelationshipWidget(
-                    component: widget.component,
+                    componentId: c.id,
                     model: widget.model,
                   ),
                 ),
@@ -151,7 +163,9 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                     icon: const Icon(
                       Icons.check_circle,
                       color: Colors.blue,

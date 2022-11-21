@@ -7,14 +7,26 @@ import '../util.dart';
 
 class StrategicWidget extends StatelessWidget {
   const StrategicWidget(
-      {Key? key, required this.component, required this.model})
+      {Key? key, required this.componentId, required this.model})
       : super(key: key);
 
   final Model model;
-  final Component component;
+  final String componentId;
+
+  Component findComponent(String cid) {
+    late Component c;
+    for (var l in model.layers!) {
+      for (var s in l.sections!) {
+        c = s.components!.firstWhere((t) => t.id == cid);
+      }
+    }
+    return c;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final Component component = findComponent(componentId);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -32,7 +44,9 @@ class StrategicWidget extends StatelessWidget {
           onPressed: (index) async {
             log("index: $index");
             component.strategic = index + 1;
+            // if (component.relationship > 0) {
             await ModelApi.saveModel(model: model);
+            // }
           },
           isSelected: [
             component.strategic == 1,
