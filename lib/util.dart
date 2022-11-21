@@ -14,12 +14,10 @@ class ModelApi {
 
   static Future<void> saveModel({required Model model}) async {
     await model.save();
-    await _repository.findAll(syncLocal: true);
   }
 
   static Future<void> createLayer({required Model model}) async {
     await sendPost(url: 'http://localhost:8888/models/${model.id}/layers');
-
     await _repository.findAll(syncLocal: true);
   }
 

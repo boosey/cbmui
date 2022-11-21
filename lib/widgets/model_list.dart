@@ -40,27 +40,27 @@ class ModelList extends ConsumerWidget {
             child: Wrap(
               children: [
                 ...models.map(
-                  (m) => SizedBox(
-                    width: 350,
-                    height: 350,
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ModelViewer(mid: m.mid)),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Card(
-                          elevation: 5,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
+                  (m) => GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ModelViewer(mid: m.mid)),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Card(
+                        elevation: 5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: SizedBox(
+                                width: 350,
+                                height: 350,
                                 child: FittedBox(
                                   fit: BoxFit.contain,
                                   child: ModelThumbnail(
@@ -68,17 +68,16 @@ class ModelList extends ConsumerWidget {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  m.name,
-                                  style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w500),
-                                ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                m.name,
+                                style: const TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.w500),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

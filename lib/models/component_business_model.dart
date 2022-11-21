@@ -38,10 +38,6 @@ class Model extends DataModel<Model> {
 
   @override
   Object? get id => mid;
-
-  // static Model fromJson(Map<String, dynamic> json) => _$ModelFromJson(json);
-
-  // Map<String, dynamic> toJson() => _$ModelToJson(this);
 }
 
 @JsonSerializable(includeIfNull: false, explicitToJson: true)

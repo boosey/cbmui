@@ -32,7 +32,7 @@ class CreateButton extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.add_box),
             color: Colors.blue,
-            onPressed: onChanged,
+            onPressed: () => onChanged.call(),
           ),
         ],
       ),

@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:cbmui/models/component_business_model.dart';
 import 'package:cbmui/providers/mode_provider.dart';
+import 'package:cbmui/providers/model_provider.dart';
+import 'package:cbmui/widgets/analyze_model.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/label_widget.dart';
 import 'package:cbmui/widgets/layer_viewer.dart';
@@ -19,10 +21,10 @@ class ModelViewer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dataState = ref.watch(modelsRepositoryProvider).watchAll();
-    final model = dataState.hasModel
-        ? dataState.model!.firstWhere((m) => m.mid == mid)
-        : Model(mid: "", name: "", isTemplate: false);
+    final isAnalyzeMode = ref.watch(isModelViewerAnalyzeModeProvider);
+    final model = ref.watch(modelProvider(mid));
+
+    // dev.log("${models.model?.length}");
 
     void reorderLayers(int oldIndex, int newIndex) async {
       // final oi = oldIndex < newIndex ? oldIndex - 1 : oldIndex;
@@ -89,25 +91,7 @@ class ModelViewer extends ConsumerWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(30.0),
-                        child: ReorderableListView(
-                          reverse: true,
-                          buildDefaultDragHandles: false,
-                          onReorder: reorderLayers,
-                          children: [
-                            ...model.layers!.reversed.map(
-                              (l) {
-                                return layerViewer(l, model);
-                              },
-                            ).toList(),
-                            CreateButton(
-                              key: const ValueKey("layercreatebutton"),
-                              onChanged: () async {
-                                await ModelApi.createLayer(model: model);
-                                return;
-                              },
-                            ),
-                          ],
-                        ),
+                        child: view(model: model, isAnalyzeMode: isAnalyzeMode),
                       ),
                     ),
                   ),
@@ -115,6 +99,30 @@ class ModelViewer extends ConsumerWidget {
               ],
       ),
     );
+  }
+
+  Widget view({required Model model, required bool isAnalyzeMode}) {
+    return isAnalyzeMode
+        ? ModelAnalyzer(model: model)
+        : ReorderableListView(
+            reverse: true,
+            buildDefaultDragHandles: false,
+            // onReorder: reorderLayers,
+            onReorder: (i, j) {},
+            children: [
+              ...model.layers!.reversed.map(
+                (l) {
+                  return layerViewer(l, model);
+                },
+              ).toList(),
+              CreateButton(
+                key: const ValueKey("layercreatebutton"),
+                onChanged: () async {
+                  await ModelApi.createLayer(model: model);
+                },
+              ),
+            ],
+          );
   }
 
   Padding backButton(WidgetRef ref, BuildContext context) {
