@@ -6,27 +6,60 @@ import 'package:http/http.dart' as http;
 import 'models/component_business_model.dart';
 
 double getTotalWidth(Model model, ModelViewSettings settings, bool isEditMode) {
-  final w = 100 +
-      ((settings.componentTotalSideLength * settings.layerMaxTotalColumns) +
-          (((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) *
-              settings.layerMaxTotalColumns)) +
-      settings.layerLabelAreaWidth +
-      settings.layerSpacerWidth +
-      (isEditMode
-          ? settings.createButtonSizeLength *
-              (maxSectionsInLayers(model.layers!) + 1)
-          : 0);
+  // final w = 100 +
+  final r = longestSectionRun(model, settings, isEditMode);
+  final w = layerLabelAreaWidth(settings);
 
-  return w;
+  return r + w + 100;
 }
+
+double layerLabelAreaWidth(ModelViewSettings settings) =>
+    settings.layerLabelAreaWidth + settings.layerSpacerWidth;
+
+double createButtonsWidth(
+        int sectionCount, ModelViewSettings settings, bool isEditMode) =>
+    isEditMode ? settings.createButtonSizeLength * sectionCount + 1 : 0;
 
 double calculateSectionWidth(Section section, int columnCount,
     ModelViewSettings settings, bool isEditMode) {
   final w = (settings.componentTotalSideLength * columnCount) +
       ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) +
-      (isEditMode ? settings.createButtonSizeLength : 0);
+      createButtonsWidth(1, settings, isEditMode);
 
   return w;
+}
+
+double calculateSectionWidth2(Model model, Section section, int columnCount,
+    ModelViewSettings settings, bool isEditMode) {
+  final y = longestSectionRun(model, settings, isEditMode) *
+      (columnCount / settings.layerMaxTotalColumns);
+
+  return y;
+}
+
+double longestSectionRun(
+  Model model,
+  ModelViewSettings settings,
+  bool isEditMode,
+) {
+  final maxW = model.layers!
+      .map(
+        (l) => l.sections!.fold(
+          0.0,
+          (w, s) {
+            final cc = calculateSectionColumnCounts(l, settings);
+            return w += calculateSectionWidth(
+              s,
+              cc[s.id]!,
+              settings,
+              isEditMode,
+            );
+          },
+        ),
+      )
+      .fold(0.0, (max, x) => x > max ? x : max);
+
+  return maxW;
 }
 
 Map<String, int> calculateSectionColumnCounts(
@@ -63,8 +96,9 @@ Map<String, int> calculateSectionColumnCounts(
 }
 
 int maxSectionsInLayers(List<Layer> layers) {
-  return layers.fold(
-      0, (maxSections, l) => max(maxSections, l.sections!.length));
+  final x =
+      layers.fold(0, (maxSections, l) => max(maxSections, l.sections!.length));
+  return x;
 }
 
 int depth(Section s, int columnCount) {

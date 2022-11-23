@@ -79,7 +79,14 @@ class LayerViewer extends ConsumerWidget {
               height: 1,
             ),
             ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: allSectionsMaxWidth),
+              // constraints: BoxConstraints(maxWidth: allSectionsMaxWidth),
+              constraints: BoxConstraints(
+                maxWidth: longestSectionRun(
+                  model,
+                  settings,
+                  isEditMode,
+                ),
+              ),
               child: sections(layer, settings, isEditMode),
             ),
             CreateButton(
@@ -101,8 +108,14 @@ class LayerViewer extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: layer.sections!.map(
         (s) {
-          final sectionWidth = calculateSectionWidth(
-              s, columnCounts[s.id]!, settings, isEditMode);
+          final sectionWidth = calculateSectionWidth2(
+            model,
+            s,
+            columnCounts[s.id]!,
+            settings,
+            isEditMode,
+          );
+
           return ConstrainedBox(
             constraints:
                 BoxConstraints(minWidth: sectionWidth, maxWidth: sectionWidth),

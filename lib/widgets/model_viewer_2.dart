@@ -81,8 +81,8 @@ class ModelViewer2 extends ConsumerWidget {
         ? ModelAnalyzer(model: model)
         : ConstrainedBox(
             constraints: BoxConstraints(
-              minWidth: getTotalWidth(model, settings, isEditMode) * 1.1,
-              maxWidth: getTotalWidth(model, settings, isEditMode) * 1.2,
+              minWidth: getTotalWidth(model, settings, isEditMode),
+              maxWidth: getTotalWidth(model, settings, isEditMode),
             ),
             child: ReorderableListView(
               reverse: true,

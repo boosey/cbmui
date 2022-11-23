@@ -37,11 +37,11 @@ class ModelViewSettings {
   final double createButtonSizeLength;
 
   ModelViewSettings({
-    this.layerMaxTotalColumns = 15,
+    this.layerMaxTotalColumns = 12,
     this.sectionMinColumns = 1,
     this.componentTotalSideLength = 120,
     this.componentLabelPadding = 8,
-    this.componentPaddingWidth = 8,
+    this.componentPaddingWidth = 3,
     this.componentBorderWidth = 2,
     this.componentIsRatedBorderColor = Colors.green,
     this.componentDefaultBorderColor = Colors.transparent,

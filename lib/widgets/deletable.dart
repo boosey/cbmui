@@ -16,13 +16,14 @@ class Deletable extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isEditMode = ref.watch(modeProvider ?? isModelViewerEditModeProvider);
+    final isDeleteMode =
+        ref.watch(modeProvider ?? isModelViewerDeleteModeProvider);
 
     return Stack(
       children: [
         child,
         Visibility(
-          visible: isEditMode,
+          visible: isDeleteMode,
           child: IconButton(
             icon: const Icon(Icons.close),
             onPressed: onDeleteRequested,
