@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/deletable.dart';
 import 'package:cbmui/widgets/relationship_widget.dart';
 import 'package:cbmui/widgets/strategic_widget.dart';
@@ -58,6 +59,7 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
 
   @override
   Widget build(BuildContext context) {
+    final settings = ref.watch(modelViewerSettingsProvider);
     final c = widget.component;
     final isRated = c.strategic > 0 && c.relationship > 0;
 
@@ -75,30 +77,36 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
           }
         },
         child: SizedBox(
-          width: 100,
-          height: 100,
-          child: Card(
-            elevation: 3,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: isRated ? Colors.green : Colors.transparent,
-                  width: 2,
+          width: settings.componentTotalSideLength,
+          height: settings.componentTotalSideLength,
+          child: Padding(
+            padding: EdgeInsets.all(settings.componentPaddingWidth),
+            child: Card(
+              elevation: 3,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: isRated
+                        ? settings.componentIsRatedBorderColor
+                        : settings.componentDefaultBorderColor,
+                    width: settings.componentBorderWidth,
+                  ),
                 ),
-              ),
-              child: Center(
-                child: LabelWidget(
-                  label: c.name,
-                  width: 80,
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                  alignment: TextAlign.center,
-                  onChanged: (s) async {
-                    c.name = s;
-                    await ModelApi.saveModel(
-                      model: widget.model,
-                    );
-                  },
+                child: Center(
+                  child: LabelWidget(
+                    label: c.name,
+                    width: settings.componentSideLength,
+                    fontSize: settings.componentLabelFontSize,
+                    fontWeight: settings.componentLabelFontWeight,
+                    alignment: TextAlign.center,
+                    maxlines: 4,
+                    onChanged: (s) async {
+                      c.name = s;
+                      await ModelApi.saveModel(
+                        model: widget.model,
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

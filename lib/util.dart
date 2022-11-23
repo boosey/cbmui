@@ -1,6 +1,75 @@
+import 'dart:math';
+
+import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:flutter_data/flutter_data.dart';
 import 'package:http/http.dart' as http;
 import 'models/component_business_model.dart';
+
+double getTotalWidth(Model model, ModelViewSettings settings, bool isEditMode) {
+  final w = 100 +
+      ((settings.componentTotalSideLength * settings.layerMaxTotalColumns) +
+          (((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) *
+              settings.layerMaxTotalColumns)) +
+      settings.layerLabelAreaWidth +
+      settings.layerSpacerWidth +
+      (isEditMode
+          ? settings.createButtonSizeLength *
+              (maxSectionsInLayers(model.layers!) + 1)
+          : 0);
+
+  return w;
+}
+
+double calculateSectionWidth(Section section, int columnCount,
+    ModelViewSettings settings, bool isEditMode) {
+  final w = (settings.componentTotalSideLength * columnCount) +
+      ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) +
+      (isEditMode ? settings.createButtonSizeLength : 0);
+
+  return w;
+}
+
+Map<String, int> calculateSectionColumnCounts(
+    Layer layer, ModelViewSettings settings) {
+  final sections = layer.sections!;
+  final columnCounts = <String, int>{};
+
+  int columnsRemaining = settings.layerMaxTotalColumns -
+      sections.length * settings.sectionMinColumns;
+
+  for (var s in sections) {
+    columnCounts.putIfAbsent(s.id, () => settings.sectionMinColumns);
+  }
+
+  while (columnsRemaining > 0) {
+    final maxDepth = sections.fold(
+        0,
+        (max, s) => depth(s, columnCounts[s.id]!) > max
+            ? depth(s, columnCounts[s.id]!)
+            : max);
+
+    final sectionsAtMax =
+        sections.where((s) => depth(s, columnCounts[s.id]!) == maxDepth);
+
+    for (var s in sectionsAtMax) {
+      if (columnsRemaining > 0) {
+        columnCounts.update(s.id, (x) => columnCounts[s.id]! + 1);
+        columnsRemaining--;
+      }
+    }
+  }
+
+  return columnCounts;
+}
+
+int maxSectionsInLayers(List<Layer> layers) {
+  return layers.fold(
+      0, (maxSections, l) => max(maxSections, l.sections!.length));
+}
+
+int depth(Section s, int columnCount) {
+  return (s.components!.length / columnCount).ceil();
+}
 
 Component findComponent(String cid, Model model) {
   for (var l in model.layers!) {
@@ -73,12 +142,9 @@ class ModelApi {
   }
 
   static Future<void> sendDelete({required String url}) async {
-    await http.delete(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      }
-    );
+    await http.delete(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
     return;
   }
 

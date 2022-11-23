@@ -1,5 +1,6 @@
 import 'package:cbmui/util.dart';
 import 'package:cbmui/widgets/model_thumbnail.dart';
+import 'package:cbmui/widgets/model_viewer_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/component_business_model.dart';
@@ -47,7 +48,7 @@ class ModelList extends ConsumerWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ModelViewer(mid: m.mid)),
+                            builder: (context) => ModelViewer2(mid: m.mid)),
                       );
                     },
                     child: Deletable(
@@ -65,9 +66,12 @@ class ModelList extends ConsumerWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(15.0),
-                                child: SizedBox(
-                                  width: 350,
-                                  height: 350,
+                                child: ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                      minWidth: 200,
+                                      minHeight: 200,
+                                      maxWidth: 500,
+                                      maxHeight: 500),
                                   child: FittedBox(
                                     fit: BoxFit.contain,
                                     child: ModelThumbnail(
@@ -81,7 +85,8 @@ class ModelList extends ConsumerWidget {
                                 child: Text(
                                   m.name,
                                   style: const TextStyle(
-                                      fontSize: 24, fontWeight: FontWeight.w500),
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                             ],

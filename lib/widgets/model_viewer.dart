@@ -73,11 +73,21 @@ class ModelViewer extends ConsumerWidget {
                 )
               ]
             : [
-                Row(
+                Column(
                   children: [
-                    backButton(ref, context),
-                    modelNameLabel,
-                    const ModeSelector(),
+                    Row(
+                      children: [
+                        backButton(ref, context),
+                        modelNameLabel,
+                        const ModeSelector(),
+                      ],
+                    ),
+                    CreateButton(
+                      key: const ValueKey("layercreatebutton"),
+                      onChanged: () async {
+                        await ModelApi.createLayer(model: model);
+                      },
+                    ),
                   ],
                 ),
                 Expanded(
@@ -85,9 +95,9 @@ class ModelViewer extends ConsumerWidget {
                     scrollDirection: Axis.horizontal,
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(
-                        minWidth: 500,
-                        maxWidth: 2000,
-                        maxHeight: 10000,
+                        minWidth: 200,
+                        maxWidth: 4000,
+                        maxHeight: 20000,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(30.0),
@@ -106,22 +116,14 @@ class ModelViewer extends ConsumerWidget {
         ? ModelAnalyzer(model: model)
         : ReorderableListView(
             reverse: true,
-            buildDefaultDragHandles: false,
+            buildDefaultDragHandles: true,
             // onReorder: reorderLayers,
             onReorder: (i, j) {},
-            children: [
-              ...model.layers!.reversed.map(
-                (l) {
-                  return layerViewer(l, model);
-                },
-              ).toList(),
-              CreateButton(
-                key: const ValueKey("layercreatebutton"),
-                onChanged: () async {
-                  await ModelApi.createLayer(model: model);
-                },
-              ),
-            ],
+            children: model.layers!.reversed.map(
+              (l) {
+                return layerViewer(l, model);
+              },
+            ).toList(),
           );
   }
 

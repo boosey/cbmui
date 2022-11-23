@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/deletable.dart';
 import 'package:cbmui/widgets/label_widget.dart';
@@ -14,58 +17,45 @@ class SectionViewer extends ConsumerWidget {
     this.displayLabel = false,
     required this.model,
     required this.layer,
+    required this.columnCount,
   });
 
   final Section section;
   final bool displayLabel;
   final Model model;
   final Layer layer;
+  final int columnCount;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Widget mainWidget;
 
-    final componentsWidgets = [
-      ...section.components!
-          .map(
-            (c) => Padding(
-              padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-              child: ComponentViewer(
-                component: c,
-                section: section,
-                layer: layer,
-                model: model,
-              ),
-            ),
-          )
-          .toList(),
-      Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: CreateButton(
-          onChanged: () async => await ModelApi.createComponent(
-            model: model,
-            layer: layer,
+    final settings = ref.watch(modelViewerSettingsProvider);
+
+    final componentsWidgets = section.components!
+        .map(
+          (c) => ComponentViewer(
+            component: c,
             section: section,
+            layer: layer,
+            model: model,
           ),
-        ),
-      ),
-    ];
+        )
+        .toList();
 
     var label = Visibility(
       visible: displayLabel,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-        child: LabelWidget(
-          label: section.name,
-          fontSize: 22,
-          width: 200,
-          onChanged: (s) async {
-            section.name = s;
-            await ModelApi.saveModel(
-              model: model,
-            );
-          },
-        ),
+      child: LabelWidget(
+        label: section.name,
+        fontSize: settings.sectionLabelFontSize,
+        width: (columnCount * settings.componentTotalSideLength) +
+            ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2),
+        onChanged: (s) async {
+          section.name = s;
+          await ModelApi.saveModel(
+            model: model,
+          );
+        },
       ),
     );
 
@@ -76,29 +66,62 @@ class SectionViewer extends ConsumerWidget {
           model: model,
         );
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          label,
-          sectionContent(componentsWidgets),
-        ],
+      child: Padding(
+        padding: EdgeInsets.all(settings.sectionPaddingWidth),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            label,
+            sectionContent(componentsWidgets, settings),
+          ],
+        ),
       ),
     );
 
     return mainWidget;
   }
 
-  Container sectionContent(List<Padding> componentsWidgets) {
+  Widget sectionContent(
+      List<Widget> componentsWidgets, ModelViewSettings settings) {
+    List<Row> rows = [];
+
+    for (var i = 0; i < componentsWidgets.length; i += columnCount) {
+      final take = min(i + columnCount, componentsWidgets.length);
+      final List<Widget> cWidgets = componentsWidgets.sublist(i, take);
+      late List<Widget> allWidgets;
+      if (take == componentsWidgets.length) {
+        allWidgets = [
+          ...cWidgets,
+          CreateButton(
+            onChanged: () async => await ModelApi.createComponent(
+              model: model,
+              layer: layer,
+              section: section,
+            ),
+          ),
+        ];
+      } else {
+        allWidgets = cWidgets;
+      }
+
+      rows.add(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: allWidgets,
+        ),
+      );
+    }
+
     return Container(
-      constraints: BoxConstraints.loose(const Size(600, double.infinity)),
-      decoration:
-          BoxDecoration(border: Border.all(width: 2.0, color: Colors.black)),
-      child: Wrap(
-        direction: Axis.horizontal,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: 5,
-        runSpacing: 5,
-        children: componentsWidgets,
+      decoration: BoxDecoration(
+          border: Border.all(
+        width: settings.sectionBorderWidth,
+        color: settings.sectionBorderColor,
+      )),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: rows,
       ),
     );
   }

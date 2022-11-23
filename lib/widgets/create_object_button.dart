@@ -1,4 +1,5 @@
 import 'package:cbmui/providers/mode_provider.dart';
+import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,24 +7,25 @@ class CreateButton extends ConsumerWidget {
   const CreateButton({
     Key? key,
     required this.onChanged,
-    this.topSpacerPointSize = 0,
+    this.shiftDown = false,
   }) : super(key: key);
 
   final void Function() onChanged;
-  final double topSpacerPointSize;
+  final bool shiftDown;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isVisible = ref.watch(isModelViewerEditModeProvider);
+    final settings = ref.watch(modelViewerSettingsProvider);
 
     return Visibility(
       visible: isVisible,
       child: Column(
         children: [
-          topSpacerPointSize > 0
+          shiftDown
               ? Text(
                   "",
-                  style: TextStyle(fontSize: topSpacerPointSize),
+                  style: TextStyle(fontSize: settings.sectionLabelFontSize),
                 )
               : const SizedBox(
                   width: 0,

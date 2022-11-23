@@ -1,3 +1,5 @@
+import 'package:cbmui/providers/mode_provider.dart';
+import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/deletable.dart';
 import 'package:cbmui/widgets/label_widget.dart';
@@ -20,20 +22,39 @@ class LayerViewer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var label = Expanded(
-      flex: 1,
-      child: Padding(
-        padding: const EdgeInsets.only(right: 10),
-        child: LabelWidget(
-          label: layer.name,
-          fontSize: 28,
-          onChanged: (s) async {
-            layer.name = s;
-            await ModelApi.saveModel(
-              model: model,
-            );
-          },
-        ),
+    final settings = ref.watch(modelViewerSettingsProvider);
+    final isEditMode = ref.watch(isModelViewerEditModeProvider);
+
+    final allSectionsMaxWidth =
+        // width of all maximum components
+        (settings.componentTotalSideLength * settings.layerMaxTotalColumns) +
+            // width that a single section adds
+            (((settings.sectionPaddingWidth + settings.sectionBorderWidth) *
+                    2) *
+                // times the actually number of sections
+                layer.sections!.length) +
+            // in edit mode will have a button for each section plus one to add
+            // a new section
+            (isEditMode
+                ? ((settings.createButtonSizeLength + 1) *
+                    layer.sections!.length)
+                : 0);
+
+    var label = ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: settings.layerLabelAreaWidth,
+        maxWidth: settings.layerLabelAreaWidth,
+      ),
+      child: LabelWidget(
+        label: layer.name,
+        fontSize: 28,
+        maxlines: 3,
+        onChanged: (s) async {
+          layer.name = s;
+          await ModelApi.saveModel(
+            model: model,
+          );
+        },
       ),
     );
 
@@ -45,42 +66,24 @@ class LayerViewer extends ConsumerWidget {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.fromLTRB(
+            0, settings.layerPaddingWidth, 0, settings.layerPaddingWidth),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             label,
-            sections(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Expanded sections() {
-    return Expanded(
-      flex: 5,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 2, 5, 0),
-        child: Wrap(
-          direction: Axis.horizontal,
-          spacing: 8,
-          runSpacing: 8,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            ...layer.sections!
-                .map(
-                  (s) => SectionViewer(
-                    model: model,
-                    section: s,
-                    layer: layer,
-                    displayLabel: layer.sections!.length > 1,
-                  ),
-                )
-                .toList(),
+            SizedBox(
+              width: settings.layerSpacerWidth,
+              height: 1,
+            ),
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: allSectionsMaxWidth),
+              child: sections(layer, settings, isEditMode),
+            ),
             CreateButton(
-              topSpacerPointSize: layer.sections!.length > 1 ? 24 : 0,
+              shiftDown: layer.sections!.length > 1,
               onChanged: () async {
                 await ModelApi.createSection(model: model, layer: layer);
                 return;
@@ -89,6 +92,36 @@ class LayerViewer extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget sections(Layer layer, ModelViewSettings settings, bool isEditMode) {
+    final columnCounts = calculateSectionColumnCounts(layer, settings);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: layer.sections!.map(
+        (s) {
+          final sectionWidth = calculateSectionWidth(
+              s, columnCounts[s.id]!, settings, isEditMode);
+          return ConstrainedBox(
+            constraints:
+                BoxConstraints(minWidth: sectionWidth, maxWidth: sectionWidth),
+            child: Row(
+              children: [
+                Expanded(
+                  child: SectionViewer(
+                    model: model,
+                    section: s,
+                    layer: layer,
+                    columnCount: columnCounts[s.id]!,
+                    displayLabel: layer.sections!.length > 1,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ).toList(),
     );
   }
 }

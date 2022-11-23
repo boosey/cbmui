@@ -3,6 +3,104 @@
 part of 'component_business_model.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+abstract class _$ModelCWProxy {
+  Model description(String? description);
+
+  Model isTemplate(bool isTemplate);
+
+  Model layers(List<Layer>? layers);
+
+  Model mid(String mid);
+
+  Model name(String name);
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Model(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// Model(...).copyWith(id: 12, name: "My name")
+  /// ````
+  Model call({
+    String? description,
+    bool? isTemplate,
+    List<Layer>? layers,
+    String? mid,
+    String? name,
+  });
+}
+
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfModel.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfModel.copyWith.fieldName(...)`
+class _$ModelCWProxyImpl implements _$ModelCWProxy {
+  final Model _value;
+
+  const _$ModelCWProxyImpl(this._value);
+
+  @override
+  Model description(String? description) => this(description: description);
+
+  @override
+  Model isTemplate(bool isTemplate) => this(isTemplate: isTemplate);
+
+  @override
+  Model layers(List<Layer>? layers) => this(layers: layers);
+
+  @override
+  Model mid(String mid) => this(mid: mid);
+
+  @override
+  Model name(String name) => this(name: name);
+
+  @override
+
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `Model(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  ///
+  /// Usage
+  /// ```dart
+  /// Model(...).copyWith(id: 12, name: "My name")
+  /// ````
+  Model call({
+    Object? description = const $CopyWithPlaceholder(),
+    Object? isTemplate = const $CopyWithPlaceholder(),
+    Object? layers = const $CopyWithPlaceholder(),
+    Object? mid = const $CopyWithPlaceholder(),
+    Object? name = const $CopyWithPlaceholder(),
+  }) {
+    return Model(
+      description: description == const $CopyWithPlaceholder()
+          ? _value.description
+          // ignore: cast_nullable_to_non_nullable
+          : description as String?,
+      isTemplate:
+          isTemplate == const $CopyWithPlaceholder() || isTemplate == null
+              ? _value.isTemplate
+              // ignore: cast_nullable_to_non_nullable
+              : isTemplate as bool,
+      layers: layers == const $CopyWithPlaceholder()
+          ? _value.layers
+          // ignore: cast_nullable_to_non_nullable
+          : layers as List<Layer>?,
+      mid: mid == const $CopyWithPlaceholder() || mid == null
+          ? _value.mid
+          // ignore: cast_nullable_to_non_nullable
+          : mid as String,
+      name: name == const $CopyWithPlaceholder() || name == null
+          ? _value.name
+          // ignore: cast_nullable_to_non_nullable
+          : name as String,
+    );
+  }
+}
+
+extension $ModelCopyWith on Model {
+  /// Returns a callable class that can be used as follows: `instanceOfModel.copyWith(...)` or like so:`instanceOfModel.copyWith.fieldName(...)`.
+  // ignore: library_private_types_in_public_api
+  _$ModelCWProxy get copyWith => _$ModelCWProxyImpl(this);
+}
+
+// **************************************************************************
 // RepositoryGenerator
 // **************************************************************************
 
