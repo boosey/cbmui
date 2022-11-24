@@ -25,20 +25,20 @@ class LayerViewer extends ConsumerWidget {
     final settings = ref.watch(modelViewerSettingsProvider);
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
 
-    final allSectionsMaxWidth =
-        // width of all maximum components
-        (settings.componentTotalSideLength * settings.layerMaxTotalColumns) +
-            // width that a single section adds
-            (((settings.sectionPaddingWidth + settings.sectionBorderWidth) *
-                    2) *
-                // times the actually number of sections
-                layer.sections!.length) +
-            // in edit mode will have a button for each section plus one to add
-            // a new section
-            (isEditMode
-                ? ((settings.createButtonSizeLength + 1) *
-                    layer.sections!.length)
-                : 0);
+    // final allSectionsMaxWidth =
+    //     // width of all maximum components
+    //     (settings.componentTotalSideLength * settings.layerMaxTotalColumns) +
+    //         // width that a single section adds
+    //         (((settings.sectionPaddingWidth + settings.sectionBorderWidth) *
+    //                 2) *
+    //             // times the actually number of sections
+    //             layer.sections!.length) +
+    //         // in edit mode will have a button for each section plus one to add
+    //         // a new section
+    //         (isEditMode
+    //             ? ((settings.createButtonSizeLength + 1) *
+    //                 layer.sections!.length)
+    //             : 0);
 
     var label = ConstrainedBox(
       constraints: BoxConstraints(
@@ -47,8 +47,8 @@ class LayerViewer extends ConsumerWidget {
       ),
       child: LabelWidget(
         label: layer.name,
-        fontSize: 28,
-        maxlines: 3,
+        fontSize: settings.layerLabelFontSize,
+        maxlines: settings.layerLabelMaxLines,
         onChanged: (s) async {
           layer.name = s;
           await ModelApi.saveModel(
@@ -58,7 +58,7 @@ class LayerViewer extends ConsumerWidget {
       ),
     );
 
-    return Deletable(
+    return DeletableOrMoveable(
       onDeleteRequested: () async {
         model.layers!.removeWhere((l) => layer.id == l.id);
         await ModelApi.saveModel(
@@ -108,7 +108,7 @@ class LayerViewer extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: layer.sections!.map(
         (s) {
-          final sectionWidth = calculateSectionWidth2(
+          final sectionWidth = calculateAdjustedSectionWidth(
             model,
             s,
             columnCounts[s.id]!,
@@ -128,6 +128,7 @@ class LayerViewer extends ConsumerWidget {
                     layer: layer,
                     columnCount: columnCounts[s.id]!,
                     displayLabel: layer.sections!.length > 1,
+                    width: sectionWidth,
                   ),
                 ),
               ],

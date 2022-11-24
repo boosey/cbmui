@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/component_business_model.dart';
 import '../providers/mode_provider.dart';
 import 'deletable.dart';
-import 'model_viewer.dart';
 
 class ModelList extends ConsumerWidget {
   const ModelList({Key? key, required this.models}) : super(key: key);
@@ -51,11 +50,11 @@ class ModelList extends ConsumerWidget {
                             builder: (context) => ModelViewer2(mid: m.mid)),
                       );
                     },
-                    child: Deletable(
+                    child: DeletableOrMoveable(
                       onDeleteRequested: () async {
                         await ModelApi.deleteModel(id: m.mid);
                       },
-                      modeProvider: isModelListEditModeProvider,
+                      deleteModeProvider: isModelListEditModeProvider,
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Card(

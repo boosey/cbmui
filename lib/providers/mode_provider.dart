@@ -31,9 +31,9 @@ final isModelViewerAnalyzeModeProvider =
     Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.analyze);
 
 final isModelViewerDeleteModeProvider =
-    Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.analyze);
+    Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.delete);
 
 final isModelViewerMoveModeProvider =
-    Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.analyze);
+    Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.move);
 
 final isModelListEditModeProvider = Provider((ref) => true);

@@ -20,17 +20,18 @@ double createButtonsWidth(
         int sectionCount, ModelViewSettings settings, bool isEditMode) =>
     isEditMode ? settings.createButtonSizeLength * sectionCount + 1 : 0;
 
-double calculateSectionWidth(Section section, int columnCount,
+double _calculateRawSectionWidth(Section section, int columnCount,
     ModelViewSettings settings, bool isEditMode) {
   final w = (settings.componentTotalSideLength * columnCount) +
       ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) +
-      createButtonsWidth(1, settings, isEditMode);
+      createButtonsWidth(1, settings, isEditMode) +
+      10;
 
   return w;
 }
 
-double calculateSectionWidth2(Model model, Section section, int columnCount,
-    ModelViewSettings settings, bool isEditMode) {
+double calculateAdjustedSectionWidth(Model model, Section section,
+    int columnCount, ModelViewSettings settings, bool isEditMode) {
   final y = longestSectionRun(model, settings, isEditMode) *
       (columnCount / settings.layerMaxTotalColumns);
 
@@ -48,7 +49,7 @@ double longestSectionRun(
           0.0,
           (w, s) {
             final cc = calculateSectionColumnCounts(l, settings);
-            return w += calculateSectionWidth(
+            return w += _calculateRawSectionWidth(
               s,
               cc[s.id]!,
               settings,
@@ -59,7 +60,8 @@ double longestSectionRun(
       )
       .fold(0.0, (max, x) => x > max ? x : max);
 
-  return maxW;
+  // add 1 pixel headroom for every column
+  return maxW + settings.layerMaxTotalColumns;
 }
 
 Map<String, int> calculateSectionColumnCounts(

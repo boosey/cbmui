@@ -15,10 +15,12 @@ class ModelViewSettings {
   final Color componentColor;
   final double componentLabelFontSize;
   final FontWeight componentLabelFontWeight;
+  final int componentLabelMaxLines;
   final double sectionPaddingWidth;
   final double sectionBorderWidth;
   final double sectionLabelFontSize;
   final FontWeight sectionLabelFontWeight;
+  final int sectionLabelMaxLines;
   final Color sectionBorderColor;
   final Color sectionColor;
   final int minMultiSectionComponentRun;
@@ -29,6 +31,7 @@ class ModelViewSettings {
   final double layerSpacerWidth;
   final double layerLabelFontSize;
   final FontWeight layerLabelFontWeight;
+  final int layerLabelMaxLines;
   final double layerPaddingWidth;
   final int layerMaxTotalColumns;
   final int sectionMinColumns;
@@ -48,10 +51,12 @@ class ModelViewSettings {
     this.componentColor = Colors.white,
     this.componentLabelFontSize = 14,
     this.componentLabelFontWeight = FontWeight.normal,
+    this.componentLabelMaxLines = 3,
     this.sectionPaddingWidth = 5,
     this.sectionBorderWidth = 1,
     this.sectionLabelFontSize = 20,
     this.sectionLabelFontWeight = FontWeight.bold,
+    this.sectionLabelMaxLines = 1,
     this.sectionBorderColor = Colors.black,
     this.sectionColor = Colors.white,
     this.minMultiSectionComponentRun = 2,
@@ -63,6 +68,7 @@ class ModelViewSettings {
     this.layerLabelFontSize = 32,
     this.layerPaddingWidth = 5,
     this.layerLabelFontWeight = FontWeight.bold,
+    this.layerLabelMaxLines = 3,
     this.mininumTotalWidth = 500,
     this.maximumTotalWidth = 2000,
     this.createButtonSizeLength = 40,

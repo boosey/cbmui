@@ -63,7 +63,7 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
     final c = widget.component;
     final isRated = c.strategic > 0 && c.relationship > 0;
 
-    return Deletable(
+    return DeletableOrMoveable(
       onDeleteRequested: () async {
         widget.section.components!.removeWhere((t) => c.id == t.id);
         await ModelApi.saveModel(

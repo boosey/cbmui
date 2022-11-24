@@ -22,6 +22,8 @@ abstract class _$ModelViewSettingsCWProxy {
   ModelViewSettings componentLabelFontWeight(
       FontWeight componentLabelFontWeight);
 
+  ModelViewSettings componentLabelMaxLines(int componentLabelMaxLines);
+
   ModelViewSettings componentLabelPadding(double componentLabelPadding);
 
   ModelViewSettings componentPaddingWidth(double componentPaddingWidth);
@@ -35,6 +37,8 @@ abstract class _$ModelViewSettingsCWProxy {
   ModelViewSettings layerLabelFontSize(double layerLabelFontSize);
 
   ModelViewSettings layerLabelFontWeight(FontWeight layerLabelFontWeight);
+
+  ModelViewSettings layerLabelMaxLines(int layerLabelMaxLines);
 
   ModelViewSettings layerMaxTotalColumns(int layerMaxTotalColumns);
 
@@ -68,6 +72,8 @@ abstract class _$ModelViewSettingsCWProxy {
 
   ModelViewSettings sectionLabelFontWeight(FontWeight sectionLabelFontWeight);
 
+  ModelViewSettings sectionLabelMaxLines(int sectionLabelMaxLines);
+
   ModelViewSettings sectionMinColumns(int sectionMinColumns);
 
   ModelViewSettings sectionPaddingWidth(double sectionPaddingWidth);
@@ -85,6 +91,7 @@ abstract class _$ModelViewSettingsCWProxy {
     Color? componentIsRatedBorderColor,
     double? componentLabelFontSize,
     FontWeight? componentLabelFontWeight,
+    int? componentLabelMaxLines,
     double? componentLabelPadding,
     double? componentPaddingWidth,
     double? componentTotalSideLength,
@@ -92,6 +99,7 @@ abstract class _$ModelViewSettingsCWProxy {
     double? layerLabelAreaWidth,
     double? layerLabelFontSize,
     FontWeight? layerLabelFontWeight,
+    int? layerLabelMaxLines,
     int? layerMaxTotalColumns,
     double? layerPaddingWidth,
     double? layerSpacerWidth,
@@ -106,6 +114,7 @@ abstract class _$ModelViewSettingsCWProxy {
     Color? sectionColor,
     double? sectionLabelFontSize,
     FontWeight? sectionLabelFontWeight,
+    int? sectionLabelMaxLines,
     int? sectionMinColumns,
     double? sectionPaddingWidth,
   });
@@ -145,6 +154,10 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
       this(componentLabelFontWeight: componentLabelFontWeight);
 
   @override
+  ModelViewSettings componentLabelMaxLines(int componentLabelMaxLines) =>
+      this(componentLabelMaxLines: componentLabelMaxLines);
+
+  @override
   ModelViewSettings componentLabelPadding(double componentLabelPadding) =>
       this(componentLabelPadding: componentLabelPadding);
 
@@ -171,6 +184,10 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
   @override
   ModelViewSettings layerLabelFontWeight(FontWeight layerLabelFontWeight) =>
       this(layerLabelFontWeight: layerLabelFontWeight);
+
+  @override
+  ModelViewSettings layerLabelMaxLines(int layerLabelMaxLines) =>
+      this(layerLabelMaxLines: layerLabelMaxLines);
 
   @override
   ModelViewSettings layerMaxTotalColumns(int layerMaxTotalColumns) =>
@@ -233,6 +250,10 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
       this(sectionLabelFontWeight: sectionLabelFontWeight);
 
   @override
+  ModelViewSettings sectionLabelMaxLines(int sectionLabelMaxLines) =>
+      this(sectionLabelMaxLines: sectionLabelMaxLines);
+
+  @override
   ModelViewSettings sectionMinColumns(int sectionMinColumns) =>
       this(sectionMinColumns: sectionMinColumns);
 
@@ -255,6 +276,7 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
     Object? componentIsRatedBorderColor = const $CopyWithPlaceholder(),
     Object? componentLabelFontSize = const $CopyWithPlaceholder(),
     Object? componentLabelFontWeight = const $CopyWithPlaceholder(),
+    Object? componentLabelMaxLines = const $CopyWithPlaceholder(),
     Object? componentLabelPadding = const $CopyWithPlaceholder(),
     Object? componentPaddingWidth = const $CopyWithPlaceholder(),
     Object? componentTotalSideLength = const $CopyWithPlaceholder(),
@@ -262,6 +284,7 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
     Object? layerLabelAreaWidth = const $CopyWithPlaceholder(),
     Object? layerLabelFontSize = const $CopyWithPlaceholder(),
     Object? layerLabelFontWeight = const $CopyWithPlaceholder(),
+    Object? layerLabelMaxLines = const $CopyWithPlaceholder(),
     Object? layerMaxTotalColumns = const $CopyWithPlaceholder(),
     Object? layerPaddingWidth = const $CopyWithPlaceholder(),
     Object? layerSpacerWidth = const $CopyWithPlaceholder(),
@@ -276,6 +299,7 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
     Object? sectionColor = const $CopyWithPlaceholder(),
     Object? sectionLabelFontSize = const $CopyWithPlaceholder(),
     Object? sectionLabelFontWeight = const $CopyWithPlaceholder(),
+    Object? sectionLabelMaxLines = const $CopyWithPlaceholder(),
     Object? sectionMinColumns = const $CopyWithPlaceholder(),
     Object? sectionPaddingWidth = const $CopyWithPlaceholder(),
   }) {
@@ -315,6 +339,12 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
               ? _value.componentLabelFontWeight
               // ignore: cast_nullable_to_non_nullable
               : componentLabelFontWeight as FontWeight,
+      componentLabelMaxLines:
+          componentLabelMaxLines == const $CopyWithPlaceholder() ||
+                  componentLabelMaxLines == null
+              ? _value.componentLabelMaxLines
+              // ignore: cast_nullable_to_non_nullable
+              : componentLabelMaxLines as int,
       componentLabelPadding:
           componentLabelPadding == const $CopyWithPlaceholder() ||
                   componentLabelPadding == null
@@ -356,6 +386,11 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
               ? _value.layerLabelFontWeight
               // ignore: cast_nullable_to_non_nullable
               : layerLabelFontWeight as FontWeight,
+      layerLabelMaxLines: layerLabelMaxLines == const $CopyWithPlaceholder() ||
+              layerLabelMaxLines == null
+          ? _value.layerLabelMaxLines
+          // ignore: cast_nullable_to_non_nullable
+          : layerLabelMaxLines as int,
       layerMaxTotalColumns:
           layerMaxTotalColumns == const $CopyWithPlaceholder() ||
                   layerMaxTotalColumns == null
@@ -433,6 +468,12 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
               ? _value.sectionLabelFontWeight
               // ignore: cast_nullable_to_non_nullable
               : sectionLabelFontWeight as FontWeight,
+      sectionLabelMaxLines:
+          sectionLabelMaxLines == const $CopyWithPlaceholder() ||
+                  sectionLabelMaxLines == null
+              ? _value.sectionLabelMaxLines
+              // ignore: cast_nullable_to_non_nullable
+              : sectionLabelMaxLines as int,
       sectionMinColumns: sectionMinColumns == const $CopyWithPlaceholder() ||
               sectionMinColumns == null
           ? _value.sectionMinColumns

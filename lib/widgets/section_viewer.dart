@@ -18,6 +18,7 @@ class SectionViewer extends ConsumerWidget {
     required this.model,
     required this.layer,
     required this.columnCount,
+    required this.width,
   });
 
   final Section section;
@@ -25,6 +26,7 @@ class SectionViewer extends ConsumerWidget {
   final Model model;
   final Layer layer;
   final int columnCount;
+  final double width;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,8 +50,7 @@ class SectionViewer extends ConsumerWidget {
       child: LabelWidget(
         label: section.name,
         fontSize: settings.sectionLabelFontSize,
-        width: (columnCount * settings.componentTotalSideLength) +
-            ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2),
+        width: width,
         onChanged: (s) async {
           section.name = s;
           await ModelApi.saveModel(
@@ -59,7 +60,7 @@ class SectionViewer extends ConsumerWidget {
       ),
     );
 
-    mainWidget = Deletable(
+    mainWidget = DeletableOrMoveable(
       onDeleteRequested: () async {
         layer.sections!.removeWhere((s) => section.id == s.id);
         await ModelApi.saveModel(

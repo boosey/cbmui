@@ -1,7 +1,9 @@
 import 'package:cbmui/providers/model_provider.dart';
 import 'package:cbmui/providers/model_viewer_settings.dart';
+import 'package:cbmui/providers/zoom_provider.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/mode_selector.dart';
+import 'package:cbmui/widgets/zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,6 +28,7 @@ class ModelViewer2 extends ConsumerWidget {
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
     final settings = ref.watch(modelViewerSettingsProvider);
     final model = ref.watch(modelProvider(mid));
+    final totalWidth = ref.watch(totalWidthProvider(mid));
 
     var modelNameLabel = Expanded(
       child: LabelWidget(
@@ -48,6 +51,11 @@ class ModelViewer2 extends ConsumerWidget {
                   children: [
                     backButton(ref, context),
                     modelNameLabel,
+                    const Zoom(),
+                    const SizedBox(
+                      width: 20,
+                      height: 1,
+                    ),
                     const ModeSelector(),
                   ],
                 ),
@@ -61,10 +69,12 @@ class ModelViewer2 extends ConsumerWidget {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: view(
-                        model: model,
-                        isAnalyzeMode: isAnalyzeMode,
-                        settings: settings,
-                        isEditMode: isEditMode),
+                      model: model,
+                      isAnalyzeMode: isAnalyzeMode,
+                      settings: settings,
+                      isEditMode: isEditMode,
+                      totalWidth: totalWidth,
+                    ),
                   ),
                 ),
               ],
@@ -72,17 +82,19 @@ class ModelViewer2 extends ConsumerWidget {
           );
   }
 
-  Widget view(
-      {required Model model,
-      required bool isAnalyzeMode,
-      required ModelViewSettings settings,
-      required bool isEditMode}) {
+  Widget view({
+    required Model model,
+    required bool isAnalyzeMode,
+    required ModelViewSettings settings,
+    required bool isEditMode,
+    required double totalWidth,
+  }) {
     return isAnalyzeMode
         ? ModelAnalyzer(model: model)
         : ConstrainedBox(
             constraints: BoxConstraints(
-              minWidth: getTotalWidth(model, settings, isEditMode),
-              maxWidth: getTotalWidth(model, settings, isEditMode),
+              minWidth: totalWidth,
+              maxWidth: totalWidth,
             ),
             child: ReorderableListView(
               reverse: true,
@@ -91,20 +103,26 @@ class ModelViewer2 extends ConsumerWidget {
               onReorder: (i, j) {},
               children: model.layers!.reversed.map(
                 (l) {
-                  return layerViewer(l, model, settings, isEditMode);
+                  return layerViewer(
+                    l,
+                    model,
+                    settings,
+                    isEditMode,
+                    totalWidth,
+                  );
                 },
               ).toList(),
             ),
           );
   }
 
-  Widget layerViewer(
-      Layer l, Model model, ModelViewSettings settings, bool isEditMode) {
+  Widget layerViewer(Layer l, Model model, ModelViewSettings settings,
+      bool isEditMode, double totalWidth) {
     return ConstrainedBox(
       key: ValueKey("layerbox${l.id}"),
       constraints: BoxConstraints(
-        minWidth: getTotalWidth(model, settings, isEditMode),
-        maxWidth: getTotalWidth(model, settings, isEditMode) * 1.09,
+        minWidth: totalWidth,
+        maxWidth: totalWidth,
       ),
       child: LayerViewer(
         key: ValueKey("layerviewer${l.id}"),
