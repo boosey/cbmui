@@ -1,6 +1,6 @@
 import 'package:cbmui/util.dart';
 import 'package:cbmui/widgets/model_thumbnail.dart';
-import 'package:cbmui/widgets/model_viewer_2.dart';
+import 'package:cbmui/widgets/model_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/component_business_model.dart';
@@ -47,7 +47,7 @@ class ModelList extends ConsumerWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ModelViewer2(mid: m.mid)),
+                            builder: (context) => ModelViewer(mid: m.mid)),
                       );
                     },
                     child: DeletableOrMoveable(
