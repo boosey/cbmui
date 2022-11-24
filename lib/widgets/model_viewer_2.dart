@@ -91,27 +91,39 @@ class ModelViewer2 extends ConsumerWidget {
   }) {
     return isAnalyzeMode
         ? ModelAnalyzer(model: model)
-        : ConstrainedBox(
-            constraints: BoxConstraints(
-              minWidth: totalWidth,
-              maxWidth: totalWidth,
-            ),
-            child: ReorderableListView(
-              reverse: true,
-              buildDefaultDragHandles: true,
-              // onReorder: reorderLayers,
-              onReorder: (i, j) {},
-              children: model.layers!.reversed.map(
-                (l) {
-                  return layerViewer(
-                    l,
-                    model,
-                    settings,
-                    isEditMode,
-                    totalWidth,
-                  );
-                },
-              ).toList(),
+        : LayoutBuilder(
+            builder: (context, viewportConstraints) => SingleChildScrollView(
+              controller: ScrollController(),
+              scrollDirection: Axis.vertical,
+              child: ConstrainedBox(
+                constraints:
+                    BoxConstraints(minHeight: viewportConstraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                          // ignore: sized_box_for_whitespace
+                          child: Container(
+                        width: 10,
+                        height: 1,
+                      )),
+                      ...model.layers!.reversed.map(
+                        (l) {
+                          return layerViewer(
+                            l,
+                            model,
+                            settings,
+                            isEditMode,
+                            totalWidth,
+                          );
+                        },
+                      ).toList(),
+                    ],
+                  ),
+                ),
+              ),
             ),
           );
   }
