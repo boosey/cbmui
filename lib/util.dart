@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'models/component_business_model.dart';
 
 double getTotalWidth(Model model, ModelViewSettings settings, bool isEditMode) {
-  // final w = 100 +
   final r = longestSectionRun(model, settings, isEditMode);
   final w = layerLabelAreaWidth(settings);
 
@@ -20,12 +19,26 @@ double createButtonsWidth(
         int sectionCount, ModelViewSettings settings, bool isEditMode) =>
     isEditMode ? settings.createButtonSizeLength * sectionCount + 1 : 0;
 
+// double _calculateRawSectionWidth(Section section, int columnCount,
+//     ModelViewSettings settings, bool isEditMode) {
+//   final w = (settings.componentTotalSideLength * columnCount) +
+//       ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) +
+//       createButtonsWidth(1, settings, isEditMode) +
+//       // hack and I don't know why I need it
+//       (columnCount * settings.componentLabelPadding * 2) +
+//       settings.layerMaxTotalColumns;
+
+//   return w;
+// }
+
 double _calculateRawSectionWidth(Section section, int columnCount,
     ModelViewSettings settings, bool isEditMode) {
-  final w = (settings.componentTotalSideLength * columnCount) +
+  final w = ((settings.componentTotalSideLength + 9) * columnCount) +
       ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) +
       createButtonsWidth(1, settings, isEditMode) +
-      10;
+      // hack and I don't know why I need it
+      (columnCount * settings.componentLabelPadding * 2) +
+      settings.layerMaxTotalColumns;
 
   return w;
 }
@@ -35,7 +48,8 @@ double calculateAdjustedSectionWidth(Model model, Section section,
   final y = longestSectionRun(model, settings, isEditMode) *
       (columnCount / settings.layerMaxTotalColumns);
 
-  return y;
+  // hack and I don't know why
+  return y.ceil().toDouble();
 }
 
 double longestSectionRun(
@@ -61,7 +75,7 @@ double longestSectionRun(
       .fold(0.0, (max, x) => x > max ? x : max);
 
   // add 1 pixel headroom for every column
-  return maxW + settings.layerMaxTotalColumns;
+  return maxW.ceilToDouble() + settings.layerMaxTotalColumns;
 }
 
 Map<String, int> calculateSectionColumnCounts(

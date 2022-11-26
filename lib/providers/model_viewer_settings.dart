@@ -6,7 +6,7 @@ part 'model_viewer_settings.g.dart';
 
 @CopyWith()
 class ModelViewSettings {
-  final double componentTotalSideLength;
+  final double componentSideLength;
   final double componentLabelPadding;
   final double componentPaddingWidth;
   final double componentBorderWidth;
@@ -16,6 +16,7 @@ class ModelViewSettings {
   final double componentLabelFontSize;
   final FontWeight componentLabelFontWeight;
   final int componentLabelMaxLines;
+  final double componentDropIndicatorWidth;
   final double sectionPaddingWidth;
   final double sectionBorderWidth;
   final double sectionLabelFontSize;
@@ -42,10 +43,11 @@ class ModelViewSettings {
   ModelViewSettings({
     this.layerMaxTotalColumns = 12,
     this.sectionMinColumns = 1,
-    this.componentTotalSideLength = 120,
-    this.componentLabelPadding = 8,
+    this.componentSideLength = 100,
+    this.componentLabelPadding = 2,
     this.componentPaddingWidth = 3,
     this.componentBorderWidth = 2,
+    this.componentDropIndicatorWidth = 8,
     this.componentIsRatedBorderColor = Colors.green,
     this.componentDefaultBorderColor = Colors.transparent,
     this.componentColor = Colors.white,
@@ -74,8 +76,16 @@ class ModelViewSettings {
     this.createButtonSizeLength = 40,
   });
 
-  double get componentSideLength =>
-      componentTotalSideLength - componentPaddingWidth - componentBorderWidth;
+  double get componentTotalSideLength {
+    final w = componentSideLength +
+        (2 *
+            (componentPaddingWidth +
+                componentLabelPadding +
+                componentBorderWidth +
+                componentDropIndicatorWidth));
+
+    return w;
+  }
 }
 
 class ModelViewerSettingsNotifier extends StateNotifier<ModelViewSettings> {

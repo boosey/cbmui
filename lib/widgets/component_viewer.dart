@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/deletable.dart';
+import 'package:cbmui/widgets/drop_zone.dart';
 import 'package:cbmui/widgets/relationship_widget.dart';
 import 'package:cbmui/widgets/strategic_widget.dart';
 import 'package:flutter/material.dart';
@@ -76,36 +77,42 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
             await _ratingDialog(context);
           }
         },
-        child: SizedBox(
-          width: settings.componentTotalSideLength,
-          height: settings.componentTotalSideLength,
-          child: Padding(
-            padding: EdgeInsets.all(settings.componentPaddingWidth),
-            child: Card(
-              elevation: 3,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: isRated
-                        ? settings.componentIsRatedBorderColor
-                        : settings.componentDefaultBorderColor,
-                    width: settings.componentBorderWidth,
+        child: HorizontalDoubleDropZone(
+          cid: widget.component.id,
+          indicatorWidth: settings.componentDropIndicatorWidth,
+          onDrop: () {},
+          child: SizedBox(
+            width: settings.componentTotalSideLength,
+            height: settings.componentTotalSideLength,
+            child: Padding(
+              padding: EdgeInsets.all(settings.componentPaddingWidth),
+              child: Card(
+                elevation: 3,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: isRated
+                          ? settings.componentIsRatedBorderColor
+                          : settings.componentDefaultBorderColor,
+                      width: settings.componentBorderWidth,
+                    ),
                   ),
-                ),
-                child: Center(
-                  child: LabelWidget(
-                    label: c.name,
-                    width: settings.componentSideLength,
-                    fontSize: settings.componentLabelFontSize,
-                    fontWeight: settings.componentLabelFontWeight,
-                    alignment: TextAlign.center,
-                    maxlines: 4,
-                    onChanged: (s) async {
-                      c.name = s;
-                      await ModelApi.saveModel(
-                        model: widget.model,
-                      );
-                    },
+                  child: Center(
+                    child: LabelWidget(
+                      label: c.name,
+                      width: settings.componentSideLength -
+                          (2 * settings.componentLabelPadding),
+                      fontSize: settings.componentLabelFontSize,
+                      fontWeight: settings.componentLabelFontWeight,
+                      alignment: TextAlign.center,
+                      maxlines: 4,
+                      onChanged: (s) async {
+                        c.name = s;
+                        await ModelApi.saveModel(
+                          model: widget.model,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

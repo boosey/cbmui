@@ -14,6 +14,9 @@ abstract class _$ModelViewSettingsCWProxy {
   ModelViewSettings componentDefaultBorderColor(
       Color componentDefaultBorderColor);
 
+  ModelViewSettings componentDropIndicatorWidth(
+      double componentDropIndicatorWidth);
+
   ModelViewSettings componentIsRatedBorderColor(
       Color componentIsRatedBorderColor);
 
@@ -28,7 +31,7 @@ abstract class _$ModelViewSettingsCWProxy {
 
   ModelViewSettings componentPaddingWidth(double componentPaddingWidth);
 
-  ModelViewSettings componentTotalSideLength(double componentTotalSideLength);
+  ModelViewSettings componentSideLength(double componentSideLength);
 
   ModelViewSettings createButtonSizeLength(double createButtonSizeLength);
 
@@ -88,13 +91,14 @@ abstract class _$ModelViewSettingsCWProxy {
     double? componentBorderWidth,
     Color? componentColor,
     Color? componentDefaultBorderColor,
+    double? componentDropIndicatorWidth,
     Color? componentIsRatedBorderColor,
     double? componentLabelFontSize,
     FontWeight? componentLabelFontWeight,
     int? componentLabelMaxLines,
     double? componentLabelPadding,
     double? componentPaddingWidth,
-    double? componentTotalSideLength,
+    double? componentSideLength,
     double? createButtonSizeLength,
     double? layerLabelAreaWidth,
     double? layerLabelFontSize,
@@ -140,6 +144,11 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
       this(componentDefaultBorderColor: componentDefaultBorderColor);
 
   @override
+  ModelViewSettings componentDropIndicatorWidth(
+          double componentDropIndicatorWidth) =>
+      this(componentDropIndicatorWidth: componentDropIndicatorWidth);
+
+  @override
   ModelViewSettings componentIsRatedBorderColor(
           Color componentIsRatedBorderColor) =>
       this(componentIsRatedBorderColor: componentIsRatedBorderColor);
@@ -166,8 +175,8 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
       this(componentPaddingWidth: componentPaddingWidth);
 
   @override
-  ModelViewSettings componentTotalSideLength(double componentTotalSideLength) =>
-      this(componentTotalSideLength: componentTotalSideLength);
+  ModelViewSettings componentSideLength(double componentSideLength) =>
+      this(componentSideLength: componentSideLength);
 
   @override
   ModelViewSettings createButtonSizeLength(double createButtonSizeLength) =>
@@ -273,13 +282,14 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
     Object? componentBorderWidth = const $CopyWithPlaceholder(),
     Object? componentColor = const $CopyWithPlaceholder(),
     Object? componentDefaultBorderColor = const $CopyWithPlaceholder(),
+    Object? componentDropIndicatorWidth = const $CopyWithPlaceholder(),
     Object? componentIsRatedBorderColor = const $CopyWithPlaceholder(),
     Object? componentLabelFontSize = const $CopyWithPlaceholder(),
     Object? componentLabelFontWeight = const $CopyWithPlaceholder(),
     Object? componentLabelMaxLines = const $CopyWithPlaceholder(),
     Object? componentLabelPadding = const $CopyWithPlaceholder(),
     Object? componentPaddingWidth = const $CopyWithPlaceholder(),
-    Object? componentTotalSideLength = const $CopyWithPlaceholder(),
+    Object? componentSideLength = const $CopyWithPlaceholder(),
     Object? createButtonSizeLength = const $CopyWithPlaceholder(),
     Object? layerLabelAreaWidth = const $CopyWithPlaceholder(),
     Object? layerLabelFontSize = const $CopyWithPlaceholder(),
@@ -321,6 +331,12 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
               ? _value.componentDefaultBorderColor
               // ignore: cast_nullable_to_non_nullable
               : componentDefaultBorderColor as Color,
+      componentDropIndicatorWidth:
+          componentDropIndicatorWidth == const $CopyWithPlaceholder() ||
+                  componentDropIndicatorWidth == null
+              ? _value.componentDropIndicatorWidth
+              // ignore: cast_nullable_to_non_nullable
+              : componentDropIndicatorWidth as double,
       componentIsRatedBorderColor:
           componentIsRatedBorderColor == const $CopyWithPlaceholder() ||
                   componentIsRatedBorderColor == null
@@ -357,12 +373,12 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
               ? _value.componentPaddingWidth
               // ignore: cast_nullable_to_non_nullable
               : componentPaddingWidth as double,
-      componentTotalSideLength:
-          componentTotalSideLength == const $CopyWithPlaceholder() ||
-                  componentTotalSideLength == null
-              ? _value.componentTotalSideLength
+      componentSideLength:
+          componentSideLength == const $CopyWithPlaceholder() ||
+                  componentSideLength == null
+              ? _value.componentSideLength
               // ignore: cast_nullable_to_non_nullable
-              : componentTotalSideLength as double,
+              : componentSideLength as double,
       createButtonSizeLength:
           createButtonSizeLength == const $CopyWithPlaceholder() ||
                   createButtonSizeLength == null
