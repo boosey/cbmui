@@ -94,13 +94,6 @@ class SectionViewer extends ConsumerWidget {
       if (take == componentsWidgets.length) {
         allWidgets = [
           ...cWidgets,
-          CreateButton(
-            onChanged: () async => await ModelApi.createComponent(
-              model: model,
-              layer: layer,
-              section: section,
-            ),
-          ),
         ];
       } else {
         allWidgets = cWidgets;
@@ -122,7 +115,17 @@ class SectionViewer extends ConsumerWidget {
       )),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: rows,
+        children: [
+          CreateButton(
+            label: "Component",
+            onChanged: () async => await ModelApi.createComponent(
+              model: model,
+              layer: layer,
+              section: section,
+            ),
+          ),
+          ...rows,
+        ],
       ),
     );
   }

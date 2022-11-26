@@ -61,6 +61,7 @@ class ModelViewer extends ConsumerWidget {
                 ),
                 CreateButton(
                   key: const ValueKey("layercreatebutton"),
+                  label: "Layer",
                   onChanged: () async {
                     await ModelApi.createLayer(model: model);
                   },

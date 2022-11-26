@@ -73,14 +73,19 @@ class LayerViewer extends ConsumerWidget {
                     ) +
                     1,
               ),
-              child: sections(layer, settings, isEditMode),
-            ),
-            CreateButton(
-              shiftDown: layer.sections!.length > 1,
-              onChanged: () async {
-                await ModelApi.createSection(model: model, layer: layer);
-                return;
-              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CreateButton(
+                    label: "Section",
+                    onChanged: () async {
+                      await ModelApi.createSection(model: model, layer: layer);
+                      return;
+                    },
+                  ),
+                  sections(layer, settings, isEditMode),
+                ],
+              ),
             ),
           ],
         ),
