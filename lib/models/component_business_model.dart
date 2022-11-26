@@ -2,6 +2,8 @@ import 'package:flutter_data/flutter_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 
+import '../util.dart';
+
 part 'component_business_model.g.dart';
 
 mixin ModelAdapter on RemoteAdapter<Model> {
@@ -38,6 +40,43 @@ class Model extends DataModel<Model> {
 
   @override
   Object? get id => mid;
+
+  void moveComponent(
+    String movingCid, {
+    String before = "",
+    String after = "",
+  }) {
+    late Component movingComponent;
+
+    // Remove the moving component
+    if (before.isNotEmpty || after.isNotEmpty) {
+      for (var l in layers!) {
+        for (var s in l.sections!) {
+          try {
+            movingComponent =
+                s.components!.firstWhere((c) => c.id == movingCid);
+            s.components!.removeWhere((c) => c.id == movingCid);
+            // ignore: empty_catches
+          } catch (e) {}
+        }
+      }
+
+      for (var l in layers!) {
+        for (var s in l.sections!) {
+          final targetComponentIdx = s.components!
+              .indexWhere((c) => c.id == (before.isNotEmpty ? before : after));
+          if (!targetComponentIdx.isNegative) {
+            if (before.isNotEmpty) {
+              s.components!.insert(targetComponentIdx, movingComponent);
+            } else {
+              s.components!.insert(targetComponentIdx + 1, movingComponent);
+            }
+            ModelApi.saveModel(model: this);
+          }
+        }
+      }
+    }
+  }
 }
 
 @JsonSerializable(includeIfNull: false, explicitToJson: true)

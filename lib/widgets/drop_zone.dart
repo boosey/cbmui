@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../models/component_business_model.dart';
 import '../providers/component_drag_target_provider.dart';
 
 class HorizontalDoubleDropZone extends ConsumerWidget {
@@ -11,6 +12,7 @@ class HorizontalDoubleDropZone extends ConsumerWidget {
     required this.indicatorWidth,
     this.indicatorColor = Colors.black,
     required this.cid,
+    required this.model,
     required this.onDrop,
     required this.child,
     super.key,
@@ -19,6 +21,7 @@ class HorizontalDoubleDropZone extends ConsumerWidget {
   final Axis direction;
   final double indicatorWidth;
   final Color indicatorColor;
+  final Model model;
   final String cid;
   final Function onDrop;
   final Widget child;
@@ -29,13 +32,23 @@ class HorizontalDoubleDropZone extends ConsumerWidget {
 
     return DragTarget<Map<String, String>>(
       onWillAccept: (data) {
-        return data!["type"]! == "component";
+        return data!["type"]! == "component" && data["cid"]! != cid;
       },
       onAcceptWithDetails: (details) {
-        ref.read(componentDragTargetProvider(cid).notifier).none();
+        final side = ref.read(componentDragTargetProvider(cid));
+        if (side != ComponentDragTarget.none &&
+            details.data["type"]! == "component") {
+          model.moveComponent(
+            details.data["cid"]!,
+            before: side == ComponentDragTarget.left ? cid : "",
+            after: side == ComponentDragTarget.right ? cid : "",
+          );
+          ref.read(componentDragTargetProvider(cid).notifier).none();
+        }
       },
       onMove: (details) {
-        if (details.data["type"] == "component") {
+        if (details.data["type"] == "component" &&
+            details.data["cid"]! != cid) {
           final box = context.findRenderObject() as RenderBox;
           final localPos = box.globalToLocal(details.offset);
           if (localPos.dx.isNegative) {

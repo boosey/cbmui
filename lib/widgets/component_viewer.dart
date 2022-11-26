@@ -78,6 +78,7 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
           }
         },
         child: HorizontalDoubleDropZone(
+          model: widget.model,
           cid: widget.component.id,
           indicatorWidth: settings.componentDropIndicatorWidth,
           onDrop: () {},

@@ -33,7 +33,7 @@ double createButtonsWidth(
 
 double _calculateRawSectionWidth(Section section, int columnCount,
     ModelViewSettings settings, bool isEditMode) {
-  final w = ((settings.componentTotalSideLength + 9) * columnCount) +
+  final w = ((settings.componentTotalSideLength + 11) * columnCount) +
       ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) +
       createButtonsWidth(1, settings, isEditMode) +
       // hack and I don't know why I need it
