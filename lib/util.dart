@@ -17,25 +17,15 @@ double layerLabelAreaWidth(ModelViewSettings settings) =>
 
 double createButtonsWidth(
         int sectionCount, ModelViewSettings settings, bool isEditMode) =>
-    isEditMode ? settings.createButtonSizeLength * sectionCount + 1 : 0;
-
-// double _calculateRawSectionWidth(Section section, int columnCount,
-//     ModelViewSettings settings, bool isEditMode) {
-//   final w = (settings.componentTotalSideLength * columnCount) +
-//       ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) +
-//       createButtonsWidth(1, settings, isEditMode) +
-//       // hack and I don't know why I need it
-//       (columnCount * settings.componentLabelPadding * 2) +
-//       settings.layerMaxTotalColumns;
-
-//   return w;
-// }
+    isEditMode ? settings.createButtonSizeLength * sectionCount : 0;
 
 double _calculateRawSectionWidth(Section section, int columnCount,
     ModelViewSettings settings, bool isEditMode) {
-  final w = ((settings.componentTotalSideLength + 11) * columnCount) +
+  // +12 is a hack because the component TextField is wider than its
+  // given size. It added some padding or something
+  final w = ((settings.componentTotalSideLength + 12) * columnCount) +
       ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) +
-      createButtonsWidth(1, settings, isEditMode) +
+      createButtonsWidth(2, settings, isEditMode) +
       // hack and I don't know why I need it
       (columnCount * settings.componentLabelPadding * 2) +
       settings.layerMaxTotalColumns;
@@ -74,8 +64,8 @@ double longestSectionRun(
       )
       .fold(0.0, (max, x) => x > max ? x : max);
 
-  // add 1 pixel headroom for every column
-  return maxW.ceilToDouble() + settings.layerMaxTotalColumns;
+  // add 2 pixel headroom for every column
+  return maxW.ceilToDouble() + settings.layerMaxTotalColumns * 2;
 }
 
 Map<String, int> calculateSectionColumnCounts(

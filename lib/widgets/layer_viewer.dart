@@ -25,21 +25,6 @@ class LayerViewer extends ConsumerWidget {
     final settings = ref.watch(modelViewerSettingsProvider);
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
 
-    // final allSectionsMaxWidth =
-    //     // width of all maximum components
-    //     (settings.componentTotalSideLength * settings.layerMaxTotalColumns) +
-    //         // width that a single section adds
-    //         (((settings.sectionPaddingWidth + settings.sectionBorderWidth) *
-    //                 2) *
-    //             // times the actually number of sections
-    //             layer.sections!.length) +
-    //         // in edit mode will have a button for each section plus one to add
-    //         // a new section
-    //         (isEditMode
-    //             ? ((settings.createButtonSizeLength + 1) *
-    //                 layer.sections!.length)
-    //             : 0);
-
     var label = ConstrainedBox(
       constraints: BoxConstraints(
         minWidth: settings.layerLabelAreaWidth,
@@ -82,10 +67,11 @@ class LayerViewer extends ConsumerWidget {
               // constraints: BoxConstraints(maxWidth: allSectionsMaxWidth),
               constraints: BoxConstraints(
                 maxWidth: longestSectionRun(
-                  model,
-                  settings,
-                  isEditMode,
-                ),
+                      model,
+                      settings,
+                      isEditMode,
+                    ) +
+                    1,
               ),
               child: sections(layer, settings, isEditMode),
             ),

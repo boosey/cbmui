@@ -73,7 +73,7 @@ class ModelViewSettings {
     this.layerLabelMaxLines = 3,
     this.mininumTotalWidth = 500,
     this.maximumTotalWidth = 2000,
-    this.createButtonSizeLength = 40,
+    this.createButtonSizeLength = 46,
   });
 
   double get componentTotalSideLength {
