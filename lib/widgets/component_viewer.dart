@@ -2,12 +2,11 @@ import 'dart:async';
 
 import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/deletable.dart';
-import 'package:cbmui/widgets/drop_zone.dart';
+import 'package:cbmui/widgets/horizontal_drop_zone.dart';
 import 'package:cbmui/widgets/relationship_widget.dart';
 import 'package:cbmui/widgets/strategic_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../models/component_business_model.dart';
 import '../providers/mode_provider.dart';
 import '../util.dart';
@@ -77,43 +76,40 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
             await _ratingDialog(context);
           }
         },
-        child: HorizontalDoubleDropZone(
+        child: HorizontalDoubleDropZone2(
           model: widget.model,
-          cid: widget.component.id,
+          id: widget.component.id,
+          type: "component",
           indicatorWidth: settings.componentDropIndicatorWidth,
-          onDrop: () {},
+          onDrop: widget.model.moveComponent,
           child: SizedBox(
-            width: settings.componentTotalSideLength,
-            height: settings.componentTotalSideLength,
-            child: Padding(
-              padding: EdgeInsets.all(settings.componentPaddingWidth),
-              child: Card(
-                elevation: 3,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: isRated
-                          ? settings.componentIsRatedBorderColor
-                          : settings.componentDefaultBorderColor,
-                      width: settings.componentBorderWidth,
-                    ),
+            width: settings.componentBaseSideLength,
+            height: settings.componentBaseSideLength,
+            child: Card(
+              elevation: settings.elevation,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: isRated
+                        ? settings.componentIsRatedBorderColor
+                        : settings.componentDefaultBorderColor,
+                    width: settings.componentBorderWidth,
                   ),
-                  child: Center(
-                    child: LabelWidget(
-                      label: c.name,
-                      width: settings.componentSideLength -
-                          (2 * settings.componentLabelPadding),
-                      fontSize: settings.componentLabelFontSize,
-                      fontWeight: settings.componentLabelFontWeight,
-                      alignment: TextAlign.center,
-                      maxlines: 4,
-                      onChanged: (s) async {
-                        c.name = s;
-                        await ModelApi.saveModel(
-                          model: widget.model,
-                        );
-                      },
-                    ),
+                ),
+                child: Center(
+                  child: LabelWidget(
+                    label: c.name,
+                    width: settings.componentLabelWidth,
+                    fontSize: settings.componentLabelFontSize,
+                    fontWeight: settings.componentLabelFontWeight,
+                    alignment: TextAlign.center,
+                    maxlines: 4,
+                    onChanged: (s) async {
+                      c.name = s;
+                      await ModelApi.saveModel(
+                        model: widget.model,
+                      );
+                    },
                   ),
                 ),
               ),

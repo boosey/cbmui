@@ -1,8 +1,9 @@
 import 'dart:math';
-
+import 'dart:developer' as dev;
 import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/deletable.dart';
+import 'package:cbmui/widgets/horizontal_drop_zone.dart';
 import 'package:cbmui/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -60,26 +61,35 @@ class SectionViewer extends ConsumerWidget {
       ),
     );
 
-    mainWidget = DeletableOrMoveable(
-      onDeleteRequested: () async {
-        layer.sections!.removeWhere((s) => section.id == s.id);
-        await ModelApi.saveModel(
-          model: model,
-        );
-      },
-      child: Padding(
-        padding: EdgeInsets.all(settings.sectionPaddingWidth),
-        child: Column(
+    mainWidget = HorizontalDoubleDropZone2(
+      id: section.id,
+      indicatorWidth: settings.componentDropIndicatorWidth,
+      model: model,
+      type: 'section',
+      onDrop: model.moveSection,
+      child: DeletableOrMoveable(
+        onDeleteRequested: () async {
+          layer.sections!.removeWhere((s) => section.id == s.id);
+          await ModelApi.saveModel(
+            model: model,
+          );
+        },
+        child:
+            // Padding(
+            //   padding: EdgeInsets.all(settings.sectionPaddingWidth),
+            //   child:
+            Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           children: [
             label,
             sectionContent(componentsWidgets, settings),
           ],
         ),
+        // ),
       ),
     );
-
+    dev.log("section W: $width");
     return mainWidget;
   }
 
@@ -107,25 +117,28 @@ class SectionViewer extends ConsumerWidget {
       );
     }
 
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(
-        width: settings.sectionBorderWidth,
-        color: settings.sectionBorderColor,
-      )),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CreateButton(
-            label: "Component",
-            onChanged: () async => await ModelApi.createComponent(
-              model: model,
-              layer: layer,
-              section: section,
+    return SizedBox(
+      width: settings.calculateBaseSectionWidth(width, settings),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+          width: settings.sectionBorderWidth,
+          color: settings.sectionBorderColor,
+        )),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CreateButton(
+              label: "Component",
+              onChanged: () async => await ModelApi.createComponent(
+                model: model,
+                layer: layer,
+                section: section,
+              ),
             ),
-          ),
-          ...rows,
-        ],
+            ...rows,
+          ],
+        ),
       ),
     );
   }

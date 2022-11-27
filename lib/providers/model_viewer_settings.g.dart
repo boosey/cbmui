@@ -29,13 +29,9 @@ abstract class _$ModelViewSettingsCWProxy {
 
   ModelViewSettings componentLabelPadding(double componentLabelPadding);
 
-  ModelViewSettings componentPaddingWidth(double componentPaddingWidth);
+  ModelViewSettings componentLabelWidth(double componentLabelWidth);
 
-  ModelViewSettings componentSideLength(double componentSideLength);
-
-  ModelViewSettings createButtonSizeLength(double createButtonSizeLength);
-
-  ModelViewSettings layerLabelAreaWidth(double layerLabelAreaWidth);
+  ModelViewSettings elevation(double elevation);
 
   ModelViewSettings layerLabelFontSize(double layerLabelFontSize);
 
@@ -43,27 +39,15 @@ abstract class _$ModelViewSettingsCWProxy {
 
   ModelViewSettings layerLabelMaxLines(int layerLabelMaxLines);
 
+  ModelViewSettings layerLabelWidth(double layerLabelWidth);
+
   ModelViewSettings layerMaxTotalColumns(int layerMaxTotalColumns);
 
   ModelViewSettings layerPaddingWidth(double layerPaddingWidth);
 
   ModelViewSettings layerSpacerWidth(double layerSpacerWidth);
 
-  ModelViewSettings maxMultiSectionComponentRun(
-      int maxMultiSectionComponentRun);
-
-  ModelViewSettings maxSingleSectionComponentRun(
-      int maxSingleSectionComponentRun);
-
-  ModelViewSettings maximumTotalWidth(double maximumTotalWidth);
-
-  ModelViewSettings minMultiSectionComponentRun(
-      int minMultiSectionComponentRun);
-
-  ModelViewSettings minSingleSectionComponentRun(
-      int minSingleSectionComponentRun);
-
-  ModelViewSettings mininumTotalWidth(double mininumTotalWidth);
+  ModelViewSettings modelViewerPaddingWidth(double modelViewerPaddingWidth);
 
   ModelViewSettings sectionBorderColor(Color sectionBorderColor);
 
@@ -78,8 +62,6 @@ abstract class _$ModelViewSettingsCWProxy {
   ModelViewSettings sectionLabelMaxLines(int sectionLabelMaxLines);
 
   ModelViewSettings sectionMinColumns(int sectionMinColumns);
-
-  ModelViewSettings sectionPaddingWidth(double sectionPaddingWidth);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ModelViewSettings(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -97,22 +79,16 @@ abstract class _$ModelViewSettingsCWProxy {
     FontWeight? componentLabelFontWeight,
     int? componentLabelMaxLines,
     double? componentLabelPadding,
-    double? componentPaddingWidth,
-    double? componentSideLength,
-    double? createButtonSizeLength,
-    double? layerLabelAreaWidth,
+    double? componentLabelWidth,
+    double? elevation,
     double? layerLabelFontSize,
     FontWeight? layerLabelFontWeight,
     int? layerLabelMaxLines,
+    double? layerLabelWidth,
     int? layerMaxTotalColumns,
     double? layerPaddingWidth,
     double? layerSpacerWidth,
-    int? maxMultiSectionComponentRun,
-    int? maxSingleSectionComponentRun,
-    double? maximumTotalWidth,
-    int? minMultiSectionComponentRun,
-    int? minSingleSectionComponentRun,
-    double? mininumTotalWidth,
+    double? modelViewerPaddingWidth,
     Color? sectionBorderColor,
     double? sectionBorderWidth,
     Color? sectionColor,
@@ -120,7 +96,6 @@ abstract class _$ModelViewSettingsCWProxy {
     FontWeight? sectionLabelFontWeight,
     int? sectionLabelMaxLines,
     int? sectionMinColumns,
-    double? sectionPaddingWidth,
   });
 }
 
@@ -171,20 +146,11 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
       this(componentLabelPadding: componentLabelPadding);
 
   @override
-  ModelViewSettings componentPaddingWidth(double componentPaddingWidth) =>
-      this(componentPaddingWidth: componentPaddingWidth);
+  ModelViewSettings componentLabelWidth(double componentLabelWidth) =>
+      this(componentLabelWidth: componentLabelWidth);
 
   @override
-  ModelViewSettings componentSideLength(double componentSideLength) =>
-      this(componentSideLength: componentSideLength);
-
-  @override
-  ModelViewSettings createButtonSizeLength(double createButtonSizeLength) =>
-      this(createButtonSizeLength: createButtonSizeLength);
-
-  @override
-  ModelViewSettings layerLabelAreaWidth(double layerLabelAreaWidth) =>
-      this(layerLabelAreaWidth: layerLabelAreaWidth);
+  ModelViewSettings elevation(double elevation) => this(elevation: elevation);
 
   @override
   ModelViewSettings layerLabelFontSize(double layerLabelFontSize) =>
@@ -199,6 +165,10 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
       this(layerLabelMaxLines: layerLabelMaxLines);
 
   @override
+  ModelViewSettings layerLabelWidth(double layerLabelWidth) =>
+      this(layerLabelWidth: layerLabelWidth);
+
+  @override
   ModelViewSettings layerMaxTotalColumns(int layerMaxTotalColumns) =>
       this(layerMaxTotalColumns: layerMaxTotalColumns);
 
@@ -211,32 +181,8 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
       this(layerSpacerWidth: layerSpacerWidth);
 
   @override
-  ModelViewSettings maxMultiSectionComponentRun(
-          int maxMultiSectionComponentRun) =>
-      this(maxMultiSectionComponentRun: maxMultiSectionComponentRun);
-
-  @override
-  ModelViewSettings maxSingleSectionComponentRun(
-          int maxSingleSectionComponentRun) =>
-      this(maxSingleSectionComponentRun: maxSingleSectionComponentRun);
-
-  @override
-  ModelViewSettings maximumTotalWidth(double maximumTotalWidth) =>
-      this(maximumTotalWidth: maximumTotalWidth);
-
-  @override
-  ModelViewSettings minMultiSectionComponentRun(
-          int minMultiSectionComponentRun) =>
-      this(minMultiSectionComponentRun: minMultiSectionComponentRun);
-
-  @override
-  ModelViewSettings minSingleSectionComponentRun(
-          int minSingleSectionComponentRun) =>
-      this(minSingleSectionComponentRun: minSingleSectionComponentRun);
-
-  @override
-  ModelViewSettings mininumTotalWidth(double mininumTotalWidth) =>
-      this(mininumTotalWidth: mininumTotalWidth);
+  ModelViewSettings modelViewerPaddingWidth(double modelViewerPaddingWidth) =>
+      this(modelViewerPaddingWidth: modelViewerPaddingWidth);
 
   @override
   ModelViewSettings sectionBorderColor(Color sectionBorderColor) =>
@@ -267,10 +213,6 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
       this(sectionMinColumns: sectionMinColumns);
 
   @override
-  ModelViewSettings sectionPaddingWidth(double sectionPaddingWidth) =>
-      this(sectionPaddingWidth: sectionPaddingWidth);
-
-  @override
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ModelViewSettings(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -288,22 +230,16 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
     Object? componentLabelFontWeight = const $CopyWithPlaceholder(),
     Object? componentLabelMaxLines = const $CopyWithPlaceholder(),
     Object? componentLabelPadding = const $CopyWithPlaceholder(),
-    Object? componentPaddingWidth = const $CopyWithPlaceholder(),
-    Object? componentSideLength = const $CopyWithPlaceholder(),
-    Object? createButtonSizeLength = const $CopyWithPlaceholder(),
-    Object? layerLabelAreaWidth = const $CopyWithPlaceholder(),
+    Object? componentLabelWidth = const $CopyWithPlaceholder(),
+    Object? elevation = const $CopyWithPlaceholder(),
     Object? layerLabelFontSize = const $CopyWithPlaceholder(),
     Object? layerLabelFontWeight = const $CopyWithPlaceholder(),
     Object? layerLabelMaxLines = const $CopyWithPlaceholder(),
+    Object? layerLabelWidth = const $CopyWithPlaceholder(),
     Object? layerMaxTotalColumns = const $CopyWithPlaceholder(),
     Object? layerPaddingWidth = const $CopyWithPlaceholder(),
     Object? layerSpacerWidth = const $CopyWithPlaceholder(),
-    Object? maxMultiSectionComponentRun = const $CopyWithPlaceholder(),
-    Object? maxSingleSectionComponentRun = const $CopyWithPlaceholder(),
-    Object? maximumTotalWidth = const $CopyWithPlaceholder(),
-    Object? minMultiSectionComponentRun = const $CopyWithPlaceholder(),
-    Object? minSingleSectionComponentRun = const $CopyWithPlaceholder(),
-    Object? mininumTotalWidth = const $CopyWithPlaceholder(),
+    Object? modelViewerPaddingWidth = const $CopyWithPlaceholder(),
     Object? sectionBorderColor = const $CopyWithPlaceholder(),
     Object? sectionBorderWidth = const $CopyWithPlaceholder(),
     Object? sectionColor = const $CopyWithPlaceholder(),
@@ -311,7 +247,6 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
     Object? sectionLabelFontWeight = const $CopyWithPlaceholder(),
     Object? sectionLabelMaxLines = const $CopyWithPlaceholder(),
     Object? sectionMinColumns = const $CopyWithPlaceholder(),
-    Object? sectionPaddingWidth = const $CopyWithPlaceholder(),
   }) {
     return ModelViewSettings(
       componentBorderWidth:
@@ -367,30 +302,16 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
               ? _value.componentLabelPadding
               // ignore: cast_nullable_to_non_nullable
               : componentLabelPadding as double,
-      componentPaddingWidth:
-          componentPaddingWidth == const $CopyWithPlaceholder() ||
-                  componentPaddingWidth == null
-              ? _value.componentPaddingWidth
+      componentLabelWidth:
+          componentLabelWidth == const $CopyWithPlaceholder() ||
+                  componentLabelWidth == null
+              ? _value.componentLabelWidth
               // ignore: cast_nullable_to_non_nullable
-              : componentPaddingWidth as double,
-      componentSideLength:
-          componentSideLength == const $CopyWithPlaceholder() ||
-                  componentSideLength == null
-              ? _value.componentSideLength
-              // ignore: cast_nullable_to_non_nullable
-              : componentSideLength as double,
-      createButtonSizeLength:
-          createButtonSizeLength == const $CopyWithPlaceholder() ||
-                  createButtonSizeLength == null
-              ? _value.createButtonSizeLength
-              // ignore: cast_nullable_to_non_nullable
-              : createButtonSizeLength as double,
-      layerLabelAreaWidth:
-          layerLabelAreaWidth == const $CopyWithPlaceholder() ||
-                  layerLabelAreaWidth == null
-              ? _value.layerLabelAreaWidth
-              // ignore: cast_nullable_to_non_nullable
-              : layerLabelAreaWidth as double,
+              : componentLabelWidth as double,
+      elevation: elevation == const $CopyWithPlaceholder() || elevation == null
+          ? _value.elevation
+          // ignore: cast_nullable_to_non_nullable
+          : elevation as double,
       layerLabelFontSize: layerLabelFontSize == const $CopyWithPlaceholder() ||
               layerLabelFontSize == null
           ? _value.layerLabelFontSize
@@ -407,6 +328,11 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
           ? _value.layerLabelMaxLines
           // ignore: cast_nullable_to_non_nullable
           : layerLabelMaxLines as int,
+      layerLabelWidth: layerLabelWidth == const $CopyWithPlaceholder() ||
+              layerLabelWidth == null
+          ? _value.layerLabelWidth
+          // ignore: cast_nullable_to_non_nullable
+          : layerLabelWidth as double,
       layerMaxTotalColumns:
           layerMaxTotalColumns == const $CopyWithPlaceholder() ||
                   layerMaxTotalColumns == null
@@ -423,40 +349,12 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
           ? _value.layerSpacerWidth
           // ignore: cast_nullable_to_non_nullable
           : layerSpacerWidth as double,
-      maxMultiSectionComponentRun:
-          maxMultiSectionComponentRun == const $CopyWithPlaceholder() ||
-                  maxMultiSectionComponentRun == null
-              ? _value.maxMultiSectionComponentRun
+      modelViewerPaddingWidth:
+          modelViewerPaddingWidth == const $CopyWithPlaceholder() ||
+                  modelViewerPaddingWidth == null
+              ? _value.modelViewerPaddingWidth
               // ignore: cast_nullable_to_non_nullable
-              : maxMultiSectionComponentRun as int,
-      maxSingleSectionComponentRun:
-          maxSingleSectionComponentRun == const $CopyWithPlaceholder() ||
-                  maxSingleSectionComponentRun == null
-              ? _value.maxSingleSectionComponentRun
-              // ignore: cast_nullable_to_non_nullable
-              : maxSingleSectionComponentRun as int,
-      maximumTotalWidth: maximumTotalWidth == const $CopyWithPlaceholder() ||
-              maximumTotalWidth == null
-          ? _value.maximumTotalWidth
-          // ignore: cast_nullable_to_non_nullable
-          : maximumTotalWidth as double,
-      minMultiSectionComponentRun:
-          minMultiSectionComponentRun == const $CopyWithPlaceholder() ||
-                  minMultiSectionComponentRun == null
-              ? _value.minMultiSectionComponentRun
-              // ignore: cast_nullable_to_non_nullable
-              : minMultiSectionComponentRun as int,
-      minSingleSectionComponentRun:
-          minSingleSectionComponentRun == const $CopyWithPlaceholder() ||
-                  minSingleSectionComponentRun == null
-              ? _value.minSingleSectionComponentRun
-              // ignore: cast_nullable_to_non_nullable
-              : minSingleSectionComponentRun as int,
-      mininumTotalWidth: mininumTotalWidth == const $CopyWithPlaceholder() ||
-              mininumTotalWidth == null
-          ? _value.mininumTotalWidth
-          // ignore: cast_nullable_to_non_nullable
-          : mininumTotalWidth as double,
+              : modelViewerPaddingWidth as double,
       sectionBorderColor: sectionBorderColor == const $CopyWithPlaceholder() ||
               sectionBorderColor == null
           ? _value.sectionBorderColor
@@ -495,12 +393,6 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
           ? _value.sectionMinColumns
           // ignore: cast_nullable_to_non_nullable
           : sectionMinColumns as int,
-      sectionPaddingWidth:
-          sectionPaddingWidth == const $CopyWithPlaceholder() ||
-                  sectionPaddingWidth == null
-              ? _value.sectionPaddingWidth
-              // ignore: cast_nullable_to_non_nullable
-              : sectionPaddingWidth as double,
     );
   }
 }

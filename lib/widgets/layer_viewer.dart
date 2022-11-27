@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cbmui/providers/mode_provider.dart';
 import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
@@ -25,22 +27,17 @@ class LayerViewer extends ConsumerWidget {
     final settings = ref.watch(modelViewerSettingsProvider);
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
 
-    var label = ConstrainedBox(
-      constraints: BoxConstraints(
-        minWidth: settings.layerLabelAreaWidth,
-        maxWidth: settings.layerLabelAreaWidth,
-      ),
-      child: LabelWidget(
-        label: layer.name,
-        fontSize: settings.layerLabelFontSize,
-        maxlines: settings.layerLabelMaxLines,
-        onChanged: (s) async {
-          layer.name = s;
-          await ModelApi.saveModel(
-            model: model,
-          );
-        },
-      ),
+    var label = LabelWidget(
+      label: layer.name,
+      width: settings.layerLabelWidth,
+      fontSize: settings.layerLabelFontSize,
+      maxlines: settings.layerLabelMaxLines,
+      onChanged: (s) async {
+        layer.name = s;
+        await ModelApi.saveModel(
+          model: model,
+        );
+      },
     );
 
     return DeletableOrMoveable(
@@ -63,16 +60,14 @@ class LayerViewer extends ConsumerWidget {
               width: settings.layerSpacerWidth,
               height: 1,
             ),
-            ConstrainedBox(
-              // constraints: BoxConstraints(maxWidth: allSectionsMaxWidth),
-              constraints: BoxConstraints(
-                maxWidth: longestSectionRun(
-                      model,
-                      settings,
-                      isEditMode,
-                    ) +
-                    1,
-              ),
+            SizedBox(
+              // width: maxWidthOfSectionAreaOfAllLayersInModel(
+              //       model,
+              //       settings,
+              //       isEditMode,
+              //     ) +
+              //     1,
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -94,36 +89,32 @@ class LayerViewer extends ConsumerWidget {
   }
 
   Widget sections(Layer layer, ModelViewSettings settings, bool isEditMode) {
-    final columnCounts = calculateSectionColumnCounts(layer, settings);
+    final columnCounts =
+        settings.calculateSectionColumnCountsForLayer(layer, settings);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: layer.sections!.map(
         (s) {
-          final sectionWidth = calculateAdjustedSectionWidth(
+          final cols = columnCounts[s.id]!;
+          final maxCols = columnCounts.values
+              .fold(0, (maxC, count) => maxC = max(maxC, count));
+          final sectionWidth = settings.calculateAdjustedSectionWidth(
             model,
             s,
-            columnCounts[s.id]!,
+            cols,
+            maxCols - cols,
             settings,
             isEditMode,
           );
 
-          return ConstrainedBox(
-            constraints:
-                BoxConstraints(minWidth: sectionWidth, maxWidth: sectionWidth),
-            child: Row(
-              children: [
-                Expanded(
-                  child: SectionViewer(
-                    model: model,
-                    section: s,
-                    layer: layer,
-                    columnCount: columnCounts[s.id]!,
-                    displayLabel: layer.sections!.length > 1,
-                    width: sectionWidth,
-                  ),
-                ),
-              ],
-            ),
+          return SectionViewer(
+            model: model,
+            section: s,
+            layer: layer,
+            columnCount: columnCounts[s.id]!,
+            width: sectionWidth,
           );
         },
       ).toList(),

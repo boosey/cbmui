@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/component_business_model.dart';
-import '../providers/component_drag_target_provider.dart';
+import '../providers/drag_target_provider.dart';
 
-class HorizontalDoubleDropZone extends ConsumerWidget {
-  const HorizontalDoubleDropZone({
+typedef MoveObjectFunction = void Function(String, String, String);
+
+class HorizontalDoubleDropZone2 extends ConsumerWidget {
+  const HorizontalDoubleDropZone2({
     this.direction = Axis.horizontal,
     required this.indicatorWidth,
     this.indicatorColor = Colors.black,
-    required this.cid,
+    required this.id,
+    required this.type,
     required this.model,
     required this.onDrop,
     required this.child,
@@ -22,44 +25,47 @@ class HorizontalDoubleDropZone extends ConsumerWidget {
   final double indicatorWidth;
   final Color indicatorColor;
   final Model model;
-  final String cid;
-  final Function onDrop;
+  final String id;
+  final String type;
+  final MoveObjectFunction onDrop;
   final Widget child;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final targetState = ref.watch(componentDragTargetProvider(cid));
+    final targetState = ref.watch(dragTargetProvider(id));
 
     return DragTarget<Map<String, String>>(
       onWillAccept: (data) {
-        return data!["type"]! == "component" && data["cid"]! != cid;
+        return data!["type"]! == type && data["id"]! != id;
       },
       onAcceptWithDetails: (details) {
-        final side = ref.read(componentDragTargetProvider(cid));
-        if (side != ComponentDragTarget.none &&
-            details.data["type"]! == "component") {
-          model.moveComponent(
-            details.data["cid"]!,
-            before: side == ComponentDragTarget.left ? cid : "",
-            after: side == ComponentDragTarget.right ? cid : "",
+        final side = ref.read(dragTargetProvider(id));
+        if (side != DragTargetSide.none && details.data["type"]! == type) {
+          // model.moveComponent(
+          //   details.data["id"]!,
+          //   before: side == dragTargetSide.left ? id : "",
+          //   after: side == dragTargetSide.right ? id : "",
+          // );
+          onDrop.call(
+            details.data["id"]!,
+            side == DragTargetSide.left ? id : "",
+            side == DragTargetSide.right ? id : "",
           );
-          ref.read(componentDragTargetProvider(cid).notifier).none();
+          ref.read(dragTargetProvider(id).notifier).none();
         }
       },
       onMove: (details) {
-        if (details.data["type"] == "component" &&
-            details.data["cid"]! != cid) {
+        if (details.data["type"] == type && details.data["id"]! != id) {
           final box = context.findRenderObject() as RenderBox;
           final localPos = box.globalToLocal(details.offset);
           if (localPos.dx.isNegative) {
-            ref.read(componentDragTargetProvider(cid).notifier).left();
+            ref.read(dragTargetProvider(id).notifier).left();
           } else {
-            ref.read(componentDragTargetProvider(cid).notifier).right();
+            ref.read(dragTargetProvider(id).notifier).right();
           }
         }
       },
-      onLeave: (data) =>
-          ref.read(componentDragTargetProvider(cid).notifier).none(),
+      onLeave: (data) => ref.read(dragTargetProvider(id).notifier).none(),
       builder: (context, candidateItems, rejectItems) => Stack(
         children: [
           Positioned.fill(
@@ -67,7 +73,7 @@ class HorizontalDoubleDropZone extends ConsumerWidget {
               alignment: Alignment.centerLeft,
               // This child will fill full height, replace it with your leading widget
               child: Container(
-                color: targetState == ComponentDragTarget.left
+                color: targetState == DragTargetSide.left
                     ? Colors.blue
                     : Colors.transparent,
                 width: indicatorWidth,
@@ -82,8 +88,8 @@ class HorizontalDoubleDropZone extends ConsumerWidget {
               ),
               LongPressDraggable(
                 data: {
-                  "type": "component",
-                  "cid": cid,
+                  "type": type,
+                  "id": id,
                 },
                 feedback: child,
                 child: child,
@@ -98,7 +104,7 @@ class HorizontalDoubleDropZone extends ConsumerWidget {
               alignment: Alignment.centerRight,
               // This child will fill full height, replace it with your leading widget
               child: Container(
-                color: targetState == ComponentDragTarget.right
+                color: targetState == DragTargetSide.right
                     ? Colors.blue
                     : Colors.transparent,
                 width: indicatorWidth,

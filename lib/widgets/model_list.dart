@@ -1,3 +1,4 @@
+import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/util.dart';
 import 'package:cbmui/widgets/model_thumbnail.dart';
 import 'package:cbmui/widgets/model_viewer.dart';
@@ -14,6 +15,7 @@ class ModelList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(modelViewerSettingsProvider);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +60,7 @@ class ModelList extends ConsumerWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Card(
-                          elevation: 5,
+                          elevation: settings.elevation,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             mainAxisSize: MainAxisSize.min,

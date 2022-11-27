@@ -11,7 +11,6 @@ class LabelWidget extends ConsumerStatefulWidget {
     this.fontSize = 32,
     this.fontWeight = FontWeight.bold,
     this.width = 500,
-    this.readonly = false,
     this.maxlines = 1,
     this.alignment = TextAlign.center,
     this.onChanged,
@@ -21,7 +20,6 @@ class LabelWidget extends ConsumerStatefulWidget {
   final FontWeight fontWeight;
   final String label;
   final double width;
-  final bool readonly;
   final int maxlines;
   final TextAlign alignment;
   final void Function(String)? onChanged;
@@ -70,7 +68,7 @@ class _LabelWidgetState extends ConsumerState<LabelWidget> {
 
     return SizedBox(
       width: widget.width,
-      child: isEditMode && !widget.readonly
+      child: isEditMode
           ? TextField(
               controller: labelController,
               style: style,

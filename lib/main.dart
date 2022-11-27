@@ -35,10 +35,7 @@ class ComponentBusinessModelsApp extends ConsumerWidget {
                   } else {
                     return Container(
                       constraints: const BoxConstraints.expand(),
-                      child: Padding(
-                        padding: const EdgeInsets.all(30),
-                        child: ModelList(models: state.model!),
-                      ),
+                      child: ModelList(models: state.model!),
                     );
                   }
                 },

@@ -1,115 +1,121 @@
-import 'dart:math';
+// import 'dart:developer';
 
-import 'package:cbmui/providers/model_viewer_settings.dart';
+// import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:flutter_data/flutter_data.dart';
 import 'package:http/http.dart' as http;
 import 'models/component_business_model.dart';
 
-double getTotalWidth(Model model, ModelViewSettings settings, bool isEditMode) {
-  final r = longestSectionRun(model, settings, isEditMode);
-  final w = layerLabelAreaWidth(settings);
+// double getTotalWidth(Model model, ModelViewSettings settings, bool isEditMode) {
+//   final r =
+//       maxWidthOfSectionAreaOfAllLayersInModel(model, settings, isEditMode);
+//   final w = layerTotalLabelAreaWidth(settings);
 
-  return r + w + 100;
-}
+//   return r + w;
+// }
 
-double layerLabelAreaWidth(ModelViewSettings settings) =>
-    settings.layerLabelAreaWidth + settings.layerSpacerWidth;
+// double layerTotalLabelAreaWidth(ModelViewSettings settings) =>
+//     settings.layerLabelWidth + settings.layerSpacerWidth;
 
-double createButtonsWidth(
-        int sectionCount, ModelViewSettings settings, bool isEditMode) =>
-    isEditMode ? settings.createButtonSizeLength * sectionCount : 0;
+// double _calculateRawSectionWidth(Section section, int columnCount,
+//     ModelViewSettings settings, bool isEditMode) {
+//   final w = ((settings.componentTotalSideLength) * columnCount) +
+//       ((settings.sectionBorderWidth) * 2) +
+//       (settings.componentDropIndicatorWidth * 2);
+//   //  +
+//   // // Add 1 pixel per column so quotients are rounded up
+//   // // when calculating adjusted width
+//   // settings.layerMaxTotalColumns;
 
-double _calculateRawSectionWidth(Section section, int columnCount,
-    ModelViewSettings settings, bool isEditMode) {
-  // +12 is a hack because the component TextField is wider than its
-  // given size. It added some padding or something
-  final w = ((settings.componentTotalSideLength + 12) * columnCount) +
-      ((settings.sectionBorderWidth + settings.sectionPaddingWidth) * 2) +
-      createButtonsWidth(2, settings, isEditMode) +
-      // hack and I don't know why I need it
-      (columnCount * settings.componentLabelPadding * 2) +
-      settings.layerMaxTotalColumns;
+//   return w;
+// }
 
-  return w;
-}
+// double calculateBaseSectionWidth(
+//         double totalSectionWidth, ModelViewSettings settings) =>
+//     totalSectionWidth -
+//     (settings.componentDropIndicatorWidth * 2) -
+//     ((settings.sectionBorderWidth) * 2) +
+//     16;
+// //  -
+// // settings.layerMaxTotalColumns;
 
-double calculateAdjustedSectionWidth(Model model, Section section,
-    int columnCount, ModelViewSettings settings, bool isEditMode) {
-  final y = longestSectionRun(model, settings, isEditMode) *
-      (columnCount / settings.layerMaxTotalColumns);
+// double calculateAdjustedSectionWidth(Model model, Section section,
+//     int columnCount, ModelViewSettings settings, bool isEditMode) {
+//   final y =
+//       maxWidthOfSectionAreaOfAllLayersInModel(model, settings, isEditMode);
+//   final x = (columnCount / settings.layerMaxTotalColumns);
 
-  // hack and I don't know why
-  return y.ceil().toDouble();
-}
+//   final z = (y * x).ceil();
 
-double longestSectionRun(
-  Model model,
-  ModelViewSettings settings,
-  bool isEditMode,
-) {
-  final maxW = model.layers!
-      .map(
-        (l) => l.sections!.fold(
-          0.0,
-          (w, s) {
-            final cc = calculateSectionColumnCounts(l, settings);
-            return w += _calculateRawSectionWidth(
-              s,
-              cc[s.id]!,
-              settings,
-              isEditMode,
-            );
-          },
-        ),
-      )
-      .fold(0.0, (max, x) => x > max ? x : max);
+//   log("${section.id} cols: $columnCount  raw:${_calculateRawSectionWidth(section, columnCount, settings, isEditMode)} adj: $z maxWidth: $y adjustment: $x");
 
-  // add 2 pixel headroom for every column
-  return maxW.ceilToDouble() + settings.layerMaxTotalColumns * 2;
-}
+//   return z.toDouble();
 
-Map<String, int> calculateSectionColumnCounts(
-    Layer layer, ModelViewSettings settings) {
-  final sections = layer.sections!;
-  final columnCounts = <String, int>{};
+//   // return _calculateRawSectionWidth(section, columnCount, settings, isEditMode);
+// }
 
-  int columnsRemaining = settings.layerMaxTotalColumns -
-      sections.length * settings.sectionMinColumns;
+// double maxWidthOfSectionAreaOfAllLayersInModel(
+//   Model model,
+//   ModelViewSettings settings,
+//   bool isEditMode,
+// ) {
+//   final maxW = model.layers!.map(
+//     (l) {
+//       final cc = calculateSectionColumnCountsForLayer(l, settings);
 
-  for (var s in sections) {
-    columnCounts.putIfAbsent(s.id, () => settings.sectionMinColumns);
-  }
+//       return l.sections!.fold(
+//         0.0,
+//         (w, s) {
+//           return w += _calculateRawSectionWidth(
+//             s,
+//             cc[s.id]!,
+//             settings,
+//             isEditMode,
+//           );
+//         },
+//       );
+//     },
+//   ).fold(0.0, (max, x) => x > max ? x : max);
 
-  while (columnsRemaining > 0) {
-    final maxDepth = sections.fold(
-        0,
-        (max, s) => depth(s, columnCounts[s.id]!) > max
-            ? depth(s, columnCounts[s.id]!)
-            : max);
+//   log("maxW: $maxW");
+//   return (maxW).ceilToDouble();
+// }
 
-    final sectionsAtMax =
-        sections.where((s) => depth(s, columnCounts[s.id]!) == maxDepth);
+// Map<String, int> calculateSectionColumnCountsForLayer(
+//     Layer layer, ModelViewSettings settings) {
+//   final sections = layer.sections!;
+//   final columnCounts = <String, int>{};
 
-    for (var s in sectionsAtMax) {
-      if (columnsRemaining > 0) {
-        columnCounts.update(s.id, (x) => columnCounts[s.id]! + 1);
-        columnsRemaining--;
-      }
-    }
-  }
+//   int columnsRemaining = settings.layerMaxTotalColumns -
+//       sections.length * settings.sectionMinColumns;
 
-  return columnCounts;
-}
+//   for (var s in sections) {
+//     columnCounts.putIfAbsent(s.id, () => settings.sectionMinColumns);
+//   }
 
-int maxSectionsInLayers(List<Layer> layers) {
-  final x =
-      layers.fold(0, (maxSections, l) => max(maxSections, l.sections!.length));
-  return x;
-}
+//   while (columnsRemaining > 0) {
+//     final maxDepth = sections.fold(
+//         0,
+//         (max, s) => depth(s, columnCounts[s.id]!) > max
+//             ? depth(s, columnCounts[s.id]!)
+//             : max);
 
-int depth(Section s, int columnCount) {
-  return (s.components!.length / columnCount).ceil();
-}
+//     final sectionsAtMaxDepth =
+//         sections.where((s) => depth(s, columnCounts[s.id]!) == maxDepth);
+
+//     for (var s in sectionsAtMaxDepth) {
+//       if (columnsRemaining > 0) {
+//         columnCounts.update(s.id, (x) => columnCounts[s.id]! + 1);
+//         columnsRemaining--;
+//       }
+//     }
+//   }
+
+//   return columnCounts;
+// }
+
+// int depth(Section s, int columnCount) {
+//   return (s.components!.length / columnCount).ceil();
+// }
 
 Component findComponent(String cid, Model model) {
   for (var l in model.layers!) {

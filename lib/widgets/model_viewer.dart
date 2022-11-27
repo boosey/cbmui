@@ -1,6 +1,6 @@
 import 'package:cbmui/providers/model_provider.dart';
 import 'package:cbmui/providers/model_viewer_settings.dart';
-import 'package:cbmui/providers/zoom_provider.dart';
+// import 'package:cbmui/providers/zoom_provider.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/mode_selector.dart';
 import 'package:cbmui/widgets/zoom.dart';
@@ -28,7 +28,7 @@ class ModelViewer extends ConsumerWidget {
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
     final settings = ref.watch(modelViewerSettingsProvider);
     final model = ref.watch(modelProvider(mid));
-    final totalWidth = ref.watch(totalWidthProvider(mid));
+    // final totalWidth = ref.watch(totalWidthProvider(mid));
 
     var modelNameLabel = Expanded(
       child: LabelWidget(
@@ -74,7 +74,8 @@ class ModelViewer extends ConsumerWidget {
                       isAnalyzeMode: isAnalyzeMode,
                       settings: settings,
                       isEditMode: isEditMode,
-                      totalWidth: totalWidth,
+                      totalWidth: 0,
+                      // totalWidth: totalWidth,
                     ),
                   ),
                 ),
@@ -100,28 +101,32 @@ class ModelViewer extends ConsumerWidget {
                 constraints:
                     BoxConstraints(minHeight: viewportConstraints.maxHeight),
                 child: IntrinsicHeight(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(settings.modelViewerPaddingWidth),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
                           // ignore: sized_box_for_whitespace
                           child: Container(
-                        width: 10,
-                        height: 1,
-                      )),
-                      ...model.layers!.reversed.map(
-                        (l) {
-                          return layerViewer(
-                            l,
-                            model,
-                            settings,
-                            isEditMode,
-                            totalWidth,
-                          );
-                        },
-                      ).toList(),
-                    ],
+                            width: 10,
+                            height: 1,
+                          ),
+                        ),
+                        ...model.layers!.reversed.map(
+                          (l) {
+                            return layerViewer(
+                              l,
+                              model,
+                              settings,
+                              isEditMode,
+                              totalWidth,
+                            );
+                          },
+                        ).toList(),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -131,17 +136,10 @@ class ModelViewer extends ConsumerWidget {
 
   Widget layerViewer(Layer l, Model model, ModelViewSettings settings,
       bool isEditMode, double totalWidth) {
-    return ConstrainedBox(
-      key: ValueKey("layerbox${l.id}"),
-      constraints: BoxConstraints(
-        minWidth: totalWidth,
-        maxWidth: totalWidth,
-      ),
-      child: LayerViewer(
-        key: ValueKey("layerviewer${l.id}"),
-        layer: l,
-        model: model,
-      ),
+    return LayerViewer(
+      key: ValueKey("layerviewer${l.id}"),
+      layer: l,
+      model: model,
     );
   }
 

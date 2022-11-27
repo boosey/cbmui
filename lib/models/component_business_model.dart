@@ -42,10 +42,10 @@ class Model extends DataModel<Model> {
   Object? get id => mid;
 
   void moveComponent(
-    String movingCid, {
-    String before = "",
-    String after = "",
-  }) {
+    String movingCid,
+    String before,
+    String after,
+  ) {
     late Component movingComponent;
 
     // Remove the moving component
@@ -73,6 +73,38 @@ class Model extends DataModel<Model> {
             }
             ModelApi.saveModel(model: this);
           }
+        }
+      }
+    }
+  }
+
+  void moveSection(
+    String movingSid,
+    String before,
+    String after,
+  ) {
+    late Section movingSection;
+
+    // Remove the moving component
+    if (before.isNotEmpty || after.isNotEmpty) {
+      for (var l in layers!) {
+        try {
+          movingSection = l.sections!.firstWhere((c) => c.id == movingSid);
+          l.sections!.removeWhere((c) => c.id == movingSid);
+          // ignore: empty_catches
+        } catch (e) {}
+      }
+
+      for (var l in layers!) {
+        final targetIdx = l.sections!
+            .indexWhere((s) => s.id == (before.isNotEmpty ? before : after));
+        if (!targetIdx.isNegative) {
+          if (before.isNotEmpty) {
+            l.sections!.insert(targetIdx, movingSection);
+          } else {
+            l.sections!.insert(targetIdx + 1, movingSection);
+          }
+          ModelApi.saveModel(model: this);
         }
       }
     }
