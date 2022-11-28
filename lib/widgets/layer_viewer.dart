@@ -108,7 +108,6 @@ class LayerViewer extends ConsumerWidget {
             cols,
             maxCols - cols,
             settings,
-            isEditMode,
           );
 
           return SectionViewer(

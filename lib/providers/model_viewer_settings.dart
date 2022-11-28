@@ -8,6 +8,7 @@ part 'model_viewer_settings.g.dart';
 
 @CopyWith()
 class ModelViewSettings {
+  final Ref ref;
   final double componentLabelPadding;
   final double componentLabelWidth;
   final double componentBorderWidth;
@@ -37,6 +38,7 @@ class ModelViewSettings {
   final double elevation;
 
   ModelViewSettings({
+    required this.ref,
     this.layerMaxTotalColumns = 15,
     this.sectionMinColumns = 2,
     this.componentLabelWidth = 100,
@@ -76,8 +78,7 @@ class ModelViewSettings {
 
   double layerTotalLabelAreaWidth() => layerLabelWidth + layerSpacerWidth;
 
-  double _calculateRawSectionWidth(
-      Section section, int columnCount, bool isEditMode) {
+  double _calculateRawSectionWidth(Section section, int columnCount) {
     final w = ((componentTotalSideLength) * columnCount) +
         ((sectionBorderWidth) * 2) +
         (componentDropIndicatorWidth * 2);
@@ -93,13 +94,13 @@ class ModelViewSettings {
       16;
 
   double calculateAdjustedSectionWidth(
-      Model model,
-      Section section,
-      int columnCount,
-      int columnDiff,
-      ModelViewSettings settings,
-      bool isEditMode) {
-    final maxW = maxWidthOfSectionAreaOfAllLayersInModel(model, isEditMode);
+    Model model,
+    Section section,
+    int columnCount,
+    int columnDiff,
+    ModelViewSettings settings,
+  ) {
+    final maxW = maxWidthOfSectionAreaOfAllLayersInModel(model);
 
     final percent = (columnCount / settings.layerMaxTotalColumns);
 
@@ -116,7 +117,6 @@ class ModelViewSettings {
 
   double maxWidthOfSectionAreaOfAllLayersInModel(
     Model model,
-    bool isEditMode,
   ) {
     final maxW = model.layers!.map(
       (l) {
@@ -128,7 +128,6 @@ class ModelViewSettings {
             return w += _calculateRawSectionWidth(
               s,
               cc[s.id]!,
-              isEditMode,
             );
           },
         );
@@ -138,9 +137,9 @@ class ModelViewSettings {
     return (maxW).ceilToDouble();
   }
 
-  double getTotalWidth(model, isEditMode) =>
-      maxWidthOfSectionAreaOfAllLayersInModel(model, isEditMode) +
-      layerTotalLabelAreaWidth();
+  // double getTotalWidth(model, isEditMode) =>
+  //     maxWidthOfSectionAreaOfAllLayersInModel(model) +
+  //     layerTotalLabelAreaWidth();
 
   Map<String, int> calculateSectionColumnCountsForLayer(Layer layer) {
     final sections = layer.sections!;
@@ -187,4 +186,4 @@ class ModelViewerSettingsNotifier extends StateNotifier<ModelViewSettings> {
 
 final modelViewerSettingsProvider =
     StateNotifierProvider<ModelViewerSettingsNotifier, ModelViewSettings>(
-        (_) => ModelViewerSettingsNotifier(ModelViewSettings()));
+        (ref) => ModelViewerSettingsNotifier(ModelViewSettings(ref: ref)));

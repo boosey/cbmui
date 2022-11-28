@@ -51,6 +51,8 @@ abstract class _$ModelViewSettingsCWProxy {
 
   ModelViewSettings modelViewerPaddingWidth(double modelViewerPaddingWidth);
 
+  ModelViewSettings ref(Ref ref);
+
   ModelViewSettings sectionBorderColor(Color sectionBorderColor);
 
   ModelViewSettings sectionBorderWidth(double sectionBorderWidth);
@@ -92,6 +94,7 @@ abstract class _$ModelViewSettingsCWProxy {
     double? layerPaddingWidth,
     double? layerSpacerWidth,
     double? modelViewerPaddingWidth,
+    Ref? ref,
     Color? sectionBorderColor,
     double? sectionBorderWidth,
     Color? sectionColor,
@@ -192,6 +195,9 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
       this(modelViewerPaddingWidth: modelViewerPaddingWidth);
 
   @override
+  ModelViewSettings ref(Ref ref) => this(ref: ref);
+
+  @override
   ModelViewSettings sectionBorderColor(Color sectionBorderColor) =>
       this(sectionBorderColor: sectionBorderColor);
 
@@ -248,6 +254,7 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
     Object? layerPaddingWidth = const $CopyWithPlaceholder(),
     Object? layerSpacerWidth = const $CopyWithPlaceholder(),
     Object? modelViewerPaddingWidth = const $CopyWithPlaceholder(),
+    Object? ref = const $CopyWithPlaceholder(),
     Object? sectionBorderColor = const $CopyWithPlaceholder(),
     Object? sectionBorderWidth = const $CopyWithPlaceholder(),
     Object? sectionColor = const $CopyWithPlaceholder(),
@@ -369,6 +376,10 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
               ? _value.modelViewerPaddingWidth
               // ignore: cast_nullable_to_non_nullable
               : modelViewerPaddingWidth as double,
+      ref: ref == const $CopyWithPlaceholder() || ref == null
+          ? _value.ref
+          // ignore: cast_nullable_to_non_nullable
+          : ref as Ref,
       sectionBorderColor: sectionBorderColor == const $CopyWithPlaceholder() ||
               sectionBorderColor == null
           ? _value.sectionBorderColor

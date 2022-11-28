@@ -3,7 +3,7 @@ import 'package:cbmui/providers/model_viewer_settings.dart';
 
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/mode_selector.dart';
-import 'package:cbmui/widgets/zoom.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -51,7 +51,7 @@ class ModelViewer extends ConsumerWidget {
                   children: [
                     backButton(ref, context),
                     modelNameLabel,
-                    const Zoom(),
+                    // const Zoom(),
                     const SizedBox(
                       width: 20,
                       height: 1,

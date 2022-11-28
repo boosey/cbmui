@@ -2,6 +2,7 @@ import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/util.dart';
 import 'package:cbmui/widgets/model_thumbnail.dart';
 import 'package:cbmui/widgets/model_viewer.dart';
+import 'package:cbmui/widgets/thimbnail_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/component_business_model.dart';
@@ -52,46 +53,44 @@ class ModelList extends ConsumerWidget {
                             builder: (context) => ModelViewer(mid: m.mid)),
                       );
                     },
-                    child: DeletableOrMoveable(
-                      onDeleteRequested: () async {
-                        await ModelApi.deleteModel(id: m.mid);
-                      },
-                      deleteModeProvider: isModelListEditModeProvider,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Card(
-                          elevation: settings.elevation,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: ConstrainedBox(
-                                  constraints: const BoxConstraints(
-                                      minWidth: 200,
-                                      minHeight: 200,
-                                      maxWidth: 500,
-                                      maxHeight: 500),
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: ModelThumbnail(
-                                      model: m,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Card(
+                        elevation: settings.elevation,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: SizedBox(
+                                width: 400,
+                                height: 200,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ThumbnailMenu(model: m),
+                                    Expanded(
+                                      child: FittedBox(
+                                        fit: BoxFit.contain,
+                                        child: ModelThumbnail(
+                                          model: m,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  m.name,
-                                  style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w500),
-                                ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                m.name,
+                                style: const TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.w500),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
