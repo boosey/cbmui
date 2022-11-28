@@ -92,8 +92,7 @@ class LayerViewer extends ConsumerWidget {
   }
 
   Widget sections(Layer layer, ModelViewSettings settings, bool isEditMode) {
-    final columnCounts =
-        settings.calculateSectionColumnCountsForLayer(layer, settings);
+    final columnCounts = settings.calculateSectionColumnCountsForLayer(layer);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -118,6 +117,7 @@ class LayerViewer extends ConsumerWidget {
             layer: layer,
             columnCount: columnCounts[s.id]!,
             width: sectionWidth,
+            displayLabel: layer.sections!.length > 1,
           );
         },
       ).toList(),

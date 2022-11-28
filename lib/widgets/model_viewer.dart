@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/component_business_model.dart';
 import '../providers/mode_provider.dart';
+import '../providers/zoom_provider.dart';
 import '../util.dart';
 import 'analyze_model.dart';
 import 'label_widget.dart';
@@ -28,7 +29,7 @@ class ModelViewer extends ConsumerWidget {
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
     final settings = ref.watch(modelViewerSettingsProvider);
     final model = ref.watch(modelProvider(mid));
-    // final totalWidth = ref.watch(totalWidthProvider(mid));
+    final totalWidth = ref.watch(totalWidthProvider(mid));
 
     var modelNameLabel = Expanded(
       child: LabelWidget(

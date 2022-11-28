@@ -72,14 +72,13 @@ class ModelViewSettings {
     return w;
   }
 
-  double layerTotalLabelAreaWidth(ModelViewSettings settings) =>
-      settings.layerLabelWidth + settings.layerSpacerWidth;
+  double layerTotalLabelAreaWidth() => layerLabelWidth + layerSpacerWidth;
 
-  double _calculateRawSectionWidth(Section section, int columnCount,
-      ModelViewSettings settings, bool isEditMode) {
-    final w = ((settings.componentTotalSideLength) * columnCount) +
-        ((settings.sectionBorderWidth) * 2) +
-        (settings.componentDropIndicatorWidth * 2);
+  double _calculateRawSectionWidth(
+      Section section, int columnCount, bool isEditMode) {
+    final w = ((componentTotalSideLength) * columnCount) +
+        ((sectionBorderWidth) * 2) +
+        (componentDropIndicatorWidth * 2);
 
     return w;
   }
@@ -98,8 +97,7 @@ class ModelViewSettings {
       int columnDiff,
       ModelViewSettings settings,
       bool isEditMode) {
-    final maxW =
-        maxWidthOfSectionAreaOfAllLayersInModel(model, settings, isEditMode);
+    final maxW = maxWidthOfSectionAreaOfAllLayersInModel(model, isEditMode);
 
     final percent = (columnCount / settings.layerMaxTotalColumns);
 
@@ -116,12 +114,11 @@ class ModelViewSettings {
 
   double maxWidthOfSectionAreaOfAllLayersInModel(
     Model model,
-    ModelViewSettings settings,
     bool isEditMode,
   ) {
     final maxW = model.layers!.map(
       (l) {
-        final cc = calculateSectionColumnCountsForLayer(l, settings);
+        final cc = calculateSectionColumnCountsForLayer(l);
 
         return l.sections!.fold(
           0.0,
@@ -129,7 +126,6 @@ class ModelViewSettings {
             return w += _calculateRawSectionWidth(
               s,
               cc[s.id]!,
-              settings,
               isEditMode,
             );
           },
@@ -140,16 +136,19 @@ class ModelViewSettings {
     return (maxW).ceilToDouble();
   }
 
-  Map<String, int> calculateSectionColumnCountsForLayer(
-      Layer layer, ModelViewSettings settings) {
+  double getTotalWidth(model, isEditMode) =>
+      maxWidthOfSectionAreaOfAllLayersInModel(model, isEditMode) +
+      layerTotalLabelAreaWidth();
+
+  Map<String, int> calculateSectionColumnCountsForLayer(Layer layer) {
     final sections = layer.sections!;
     final columnCounts = <String, int>{};
 
-    int columnsRemaining = settings.layerMaxTotalColumns -
-        sections.length * settings.sectionMinColumns;
+    int columnsRemaining =
+        layerMaxTotalColumns - sections.length * sectionMinColumns;
 
     for (var s in sections) {
-      columnCounts.putIfAbsent(s.id, () => settings.sectionMinColumns);
+      columnCounts.putIfAbsent(s.id, () => sectionMinColumns);
     }
 
     while (columnsRemaining > 0) {
