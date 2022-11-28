@@ -1,6 +1,6 @@
 import 'package:cbmui/providers/model_provider.dart';
 import 'package:cbmui/providers/model_viewer_settings.dart';
-// import 'package:cbmui/providers/zoom_provider.dart';
+
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/mode_selector.dart';
 import 'package:cbmui/widgets/zoom.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/component_business_model.dart';
 import '../providers/mode_provider.dart';
-import '../providers/zoom_provider.dart';
+
 import '../util.dart';
 import 'analyze_model.dart';
 import 'label_widget.dart';
@@ -29,7 +29,6 @@ class ModelViewer extends ConsumerWidget {
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
     final settings = ref.watch(modelViewerSettingsProvider);
     final model = ref.watch(modelProvider(mid));
-    final totalWidth = ref.watch(totalWidthProvider(mid));
 
     var modelNameLabel = Expanded(
       child: LabelWidget(
@@ -75,8 +74,6 @@ class ModelViewer extends ConsumerWidget {
                       isAnalyzeMode: isAnalyzeMode,
                       settings: settings,
                       isEditMode: isEditMode,
-                      totalWidth: 0,
-                      // totalWidth: totalWidth,
                     ),
                   ),
                 ),
@@ -90,7 +87,6 @@ class ModelViewer extends ConsumerWidget {
     required bool isAnalyzeMode,
     required ModelViewSettings settings,
     required bool isEditMode,
-    required double totalWidth,
   }) {
     return isAnalyzeMode
         ? ModelAnalyzer(model: model)
@@ -99,34 +95,40 @@ class ModelViewer extends ConsumerWidget {
               controller: ScrollController(),
               scrollDirection: Axis.vertical,
               child: ConstrainedBox(
-                constraints:
-                    BoxConstraints(minHeight: viewportConstraints.maxHeight),
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
                 child: IntrinsicHeight(
                   child: Padding(
                     padding: EdgeInsets.all(settings.modelViewerPaddingWidth),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          // ignore: sized_box_for_whitespace
-                          child: Container(
-                            width: 10,
-                            height: 1,
+                    child: InteractiveViewer(
+                      boundaryMargin: const EdgeInsets.all(double.infinity),
+                      minScale: 0.5,
+                      maxScale: 3.0,
+                      constrained: true,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            // ignore: sized_box_for_whitespace
+                            child: Container(
+                              width: 10,
+                              height: 1,
+                            ),
                           ),
-                        ),
-                        ...model.layers!.map(
-                          (l) {
-                            return layerViewer(
-                              l,
-                              model,
-                              settings,
-                              isEditMode,
-                              totalWidth,
-                            );
-                          },
-                        ).toList(),
-                      ],
+                          ...model.layers!.map(
+                            (l) {
+                              return layerViewer(
+                                l,
+                                model,
+                                settings,
+                                isEditMode,
+                              );
+                            },
+                          ).toList(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -135,8 +137,8 @@ class ModelViewer extends ConsumerWidget {
           );
   }
 
-  Widget layerViewer(Layer l, Model model, ModelViewSettings settings,
-      bool isEditMode, double totalWidth) {
+  Widget layerViewer(
+      Layer l, Model model, ModelViewSettings settings, bool isEditMode) {
     return LayerViewer(
       key: ValueKey("layerviewer${l.id}"),
       layer: l,
