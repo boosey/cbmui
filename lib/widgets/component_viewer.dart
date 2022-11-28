@@ -87,30 +87,23 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
             height: settings.componentBaseSideLength,
             child: Card(
               elevation: settings.elevation,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: isRated
-                        ? settings.componentIsRatedBorderColor
-                        : settings.componentDefaultBorderColor,
-                    width: settings.componentBorderWidth,
-                  ),
-                ),
-                child: Center(
-                  child: LabelWidget(
-                    label: c.name,
-                    width: settings.componentLabelWidth,
-                    fontSize: settings.componentLabelFontSize,
-                    fontWeight: settings.componentLabelFontWeight,
-                    alignment: TextAlign.center,
-                    maxlines: 4,
-                    onChanged: (s) async {
-                      c.name = s;
-                      await ModelApi.saveModel(
-                        model: widget.model,
-                      );
-                    },
-                  ),
+              color: isRated
+                  ? settings.componentIsRatedColor
+                  : settings.componentColor,
+              child: Center(
+                child: LabelWidget(
+                  label: c.name,
+                  width: settings.componentLabelWidth,
+                  fontSize: settings.componentLabelFontSize,
+                  fontWeight: settings.componentLabelFontWeight,
+                  alignment: TextAlign.center,
+                  maxlines: 4,
+                  onChanged: (s) async {
+                    c.name = s;
+                    await ModelApi.saveModel(
+                      model: widget.model,
+                    );
+                  },
                 ),
               ),
             ),

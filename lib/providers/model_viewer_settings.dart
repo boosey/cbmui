@@ -14,6 +14,7 @@ class ModelViewSettings {
   final Color componentIsRatedBorderColor;
   final Color componentDefaultBorderColor;
   final Color componentColor;
+  final Color componentIsRatedColor;
   final double componentLabelFontSize;
   final FontWeight componentLabelFontWeight;
   final int componentLabelMaxLines;
@@ -36,15 +37,16 @@ class ModelViewSettings {
   final double elevation;
 
   ModelViewSettings({
-    this.layerMaxTotalColumns = 12,
-    this.sectionMinColumns = 1,
+    this.layerMaxTotalColumns = 15,
+    this.sectionMinColumns = 2,
     this.componentLabelWidth = 100,
     this.componentLabelPadding = 2,
     this.componentBorderWidth = 2,
     this.componentDropIndicatorWidth = 8,
-    this.componentIsRatedBorderColor = Colors.green,
+    this.componentIsRatedBorderColor = Colors.transparent,
     this.componentDefaultBorderColor = Colors.transparent,
     this.componentColor = Colors.white,
+    this.componentIsRatedColor = Colors.lightBlueAccent,
     this.componentLabelFontSize = 14,
     this.componentLabelFontWeight = FontWeight.normal,
     this.componentLabelMaxLines = 3,

@@ -20,6 +20,8 @@ abstract class _$ModelViewSettingsCWProxy {
   ModelViewSettings componentIsRatedBorderColor(
       Color componentIsRatedBorderColor);
 
+  ModelViewSettings componentIsRatedColor(Color componentIsRatedColor);
+
   ModelViewSettings componentLabelFontSize(double componentLabelFontSize);
 
   ModelViewSettings componentLabelFontWeight(
@@ -75,6 +77,7 @@ abstract class _$ModelViewSettingsCWProxy {
     Color? componentDefaultBorderColor,
     double? componentDropIndicatorWidth,
     Color? componentIsRatedBorderColor,
+    Color? componentIsRatedColor,
     double? componentLabelFontSize,
     FontWeight? componentLabelFontWeight,
     int? componentLabelMaxLines,
@@ -127,6 +130,10 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
   ModelViewSettings componentIsRatedBorderColor(
           Color componentIsRatedBorderColor) =>
       this(componentIsRatedBorderColor: componentIsRatedBorderColor);
+
+  @override
+  ModelViewSettings componentIsRatedColor(Color componentIsRatedColor) =>
+      this(componentIsRatedColor: componentIsRatedColor);
 
   @override
   ModelViewSettings componentLabelFontSize(double componentLabelFontSize) =>
@@ -226,6 +233,7 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
     Object? componentDefaultBorderColor = const $CopyWithPlaceholder(),
     Object? componentDropIndicatorWidth = const $CopyWithPlaceholder(),
     Object? componentIsRatedBorderColor = const $CopyWithPlaceholder(),
+    Object? componentIsRatedColor = const $CopyWithPlaceholder(),
     Object? componentLabelFontSize = const $CopyWithPlaceholder(),
     Object? componentLabelFontWeight = const $CopyWithPlaceholder(),
     Object? componentLabelMaxLines = const $CopyWithPlaceholder(),
@@ -278,6 +286,12 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
               ? _value.componentIsRatedBorderColor
               // ignore: cast_nullable_to_non_nullable
               : componentIsRatedBorderColor as Color,
+      componentIsRatedColor:
+          componentIsRatedColor == const $CopyWithPlaceholder() ||
+                  componentIsRatedColor == null
+              ? _value.componentIsRatedColor
+              // ignore: cast_nullable_to_non_nullable
+              : componentIsRatedColor as Color,
       componentLabelFontSize:
           componentLabelFontSize == const $CopyWithPlaceholder() ||
                   componentLabelFontSize == null
