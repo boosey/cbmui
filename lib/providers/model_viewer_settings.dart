@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_data/flutter_data.dart';
@@ -139,7 +137,6 @@ class ModelViewSettings {
       },
     ).fold(0.0, (max, x) => x > max ? x : max);
 
-    log("maxW: $maxW");
     return (maxW).ceilToDouble();
   }
 

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cbmui/models/component_business_model.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +30,6 @@ class StrategicWidget extends StatelessWidget {
         ),
         ToggleButtons(
           onPressed: (index) async {
-            log("index: $index");
             component.strategic = index + 1;
             // if (component.relationship > 0) {
             await ModelApi.saveModel(model: model);

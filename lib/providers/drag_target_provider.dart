@@ -4,6 +4,8 @@ enum DragTargetSide {
   left,
   right,
   none,
+  top,
+  bottom,
 }
 
 class ComponentDragTargetNotifier extends StateNotifier<DragTargetSide> {
@@ -12,6 +14,8 @@ class ComponentDragTargetNotifier extends StateNotifier<DragTargetSide> {
   void left() => state = DragTargetSide.left;
   void right() => state = DragTargetSide.right;
   void none() => state = DragTargetSide.none;
+  void top() => state = DragTargetSide.top;
+  void bottom() => state = DragTargetSide.bottom;
 }
 
 final dragTargetProvider = StateNotifierProviderFamily<

@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'dart:developer' as dev;
+
 import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/deletable.dart';
@@ -89,7 +89,7 @@ class SectionViewer extends ConsumerWidget {
         // ),
       ),
     );
-    dev.log("section W: $width");
+
     return mainWidget;
   }
 

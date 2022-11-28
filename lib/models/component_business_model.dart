@@ -109,6 +109,33 @@ class Model extends DataModel<Model> {
       }
     }
   }
+
+  void moveLayer(
+    String movingLid,
+    String before,
+    String after,
+  ) {
+    late Layer movingLayer;
+
+    if (before.isNotEmpty || after.isNotEmpty) {
+      try {
+        movingLayer = layers!.firstWhere((l) => l.id == movingLid);
+        layers!.removeWhere((c) => c.id == movingLid);
+        // ignore: empty_catches
+      } catch (e) {}
+
+      final targetIdx = layers!
+          .indexWhere((l) => l.id == (before.isNotEmpty ? before : after));
+      if (!targetIdx.isNegative) {
+        if (before.isNotEmpty) {
+          layers!.insert(targetIdx, movingLayer);
+        } else {
+          layers!.insert(targetIdx + 1, movingLayer);
+        }
+        ModelApi.saveModel(model: this);
+      }
+    }
+  }
 }
 
 @JsonSerializable(includeIfNull: false, explicitToJson: true)

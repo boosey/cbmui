@@ -114,7 +114,7 @@ class ModelViewer extends ConsumerWidget {
                             height: 1,
                           ),
                         ),
-                        ...model.layers!.reversed.map(
+                        ...model.layers!.map(
                           (l) {
                             return layerViewer(
                               l,
