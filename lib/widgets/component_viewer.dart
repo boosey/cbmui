@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:cbmui/providers/model_viewer_settings.dart';
-import 'package:cbmui/widgets/deletable.dart';
+
+import 'package:cbmui/widgets/edit_buttons.dart';
 import 'package:cbmui/widgets/horizontal_drop_zone.dart';
 import 'package:cbmui/widgets/relationship_widget.dart';
 import 'package:cbmui/widgets/strategic_widget.dart';
@@ -63,49 +64,53 @@ class _ComponentViewerState extends ConsumerState<ComponentViewer> {
     final c = widget.component;
     final isRated = c.strategic > 0 && c.relationship > 0;
 
-    return DeletableOrMoveable(
-      onDeleteRequested: () async {
-        widget.section.components!.removeWhere((t) => c.id == t.id);
-        await ModelApi.saveModel(
-          model: widget.model,
-        );
+    return GestureDetector(
+      onTap: () async {
+        if (ref.read(isModelViewerViewModeProvider)) {
+          await _ratingDialog(context);
+        }
       },
-      child: GestureDetector(
-        onTap: () async {
-          if (ref.read(isModelViewerViewModeProvider)) {
-            await _ratingDialog(context);
-          }
-        },
-        child: HorizontalDoubleDropZone2(
-          model: widget.model,
-          id: widget.component.id,
-          type: "component",
-          indicatorWidth: settings.componentDropIndicatorWidth,
-          onDrop: widget.model.moveComponent,
-          child: SizedBox(
-            width: settings.componentBaseSideLength,
-            height: settings.componentBaseSideLength,
-            child: Card(
-              elevation: settings.elevation,
-              color: isRated
-                  ? settings.componentIsRatedColor
-                  : settings.componentColor,
-              child: Center(
-                child: LabelWidget(
-                  label: c.name,
-                  width: settings.componentLabelWidth,
-                  fontSize: settings.componentLabelFontSize,
-                  fontWeight: settings.componentLabelFontWeight,
-                  alignment: TextAlign.center,
-                  maxlines: 4,
-                  onChanged: (s) async {
-                    c.name = s;
+      child: HorizontalDoubleDropZone2(
+        model: widget.model,
+        id: widget.component.id,
+        type: "component",
+        indicatorWidth: settings.componentDropIndicatorWidth,
+        onDrop: widget.model.moveComponent,
+        child: SizedBox(
+          width: settings.componentBaseSideLength,
+          height: settings.componentBaseSideLength,
+          child: Card(
+            elevation: settings.elevation,
+            color: isRated
+                ? settings.componentIsRatedColor
+                : settings.componentColor,
+            child: Stack(
+              children: [
+                Center(
+                  child: LabelWidget(
+                    label: c.name,
+                    width: settings.componentLabelWidth,
+                    fontSize: settings.componentLabelFontSize,
+                    fontWeight: settings.componentLabelFontWeight,
+                    alignment: TextAlign.center,
+                    maxlines: 4,
+                    onChanged: (s) async {
+                      c.name = s;
+                      await ModelApi.saveModel(
+                        model: widget.model,
+                      );
+                    },
+                  ),
+                ),
+                EditButtons(
+                  onDelete: () async {
+                    widget.section.components!.removeWhere((t) => c.id == t.id);
                     await ModelApi.saveModel(
                       model: widget.model,
                     );
                   },
-                ),
-              ),
+                )
+              ],
             ),
           ),
         ),

@@ -6,8 +6,6 @@ import 'package:cbmui/widgets/thimbnail_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/component_business_model.dart';
-import '../providers/mode_provider.dart';
-import 'deletable.dart';
 
 class ModelList extends ConsumerWidget {
   const ModelList({Key? key, required this.models}) : super(key: key);

@@ -4,7 +4,8 @@ import 'dart:math';
 import 'package:cbmui/providers/mode_provider.dart';
 import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
-import 'package:cbmui/widgets/deletable.dart';
+
+import 'package:cbmui/widgets/edit_buttons.dart';
 import 'package:cbmui/widgets/label_widget.dart';
 import 'package:cbmui/widgets/section_viewer.dart';
 import 'package:cbmui/widgets/vertical_drop_zone.dart';
@@ -42,50 +43,54 @@ class LayerViewer extends ConsumerWidget {
       },
     );
 
-    return DeletableOrMoveable(
-      onDeleteRequested: () async {
-        model.layers!.removeWhere((l) => layer.id == l.id);
-        await ModelApi.saveModel(
-          model: model,
-        );
-      },
-      child: VerticalDoubleDropZone(
-        id: layer.id,
-        type: "layer",
-        model: model,
-        onDrop: ((p0, p1, p2) {
-          dev.log("before: $p1  after: $p2");
-          model.moveLayer(p0, p1, p2);
-        }),
-        indicatorWidth: settings.componentDropIndicatorWidth,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(
-              0, settings.layerPaddingWidth, 0, settings.layerPaddingWidth),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              label,
-              SizedBox(
-                width: settings.layerSpacerWidth,
-                height: 1,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CreateButton(
-                    label: "Section",
-                    onChanged: () async {
-                      await ModelApi.createSection(model: model, layer: layer);
-                      return;
-                    },
-                  ),
-                  sections(layer, settings, isEditMode),
-                ],
-              ),
-            ],
-          ),
+    return VerticalDoubleDropZone(
+      id: layer.id,
+      type: "layer",
+      model: model,
+      onDrop: ((p0, p1, p2) {
+        dev.log("before: $p1  after: $p2");
+        model.moveLayer(p0, p1, p2);
+      }),
+      indicatorWidth: settings.componentDropIndicatorWidth,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+            0, settings.layerPaddingWidth, 0, settings.layerPaddingWidth),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            EditButtons(onDelete: () async {
+              model.layers!.removeWhere((l) => layer.id == l.id);
+              await ModelApi.saveModel(
+                model: model,
+              );
+            }),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                label,
+                SizedBox(
+                  width: settings.layerSpacerWidth,
+                  height: 1,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CreateButton(
+                      label: "Section",
+                      onChanged: () async {
+                        await ModelApi.createSection(
+                            model: model, layer: layer);
+                        return;
+                      },
+                    ),
+                    sections(layer, settings, isEditMode),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

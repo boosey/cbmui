@@ -19,11 +19,9 @@ class ModeSelector extends ConsumerWidget {
             break;
           case 2:
             ref.read(modelViewerModeProvider.notifier).delete();
+
             break;
           case 3:
-            ref.read(modelViewerModeProvider.notifier).move();
-            break;
-          case 4:
             ref.read(modelViewerModeProvider.notifier).analyze();
             break;
           default:
@@ -33,14 +31,12 @@ class ModeSelector extends ConsumerWidget {
         mode == Mode.view,
         mode == Mode.edit,
         mode == Mode.delete,
-        mode == Mode.move,
         mode == Mode.analyze,
       ],
       children: const [
         Icon(Icons.remove_red_eye_outlined),
         Icon(Icons.edit_outlined),
         Icon(Icons.delete_outline),
-        Icon(Icons.double_arrow_outlined),
         Icon(Icons.analytics_outlined),
       ],
     );

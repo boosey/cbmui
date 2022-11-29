@@ -5,7 +5,6 @@ enum Mode {
   view,
   analyze,
   delete,
-  move,
 }
 
 class ModeNotifier extends StateNotifier<Mode> {
@@ -13,7 +12,6 @@ class ModeNotifier extends StateNotifier<Mode> {
 
   void edit() => state = Mode.edit;
   void delete() => state = Mode.delete;
-  void move() => state = Mode.move;
   void view() => state = Mode.view;
   void analyze() => state = Mode.analyze;
 }
@@ -32,8 +30,3 @@ final isModelViewerAnalyzeModeProvider =
 
 final isModelViewerDeleteModeProvider =
     Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.delete);
-
-final isModelViewerMoveModeProvider =
-    Provider((ref) => ref.watch(modelViewerModeProvider) == Mode.move);
-
-final isModelListEditModeProvider = Provider((ref) => true);

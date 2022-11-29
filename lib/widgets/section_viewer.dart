@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:cbmui/providers/model_viewer_settings.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
-import 'package:cbmui/widgets/deletable.dart';
+
+import 'package:cbmui/widgets/edit_buttons.dart';
 import 'package:cbmui/widgets/horizontal_drop_zone.dart';
 import 'package:cbmui/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
@@ -67,26 +68,28 @@ class SectionViewer extends ConsumerWidget {
       model: model,
       type: 'section',
       onDrop: model.moveSection,
-      child: DeletableOrMoveable(
-        onDeleteRequested: () async {
-          layer.sections!.removeWhere((s) => section.id == s.id);
-          await ModelApi.saveModel(
-            model: model,
-          );
-        },
-        child:
-            // Padding(
-            //   padding: EdgeInsets.all(settings.sectionPaddingWidth),
-            //   child:
-            Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            label,
-            sectionContent(componentsWidgets, settings),
-          ],
-        ),
-        // ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SizedBox(
+            width: width,
+            child: Row(
+              children: [
+                EditButtons(
+                  onDelete: () async {
+                    layer.sections!.removeWhere((s) => section.id == s.id);
+                    await ModelApi.saveModel(
+                      model: model,
+                    );
+                  },
+                ),
+                Expanded(child: label),
+              ],
+            ),
+          ),
+          sectionContent(componentsWidgets, settings),
+        ],
       ),
     );
 

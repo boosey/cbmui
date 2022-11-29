@@ -1,3 +1,4 @@
+import 'package:cbmui/util.dart';
 import 'package:flutter/material.dart';
 
 import '../models/component_business_model.dart';
@@ -32,6 +33,9 @@ class ThumbnailMenu extends StatelessWidget {
           case _TMItem.copy:
             break;
           case _TMItem.delete:
+            () async {
+              await ModelApi.deleteModel(id: model.mid);
+            }.call();
             break;
           default:
         }
@@ -46,7 +50,7 @@ class ThumbnailMenu extends StatelessWidget {
           child: Text("Copy"),
         ),
         const PopupMenuItem<_TMItem>(
-          value: _TMItem.open,
+          value: _TMItem.delete,
           child: Text("Delete"),
         ),
       ],
