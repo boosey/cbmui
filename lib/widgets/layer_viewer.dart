@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/component_business_model.dart';
+import '../providers/model_calculations.dart';
 import '../util.dart';
 
 class LayerViewer extends ConsumerWidget {
@@ -29,6 +30,12 @@ class LayerViewer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(modelViewerSettingsProvider);
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
+
+    final info = ref
+        .watch(modelCalculationsProvider(model.mid))
+        .calculateTotalSectionColumnCountsForLayer(layer);
+    final fromSettings = settings.calculateSectionColumnCountsForLayer(layer);
+    assert(info.values.first == fromSettings.values.first);
 
     var label = LabelWidget(
       label: layer.name,

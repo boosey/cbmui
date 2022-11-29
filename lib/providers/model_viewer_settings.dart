@@ -137,10 +137,6 @@ class ModelViewSettings {
     return (maxW).ceilToDouble();
   }
 
-  // double getTotalWidth(model, isEditMode) =>
-  //     maxWidthOfSectionAreaOfAllLayersInModel(model) +
-  //     layerTotalLabelAreaWidth();
-
   Map<String, int> calculateSectionColumnCountsForLayer(Layer layer) {
     final sections = layer.sections!;
     final columnCounts = <String, int>{};
