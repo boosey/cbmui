@@ -23,14 +23,14 @@ class EditButtons extends ConsumerWidget {
         padding: padding,
         child: Row(
           children: [
-            GestureDetector(
+            InkResponse(
               onTap: onDelete ?? () {},
               child: const Icon(
                 Icons.delete_outlined,
                 size: 20,
               ),
             ),
-            GestureDetector(
+            InkResponse(
               onTap: onCopy ?? () {},
               child: const Icon(
                 Icons.copy_outlined,
