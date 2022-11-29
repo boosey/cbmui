@@ -1,7 +1,7 @@
 import 'package:cbmui/models/component_business_model.dart';
 import 'package:flutter/material.dart';
 
-import '../util.dart';
+import '../api/model_api.dart';
 
 class RelationshipWidget extends StatelessWidget {
   const RelationshipWidget(
@@ -13,7 +13,7 @@ class RelationshipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final component = findComponent(componentId, model);
+    final component = model.findComponent(componentId, model);
 
     return Column(
       children: [

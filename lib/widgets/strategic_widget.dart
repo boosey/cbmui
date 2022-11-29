@@ -1,7 +1,7 @@
 import 'package:cbmui/models/component_business_model.dart';
 import 'package:flutter/material.dart';
 
-import '../util.dart';
+import '../api/model_api.dart';
 
 class StrategicWidget extends StatelessWidget {
   const StrategicWidget(
@@ -13,7 +13,7 @@ class StrategicWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Component component = findComponent(componentId, model);
+    final Component component = model.findComponent(componentId, model);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

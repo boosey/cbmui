@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:cbmui/providers/model_provider.dart';
-import 'package:cbmui/providers/model_viewer_settings.dart';
+import 'package:cbmui/providers/view_settings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/component_business_model.dart';
 
 class ModelInfo {
   final Model model;
-  final ModelViewSettings settings;
+  final ViewSettings settings;
   final Map<String, Map<String, int>> layersSectionColumnCounts = {};
   final Map<String, Map<String, double>> rawSectionWidths = {};
   final Map<String, Map<String, double>> adjustedSectionWidths = {};
@@ -143,10 +143,10 @@ class ModelInfo {
   }
 }
 
-final modelCalculationsProvider = Provider.family<ModelInfo, String>(
+final modelInfoProvider = Provider.family<ModelInfo, String>(
   (ref, mid) {
     final model = ref.watch(modelProvider(mid));
-    final settings = ref.watch(modelViewerSettingsProvider);
+    final settings = ref.watch(viewSettingsProvider);
 
     return ModelInfo(model: model, settings: settings);
   },

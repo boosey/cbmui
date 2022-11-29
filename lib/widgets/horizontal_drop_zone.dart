@@ -8,8 +8,8 @@ import '../providers/drag_target_provider.dart';
 
 typedef MoveObjectFunction = void Function(String, String, String);
 
-class HorizontalDoubleDropZone2 extends ConsumerWidget {
-  const HorizontalDoubleDropZone2({
+class HorizontalDoubleDropZone extends ConsumerWidget {
+  const HorizontalDoubleDropZone({
     this.direction = Axis.horizontal,
     required this.indicatorWidth,
     this.indicatorColor = Colors.black,

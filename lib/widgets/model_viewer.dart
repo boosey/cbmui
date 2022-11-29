@@ -1,5 +1,6 @@
-import 'package:cbmui/providers/model_provider.dart';
-import 'package:cbmui/providers/model_viewer_settings.dart';
+import 'package:cbmui/providers/model_info_provider.dart';
+
+import 'package:cbmui/providers/view_settings.dart';
 
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/mode_selector.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/component_business_model.dart';
 import '../providers/mode_provider.dart';
 
-import '../util.dart';
+import '../api/model_api.dart';
 import 'analyze_model.dart';
 import 'label_widget.dart';
 import 'layer_viewer.dart';
@@ -27,8 +28,9 @@ class ModelViewer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isAnalyzeMode = ref.watch(isModelViewerAnalyzeModeProvider);
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
-    final settings = ref.watch(modelViewerSettingsProvider);
-    final model = ref.watch(modelProvider(mid));
+    final modelInfo = ref.watch(modelInfoProvider(mid));
+    final model = modelInfo.model;
+    final settings = modelInfo.settings;
 
     var modelNameLabel = Expanded(
       child: LabelWidget(
@@ -85,7 +87,7 @@ class ModelViewer extends ConsumerWidget {
   Widget view({
     required Model model,
     required bool isAnalyzeMode,
-    required ModelViewSettings settings,
+    required ViewSettings settings,
     required bool isEditMode,
   }) {
     return isAnalyzeMode
@@ -138,11 +140,11 @@ class ModelViewer extends ConsumerWidget {
   }
 
   Widget layerViewer(
-      Layer l, Model model, ModelViewSettings settings, bool isEditMode) {
+      Layer l, Model model, ViewSettings settings, bool isEditMode) {
     return LayerViewer(
       key: ValueKey("layerviewer${l.id}"),
-      layer: l,
-      model: model,
+      lid: l.id,
+      mid: model.mid,
     );
   }
 

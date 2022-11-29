@@ -1,6 +1,7 @@
 import 'dart:math';
 
-import 'package:cbmui/providers/model_viewer_settings.dart';
+import 'package:cbmui/providers/model_info_provider.dart';
+import 'package:cbmui/providers/view_settings.dart';
 import 'package:cbmui/widgets/create_object_button.dart';
 
 import 'package:cbmui/widgets/edit_buttons.dart';
@@ -8,41 +9,44 @@ import 'package:cbmui/widgets/horizontal_drop_zone.dart';
 import 'package:cbmui/widgets/label_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/component_business_model.dart';
-import '../util.dart';
+import '../api/model_api.dart';
 import 'component_viewer.dart';
 
 class SectionViewer extends ConsumerWidget {
   const SectionViewer({
     super.key,
-    required this.section,
+    required this.sid,
     this.displayLabel = false,
-    required this.model,
-    required this.layer,
+    required this.mid,
+    required this.lid,
     required this.columnCount,
     required this.width,
   });
 
-  final Section section;
-  final bool displayLabel;
-  final Model model;
-  final Layer layer;
+  final String sid;
+  final String mid;
+  final String lid;
   final int columnCount;
   final double width;
+  final bool displayLabel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Widget mainWidget;
 
-    final settings = ref.watch(modelViewerSettingsProvider);
+    final modelInfo = ref.watch(modelInfoProvider(mid));
+    final model = modelInfo.model;
+    final layer = model.findLayer(lid);
+    final section = layer.findSection(sid);
+    final settings = modelInfo.settings;
 
     final componentsWidgets = section.components!
         .map(
           (c) => ComponentViewer(
             component: c,
-            section: section,
-            layer: layer,
-            model: model,
+            sid: section.id,
+            lid: layer.id,
+            mid: model.mid,
           ),
         )
         .toList();
@@ -62,7 +66,57 @@ class SectionViewer extends ConsumerWidget {
       ),
     );
 
-    mainWidget = HorizontalDoubleDropZone2(
+    Widget sectionContent(
+        List<Widget> componentsWidgets, ViewSettings settings) {
+      List<Row> rows = [];
+
+      for (var i = 0; i < componentsWidgets.length; i += columnCount) {
+        final take = min(i + columnCount, componentsWidgets.length);
+        final List<Widget> cWidgets = componentsWidgets.sublist(i, take);
+        late List<Widget> allWidgets;
+        if (take == componentsWidgets.length) {
+          allWidgets = [
+            ...cWidgets,
+          ];
+        } else {
+          allWidgets = cWidgets;
+        }
+
+        rows.add(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: allWidgets,
+          ),
+        );
+      }
+
+      return SizedBox(
+        width: settings.calculateBaseSectionWidth(width, settings),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(
+            width: settings.sectionBorderWidth,
+            color: settings.sectionBorderColor,
+          )),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CreateButton(
+                label: "Component",
+                onChanged: () async => await ModelApi.createComponent(
+                  model: model,
+                  layer: layer,
+                  section: section,
+                ),
+              ),
+              ...rows,
+            ],
+          ),
+        ),
+      );
+    }
+
+    mainWidget = HorizontalDoubleDropZone(
       id: section.id,
       indicatorWidth: settings.componentDropIndicatorWidth,
       model: model,
@@ -94,55 +148,5 @@ class SectionViewer extends ConsumerWidget {
     );
 
     return mainWidget;
-  }
-
-  Widget sectionContent(
-      List<Widget> componentsWidgets, ModelViewSettings settings) {
-    List<Row> rows = [];
-
-    for (var i = 0; i < componentsWidgets.length; i += columnCount) {
-      final take = min(i + columnCount, componentsWidgets.length);
-      final List<Widget> cWidgets = componentsWidgets.sublist(i, take);
-      late List<Widget> allWidgets;
-      if (take == componentsWidgets.length) {
-        allWidgets = [
-          ...cWidgets,
-        ];
-      } else {
-        allWidgets = cWidgets;
-      }
-
-      rows.add(
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: allWidgets,
-        ),
-      );
-    }
-
-    return SizedBox(
-      width: settings.calculateBaseSectionWidth(width, settings),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(
-          width: settings.sectionBorderWidth,
-          color: settings.sectionBorderColor,
-        )),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CreateButton(
-              label: "Component",
-              onChanged: () async => await ModelApi.createComponent(
-                model: model,
-                layer: layer,
-                section: section,
-              ),
-            ),
-            ...rows,
-          ],
-        ),
-      ),
-    );
   }
 }

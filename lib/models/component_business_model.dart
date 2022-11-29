@@ -2,7 +2,7 @@ import 'package:flutter_data/flutter_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 
-import '../util.dart';
+import '../api/model_api.dart';
 
 part 'component_business_model.g.dart';
 
@@ -40,6 +40,23 @@ class Model extends DataModel<Model> {
 
   @override
   Object? get id => mid;
+
+  Layer findLayer(String lid) {
+    return layers!.firstWhere((l) => l.id == lid);
+  }
+
+  Component findComponent(String cid, Model model) {
+    for (var l in model.layers!) {
+      for (var s in l.sections!) {
+        for (var c in s.components!) {
+          if (c.id == cid) {
+            return c;
+          }
+        }
+      }
+    }
+    throw NullThrownError();
+  }
 
   void moveComponent(
     String movingCid,
@@ -151,6 +168,10 @@ class Layer {
   late String? description;
   late List<Section>? sections;
 
+  Section findSection(String sid) {
+    return sections!.firstWhere((s) => s.id == sid);
+  }
+
   // ignore: sort_constructors_first
   factory Layer.fromJson(Map<String, dynamic> json) => _$LayerFromJson(json);
 
@@ -169,6 +190,10 @@ class Section {
   late String name;
   late String? description;
   late List<Component>? components;
+
+  Component findComponent(String cid) {
+    return components!.firstWhere((c) => c.id == cid);
+  }
 
   // ignore: sort_constructors_first
   factory Section.fromJson(Map<String, dynamic> json) =>

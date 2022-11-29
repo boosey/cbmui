@@ -4,10 +4,10 @@ import 'package:flutter_data/flutter_data.dart';
 
 import '../models/component_business_model.dart';
 
-part 'model_viewer_settings.g.dart';
+part 'view_settings.g.dart';
 
 @CopyWith()
-class ModelViewSettings {
+class ViewSettings {
   final Ref ref;
   final double componentLabelPadding;
   final double componentLabelWidth;
@@ -37,7 +37,7 @@ class ModelViewSettings {
   final double modelViewerPaddingWidth;
   final double elevation;
 
-  ModelViewSettings({
+  ViewSettings({
     required this.ref,
     this.layerMaxTotalColumns = 15,
     this.sectionMinColumns = 2,
@@ -87,7 +87,7 @@ class ModelViewSettings {
   }
 
   double calculateBaseSectionWidth(
-          double totalSectionWidth, ModelViewSettings settings) =>
+          double totalSectionWidth, ViewSettings settings) =>
       totalSectionWidth -
       (settings.componentDropIndicatorWidth * 2) -
       ((settings.sectionBorderWidth) * 2) +
@@ -98,11 +98,10 @@ class ModelViewSettings {
     Section section,
     int columnCount,
     int columnDiff,
-    ModelViewSettings settings,
   ) {
     final maxW = maxWidthOfSectionAreaOfAllLayersInModel(model);
 
-    final percent = (columnCount / settings.layerMaxTotalColumns);
+    final percent = (columnCount / layerMaxTotalColumns);
 
     final percentAdjusted = maxW * percent;
     // final dropAdusted = percentAdjusted +
@@ -174,12 +173,12 @@ class ModelViewSettings {
   }
 }
 
-class ModelViewerSettingsNotifier extends StateNotifier<ModelViewSettings> {
+class ModelViewerSettingsNotifier extends StateNotifier<ViewSettings> {
   ModelViewerSettingsNotifier(super.state);
 
-  void updateSettings(ModelViewSettings settings) => state = settings;
+  void updateSettings(ViewSettings settings) => state = settings;
 }
 
-final modelViewerSettingsProvider =
-    StateNotifierProvider<ModelViewerSettingsNotifier, ModelViewSettings>(
-        (ref) => ModelViewerSettingsNotifier(ModelViewSettings(ref: ref)));
+final viewSettingsProvider =
+    StateNotifierProvider<ModelViewerSettingsNotifier, ViewSettings>(
+        (ref) => ModelViewerSettingsNotifier(ViewSettings(ref: ref)));

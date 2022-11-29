@@ -1,4 +1,4 @@
-import 'package:cbmui/util.dart';
+import 'package:cbmui/api/model_api.dart';
 import 'package:flutter/material.dart';
 
 import '../models/component_business_model.dart';

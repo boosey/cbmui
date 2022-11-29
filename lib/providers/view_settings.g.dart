@@ -1,79 +1,75 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'model_viewer_settings.dart';
+part of 'view_settings.dart';
 
 // **************************************************************************
 // CopyWithGenerator
 // **************************************************************************
 
-abstract class _$ModelViewSettingsCWProxy {
-  ModelViewSettings componentBorderWidth(double componentBorderWidth);
+abstract class _$ViewSettingsCWProxy {
+  ViewSettings componentBorderWidth(double componentBorderWidth);
 
-  ModelViewSettings componentColor(Color componentColor);
+  ViewSettings componentColor(Color componentColor);
 
-  ModelViewSettings componentDefaultBorderColor(
-      Color componentDefaultBorderColor);
+  ViewSettings componentDefaultBorderColor(Color componentDefaultBorderColor);
 
-  ModelViewSettings componentDropIndicatorWidth(
-      double componentDropIndicatorWidth);
+  ViewSettings componentDropIndicatorWidth(double componentDropIndicatorWidth);
 
-  ModelViewSettings componentIsRatedBorderColor(
-      Color componentIsRatedBorderColor);
+  ViewSettings componentIsRatedBorderColor(Color componentIsRatedBorderColor);
 
-  ModelViewSettings componentIsRatedColor(Color componentIsRatedColor);
+  ViewSettings componentIsRatedColor(Color componentIsRatedColor);
 
-  ModelViewSettings componentLabelFontSize(double componentLabelFontSize);
+  ViewSettings componentLabelFontSize(double componentLabelFontSize);
 
-  ModelViewSettings componentLabelFontWeight(
-      FontWeight componentLabelFontWeight);
+  ViewSettings componentLabelFontWeight(FontWeight componentLabelFontWeight);
 
-  ModelViewSettings componentLabelMaxLines(int componentLabelMaxLines);
+  ViewSettings componentLabelMaxLines(int componentLabelMaxLines);
 
-  ModelViewSettings componentLabelPadding(double componentLabelPadding);
+  ViewSettings componentLabelPadding(double componentLabelPadding);
 
-  ModelViewSettings componentLabelWidth(double componentLabelWidth);
+  ViewSettings componentLabelWidth(double componentLabelWidth);
 
-  ModelViewSettings elevation(double elevation);
+  ViewSettings elevation(double elevation);
 
-  ModelViewSettings layerLabelFontSize(double layerLabelFontSize);
+  ViewSettings layerLabelFontSize(double layerLabelFontSize);
 
-  ModelViewSettings layerLabelFontWeight(FontWeight layerLabelFontWeight);
+  ViewSettings layerLabelFontWeight(FontWeight layerLabelFontWeight);
 
-  ModelViewSettings layerLabelMaxLines(int layerLabelMaxLines);
+  ViewSettings layerLabelMaxLines(int layerLabelMaxLines);
 
-  ModelViewSettings layerLabelWidth(double layerLabelWidth);
+  ViewSettings layerLabelWidth(double layerLabelWidth);
 
-  ModelViewSettings layerMaxTotalColumns(int layerMaxTotalColumns);
+  ViewSettings layerMaxTotalColumns(int layerMaxTotalColumns);
 
-  ModelViewSettings layerPaddingWidth(double layerPaddingWidth);
+  ViewSettings layerPaddingWidth(double layerPaddingWidth);
 
-  ModelViewSettings layerSpacerWidth(double layerSpacerWidth);
+  ViewSettings layerSpacerWidth(double layerSpacerWidth);
 
-  ModelViewSettings modelViewerPaddingWidth(double modelViewerPaddingWidth);
+  ViewSettings modelViewerPaddingWidth(double modelViewerPaddingWidth);
 
-  ModelViewSettings ref(Ref ref);
+  ViewSettings ref(Ref ref);
 
-  ModelViewSettings sectionBorderColor(Color sectionBorderColor);
+  ViewSettings sectionBorderColor(Color sectionBorderColor);
 
-  ModelViewSettings sectionBorderWidth(double sectionBorderWidth);
+  ViewSettings sectionBorderWidth(double sectionBorderWidth);
 
-  ModelViewSettings sectionColor(Color sectionColor);
+  ViewSettings sectionColor(Color sectionColor);
 
-  ModelViewSettings sectionLabelFontSize(double sectionLabelFontSize);
+  ViewSettings sectionLabelFontSize(double sectionLabelFontSize);
 
-  ModelViewSettings sectionLabelFontWeight(FontWeight sectionLabelFontWeight);
+  ViewSettings sectionLabelFontWeight(FontWeight sectionLabelFontWeight);
 
-  ModelViewSettings sectionLabelMaxLines(int sectionLabelMaxLines);
+  ViewSettings sectionLabelMaxLines(int sectionLabelMaxLines);
 
-  ModelViewSettings sectionMinColumns(int sectionMinColumns);
+  ViewSettings sectionMinColumns(int sectionMinColumns);
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ModelViewSettings(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ViewSettings(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// ModelViewSettings(...).copyWith(id: 12, name: "My name")
+  /// ViewSettings(...).copyWith(id: 12, name: "My name")
   /// ````
-  ModelViewSettings call({
+  ViewSettings call({
     double? componentBorderWidth,
     Color? componentColor,
     Color? componentDefaultBorderColor,
@@ -105,135 +101,132 @@ abstract class _$ModelViewSettingsCWProxy {
   });
 }
 
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfModelViewSettings.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfModelViewSettings.copyWith.fieldName(...)`
-class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
-  final ModelViewSettings _value;
+/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfViewSettings.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfViewSettings.copyWith.fieldName(...)`
+class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
+  final ViewSettings _value;
 
-  const _$ModelViewSettingsCWProxyImpl(this._value);
+  const _$ViewSettingsCWProxyImpl(this._value);
 
   @override
-  ModelViewSettings componentBorderWidth(double componentBorderWidth) =>
+  ViewSettings componentBorderWidth(double componentBorderWidth) =>
       this(componentBorderWidth: componentBorderWidth);
 
   @override
-  ModelViewSettings componentColor(Color componentColor) =>
+  ViewSettings componentColor(Color componentColor) =>
       this(componentColor: componentColor);
 
   @override
-  ModelViewSettings componentDefaultBorderColor(
-          Color componentDefaultBorderColor) =>
+  ViewSettings componentDefaultBorderColor(Color componentDefaultBorderColor) =>
       this(componentDefaultBorderColor: componentDefaultBorderColor);
 
   @override
-  ModelViewSettings componentDropIndicatorWidth(
+  ViewSettings componentDropIndicatorWidth(
           double componentDropIndicatorWidth) =>
       this(componentDropIndicatorWidth: componentDropIndicatorWidth);
 
   @override
-  ModelViewSettings componentIsRatedBorderColor(
-          Color componentIsRatedBorderColor) =>
+  ViewSettings componentIsRatedBorderColor(Color componentIsRatedBorderColor) =>
       this(componentIsRatedBorderColor: componentIsRatedBorderColor);
 
   @override
-  ModelViewSettings componentIsRatedColor(Color componentIsRatedColor) =>
+  ViewSettings componentIsRatedColor(Color componentIsRatedColor) =>
       this(componentIsRatedColor: componentIsRatedColor);
 
   @override
-  ModelViewSettings componentLabelFontSize(double componentLabelFontSize) =>
+  ViewSettings componentLabelFontSize(double componentLabelFontSize) =>
       this(componentLabelFontSize: componentLabelFontSize);
 
   @override
-  ModelViewSettings componentLabelFontWeight(
-          FontWeight componentLabelFontWeight) =>
+  ViewSettings componentLabelFontWeight(FontWeight componentLabelFontWeight) =>
       this(componentLabelFontWeight: componentLabelFontWeight);
 
   @override
-  ModelViewSettings componentLabelMaxLines(int componentLabelMaxLines) =>
+  ViewSettings componentLabelMaxLines(int componentLabelMaxLines) =>
       this(componentLabelMaxLines: componentLabelMaxLines);
 
   @override
-  ModelViewSettings componentLabelPadding(double componentLabelPadding) =>
+  ViewSettings componentLabelPadding(double componentLabelPadding) =>
       this(componentLabelPadding: componentLabelPadding);
 
   @override
-  ModelViewSettings componentLabelWidth(double componentLabelWidth) =>
+  ViewSettings componentLabelWidth(double componentLabelWidth) =>
       this(componentLabelWidth: componentLabelWidth);
 
   @override
-  ModelViewSettings elevation(double elevation) => this(elevation: elevation);
+  ViewSettings elevation(double elevation) => this(elevation: elevation);
 
   @override
-  ModelViewSettings layerLabelFontSize(double layerLabelFontSize) =>
+  ViewSettings layerLabelFontSize(double layerLabelFontSize) =>
       this(layerLabelFontSize: layerLabelFontSize);
 
   @override
-  ModelViewSettings layerLabelFontWeight(FontWeight layerLabelFontWeight) =>
+  ViewSettings layerLabelFontWeight(FontWeight layerLabelFontWeight) =>
       this(layerLabelFontWeight: layerLabelFontWeight);
 
   @override
-  ModelViewSettings layerLabelMaxLines(int layerLabelMaxLines) =>
+  ViewSettings layerLabelMaxLines(int layerLabelMaxLines) =>
       this(layerLabelMaxLines: layerLabelMaxLines);
 
   @override
-  ModelViewSettings layerLabelWidth(double layerLabelWidth) =>
+  ViewSettings layerLabelWidth(double layerLabelWidth) =>
       this(layerLabelWidth: layerLabelWidth);
 
   @override
-  ModelViewSettings layerMaxTotalColumns(int layerMaxTotalColumns) =>
+  ViewSettings layerMaxTotalColumns(int layerMaxTotalColumns) =>
       this(layerMaxTotalColumns: layerMaxTotalColumns);
 
   @override
-  ModelViewSettings layerPaddingWidth(double layerPaddingWidth) =>
+  ViewSettings layerPaddingWidth(double layerPaddingWidth) =>
       this(layerPaddingWidth: layerPaddingWidth);
 
   @override
-  ModelViewSettings layerSpacerWidth(double layerSpacerWidth) =>
+  ViewSettings layerSpacerWidth(double layerSpacerWidth) =>
       this(layerSpacerWidth: layerSpacerWidth);
 
   @override
-  ModelViewSettings modelViewerPaddingWidth(double modelViewerPaddingWidth) =>
+  ViewSettings modelViewerPaddingWidth(double modelViewerPaddingWidth) =>
       this(modelViewerPaddingWidth: modelViewerPaddingWidth);
 
   @override
-  ModelViewSettings ref(Ref ref) => this(ref: ref);
+  ViewSettings ref(Ref ref) => this(ref: ref);
 
   @override
-  ModelViewSettings sectionBorderColor(Color sectionBorderColor) =>
+  ViewSettings sectionBorderColor(Color sectionBorderColor) =>
       this(sectionBorderColor: sectionBorderColor);
 
   @override
-  ModelViewSettings sectionBorderWidth(double sectionBorderWidth) =>
+  ViewSettings sectionBorderWidth(double sectionBorderWidth) =>
       this(sectionBorderWidth: sectionBorderWidth);
 
   @override
-  ModelViewSettings sectionColor(Color sectionColor) =>
+  ViewSettings sectionColor(Color sectionColor) =>
       this(sectionColor: sectionColor);
 
   @override
-  ModelViewSettings sectionLabelFontSize(double sectionLabelFontSize) =>
+  ViewSettings sectionLabelFontSize(double sectionLabelFontSize) =>
       this(sectionLabelFontSize: sectionLabelFontSize);
 
   @override
-  ModelViewSettings sectionLabelFontWeight(FontWeight sectionLabelFontWeight) =>
+  ViewSettings sectionLabelFontWeight(FontWeight sectionLabelFontWeight) =>
       this(sectionLabelFontWeight: sectionLabelFontWeight);
 
   @override
-  ModelViewSettings sectionLabelMaxLines(int sectionLabelMaxLines) =>
+  ViewSettings sectionLabelMaxLines(int sectionLabelMaxLines) =>
       this(sectionLabelMaxLines: sectionLabelMaxLines);
 
   @override
-  ModelViewSettings sectionMinColumns(int sectionMinColumns) =>
+  ViewSettings sectionMinColumns(int sectionMinColumns) =>
       this(sectionMinColumns: sectionMinColumns);
 
   @override
 
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ModelViewSettings(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
+  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ViewSettings(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
   /// Usage
   /// ```dart
-  /// ModelViewSettings(...).copyWith(id: 12, name: "My name")
+  /// ViewSettings(...).copyWith(id: 12, name: "My name")
   /// ````
-  ModelViewSettings call({
+  ViewSettings call({
     Object? componentBorderWidth = const $CopyWithPlaceholder(),
     Object? componentColor = const $CopyWithPlaceholder(),
     Object? componentDefaultBorderColor = const $CopyWithPlaceholder(),
@@ -263,7 +256,7 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
     Object? sectionLabelMaxLines = const $CopyWithPlaceholder(),
     Object? sectionMinColumns = const $CopyWithPlaceholder(),
   }) {
-    return ModelViewSettings(
+    return ViewSettings(
       componentBorderWidth:
           componentBorderWidth == const $CopyWithPlaceholder() ||
                   componentBorderWidth == null
@@ -422,9 +415,8 @@ class _$ModelViewSettingsCWProxyImpl implements _$ModelViewSettingsCWProxy {
   }
 }
 
-extension $ModelViewSettingsCopyWith on ModelViewSettings {
-  /// Returns a callable class that can be used as follows: `instanceOfModelViewSettings.copyWith(...)` or like so:`instanceOfModelViewSettings.copyWith.fieldName(...)`.
+extension $ViewSettingsCopyWith on ViewSettings {
+  /// Returns a callable class that can be used as follows: `instanceOfViewSettings.copyWith(...)` or like so:`instanceOfViewSettings.copyWith.fieldName(...)`.
   // ignore: library_private_types_in_public_api
-  _$ModelViewSettingsCWProxy get copyWith =>
-      _$ModelViewSettingsCWProxyImpl(this);
+  _$ViewSettingsCWProxy get copyWith => _$ViewSettingsCWProxyImpl(this);
 }

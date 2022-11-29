@@ -1,5 +1,5 @@
 import 'package:cbmui/providers/mode_provider.dart';
-import 'package:cbmui/providers/model_viewer_settings.dart';
+import 'package:cbmui/providers/view_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,7 +16,7 @@ class CreateButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isVisible = ref.watch(isModelViewerEditModeProvider);
-    final settings = ref.watch(modelViewerSettingsProvider);
+    final settings = ref.watch(viewSettingsProvider);
 
     return Visibility(
       visible: isVisible,

@@ -15,81 +15,87 @@ class ModelAnalyzer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      subquadrant(1, 4),
-                      subquadrant(2, 4),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      subquadrant(1, 3),
-                      subquadrant(2, 3),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      subquadrant(3, 4),
-                      subquadrant(4, 4),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      subquadrant(3, 3),
-                      subquadrant(4, 3),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      subquadrant(1, 2),
-                      subquadrant(2, 2),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      subquadrant(1, 1),
-                      subquadrant(2, 1),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      subquadrant(3, 2),
-                      subquadrant(4, 2),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      subquadrant(3, 1),
-                      subquadrant(4, 1),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+      child: InteractiveViewer(
+        boundaryMargin: const EdgeInsets.all(double.infinity),
+        minScale: 0.5,
+        maxScale: 3.0,
+        constrained: true,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        subquadrant(1, 4),
+                        subquadrant(2, 4),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        subquadrant(1, 3),
+                        subquadrant(2, 3),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        subquadrant(3, 4),
+                        subquadrant(4, 4),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        subquadrant(3, 3),
+                        subquadrant(4, 3),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        subquadrant(1, 2),
+                        subquadrant(2, 2),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        subquadrant(1, 1),
+                        subquadrant(2, 1),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        subquadrant(3, 2),
+                        subquadrant(4, 2),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        subquadrant(3, 1),
+                        subquadrant(4, 1),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

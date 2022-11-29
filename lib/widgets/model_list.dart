@@ -1,8 +1,8 @@
-import 'package:cbmui/providers/model_viewer_settings.dart';
-import 'package:cbmui/util.dart';
+import 'package:cbmui/providers/view_settings.dart';
+import 'package:cbmui/api/model_api.dart';
 import 'package:cbmui/widgets/model_thumbnail.dart';
 import 'package:cbmui/widgets/model_viewer.dart';
-import 'package:cbmui/widgets/thimbnail_menu.dart';
+import 'package:cbmui/widgets/thumbnail_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/component_business_model.dart';
@@ -14,7 +14,7 @@ class ModelList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final settings = ref.watch(modelViewerSettingsProvider);
+    final settings = ref.watch(viewSettingsProvider);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
