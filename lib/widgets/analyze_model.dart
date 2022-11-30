@@ -202,9 +202,9 @@ class ModelAnalyzer extends ConsumerWidget {
                 child: Card(
                   color: Color.fromRGBO(
                     0,
-                    (255 - (100 * (1 - (strategic / 4)))).floor(),
+                    225,
                     0,
-                    relationship / 4,
+                    (strategic * relationship) / 16,
                   ),
                   child: Align(
                     child: Text(
