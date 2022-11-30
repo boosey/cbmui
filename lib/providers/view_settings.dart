@@ -36,9 +36,27 @@ class ViewSettings {
   final int sectionMinColumns;
   final double modelViewerPaddingWidth;
   final double elevation;
+  final double subquadrantMinWidth;
+  final double subquadrantMinHeight;
+  final double subquadrantMaxWidth;
+  final double subquadrantMaxHeight;
+  final double subquadrantThickBorderWidth;
+  final double subquadrantThinBorderWidth;
+  final List<Color> strategicGradientColors;
+  final List<Color> relationshipGradientColors;
+  final TextStyle analyzeSubtitleStyle;
 
   ViewSettings({
     required this.ref,
+    this.subquadrantMinWidth = 350,
+    this.subquadrantMinHeight = 350,
+    this.subquadrantMaxWidth = 500,
+    this.subquadrantMaxHeight = 500,
+    this.subquadrantThickBorderWidth = 6,
+    this.subquadrantThinBorderWidth = 1,
+    this.strategicGradientColors = const [Colors.green, Colors.blueGrey],
+    this.relationshipGradientColors = const [Colors.blue, Colors.blueGrey],
+    this.analyzeSubtitleStyle = const TextStyle(fontSize: 24),
     this.layerMaxTotalColumns = 15,
     this.sectionMinColumns = 2,
     this.componentLabelWidth = 100,

@@ -58,7 +58,10 @@ class ModelViewer extends ConsumerWidget {
                       width: 20,
                       height: 1,
                     ),
-                    const ModeSelector(),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 5),
+                      child: ModeSelector(),
+                    ),
                   ],
                 ),
                 CreateButton(

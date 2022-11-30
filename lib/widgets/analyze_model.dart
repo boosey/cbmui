@@ -1,3 +1,4 @@
+import 'package:cbmui/providers/model_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,87 +15,154 @@ class ModelAnalyzer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final mi = ref.watch(modelInfoProvider(model.mid));
+    final settings = mi.settings;
+
+    Widget subquadrant(int strategic, int relationship) {
+      final thickBorder =
+          BorderSide(width: settings.subquadrantThickBorderWidth);
+      final thinBorder = BorderSide(width: settings.subquadrantThinBorderWidth);
+
+      return Container(
+        decoration: BoxDecoration(
+            border: Border(
+          left: strategic.isOdd ? thickBorder : thinBorder,
+          right: strategic.isEven ? thickBorder : thinBorder,
+          top: relationship.isEven ? thickBorder : thinBorder,
+          bottom: relationship.isOdd ? thickBorder : thinBorder,
+        )),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: settings.subquadrantMinWidth,
+            minHeight: settings.subquadrantMinHeight,
+            maxWidth: settings.subquadrantMinWidth,
+          ),
+          child: Wrap(
+            key: ValueKey("$strategic,$relationship"),
+            children: [
+              ...getComponentViewersFor(
+                  strategic: strategic, relationship: relationship)
+            ],
+            // ),
+          ),
+        ),
+      );
+    }
+
     return SingleChildScrollView(
       child: InteractiveViewer(
         boundaryMargin: const EdgeInsets.all(double.infinity),
         minScale: 0.5,
         maxScale: 3.0,
         constrained: true,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Column(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: ((settings.subquadrantMinWidth +
+                    settings.subquadrantThickBorderWidth +
+                    settings.subquadrantThinBorderWidth) *
+                4),
+            minHeight: (settings.subquadrantMinHeight +
+                    settings.subquadrantThickBorderWidth +
+                    settings.subquadrantThinBorderWidth) *
+                4,
+            maxWidth: ((settings.subquadrantMinWidth +
+                    settings.subquadrantThickBorderWidth +
+                    settings.subquadrantThinBorderWidth) *
+                4),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                child: Column(
                   children: [
+                    Text("Importance", style: settings.analyzeSubtitleStyle),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        subquadrant(1, 4),
-                        subquadrant(2, 4),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        subquadrant(1, 3),
-                        subquadrant(2, 3),
+                        Text("None", style: settings.analyzeSubtitleStyle),
+                        Text("Neutral", style: settings.analyzeSubtitleStyle),
+                        Text("Tactical", style: settings.analyzeSubtitleStyle),
+                        Text("Strategic", style: settings.analyzeSubtitleStyle),
                       ],
                     ),
                   ],
                 ),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        subquadrant(3, 4),
-                        subquadrant(4, 4),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        subquadrant(3, 3),
-                        subquadrant(4, 3),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        subquadrant(1, 2),
-                        subquadrant(2, 2),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        subquadrant(1, 1),
-                        subquadrant(2, 1),
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        subquadrant(3, 2),
-                        subquadrant(4, 2),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        subquadrant(3, 1),
-                        subquadrant(4, 1),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+              ),
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          subquadrant(1, 4),
+                          subquadrant(2, 4),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          subquadrant(1, 3),
+                          subquadrant(2, 3),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          subquadrant(3, 4),
+                          subquadrant(4, 4),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          subquadrant(3, 3),
+                          subquadrant(4, 3),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          subquadrant(1, 2),
+                          subquadrant(2, 2),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          subquadrant(1, 1),
+                          subquadrant(2, 1),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          subquadrant(3, 2),
+                          subquadrant(4, 2),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          subquadrant(3, 1),
+                          subquadrant(4, 1),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -128,46 +196,25 @@ class ModelAnalyzer extends ConsumerWidget {
     return getComponentsFor(strategic: strategic, relationship: relationship)
         .map((c) => Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
+              child: SizedBox(
                 width: 100,
                 height: 100,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.0, color: Colors.black)),
-                child: Text(
-                  c.name,
-                  textAlign: TextAlign.center,
+                child: Card(
+                  color: Color.fromRGBO(
+                    0,
+                    (255 - (100 * (1 - (strategic / 4)))).floor(),
+                    0,
+                    relationship / 4,
+                  ),
+                  child: Align(
+                    child: Text(
+                      c.name,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
             ))
         .toList();
-  }
-
-  Widget subquadrant(int strategic, int relationship) {
-    const thickBorder = BorderSide(width: 6);
-    const thinBorder = BorderSide(width: 1);
-
-    return Container(
-      decoration: BoxDecoration(
-          border: Border(
-        left: strategic.isOdd ? thickBorder : thinBorder,
-        right: strategic.isEven ? thickBorder : thinBorder,
-        top: relationship.isEven ? thickBorder : thinBorder,
-        bottom: relationship.isOdd ? thickBorder : thinBorder,
-      )),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          minWidth: 350,
-          minHeight: 350,
-        ),
-        child: Wrap(
-          key: ValueKey("$strategic,$relationship"),
-          children: [
-            ...getComponentViewersFor(
-                strategic: strategic, relationship: relationship)
-          ],
-        ),
-      ),
-    );
   }
 }

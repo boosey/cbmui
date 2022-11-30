@@ -49,6 +49,9 @@ abstract class _$ViewSettingsCWProxy {
 
   ViewSettings ref(Ref ref);
 
+  ViewSettings relationshipGradientColors(
+      List<Color> relationshipGradientColors);
+
   ViewSettings sectionBorderColor(Color sectionBorderColor);
 
   ViewSettings sectionBorderWidth(double sectionBorderWidth);
@@ -62,6 +65,20 @@ abstract class _$ViewSettingsCWProxy {
   ViewSettings sectionLabelMaxLines(int sectionLabelMaxLines);
 
   ViewSettings sectionMinColumns(int sectionMinColumns);
+
+  ViewSettings strategicGradientColors(List<Color> strategicGradientColors);
+
+  ViewSettings subquadrantMaxHeight(double subquadrantMaxHeight);
+
+  ViewSettings subquadrantMaxWidth(double subquadrantMaxWidth);
+
+  ViewSettings subquadrantMinHeight(double subquadrantMinHeight);
+
+  ViewSettings subquadrantMinWidth(double subquadrantMinWidth);
+
+  ViewSettings subquadrantThickBorderWidth(double subquadrantThickBorderWidth);
+
+  ViewSettings subquadrantThinBorderWidth(double subquadrantThinBorderWidth);
 
   /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ViewSettings(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
   ///
@@ -91,6 +108,7 @@ abstract class _$ViewSettingsCWProxy {
     double? layerSpacerWidth,
     double? modelViewerPaddingWidth,
     Ref? ref,
+    List<Color>? relationshipGradientColors,
     Color? sectionBorderColor,
     double? sectionBorderWidth,
     Color? sectionColor,
@@ -98,6 +116,13 @@ abstract class _$ViewSettingsCWProxy {
     FontWeight? sectionLabelFontWeight,
     int? sectionLabelMaxLines,
     int? sectionMinColumns,
+    List<Color>? strategicGradientColors,
+    double? subquadrantMaxHeight,
+    double? subquadrantMaxWidth,
+    double? subquadrantMinHeight,
+    double? subquadrantMinWidth,
+    double? subquadrantThickBorderWidth,
+    double? subquadrantThinBorderWidth,
   });
 }
 
@@ -191,6 +216,11 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
   ViewSettings ref(Ref ref) => this(ref: ref);
 
   @override
+  ViewSettings relationshipGradientColors(
+          List<Color> relationshipGradientColors) =>
+      this(relationshipGradientColors: relationshipGradientColors);
+
+  @override
   ViewSettings sectionBorderColor(Color sectionBorderColor) =>
       this(sectionBorderColor: sectionBorderColor);
 
@@ -217,6 +247,35 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
   @override
   ViewSettings sectionMinColumns(int sectionMinColumns) =>
       this(sectionMinColumns: sectionMinColumns);
+
+  @override
+  ViewSettings strategicGradientColors(List<Color> strategicGradientColors) =>
+      this(strategicGradientColors: strategicGradientColors);
+
+  @override
+  ViewSettings subquadrantMaxHeight(double subquadrantMaxHeight) =>
+      this(subquadrantMaxHeight: subquadrantMaxHeight);
+
+  @override
+  ViewSettings subquadrantMaxWidth(double subquadrantMaxWidth) =>
+      this(subquadrantMaxWidth: subquadrantMaxWidth);
+
+  @override
+  ViewSettings subquadrantMinHeight(double subquadrantMinHeight) =>
+      this(subquadrantMinHeight: subquadrantMinHeight);
+
+  @override
+  ViewSettings subquadrantMinWidth(double subquadrantMinWidth) =>
+      this(subquadrantMinWidth: subquadrantMinWidth);
+
+  @override
+  ViewSettings subquadrantThickBorderWidth(
+          double subquadrantThickBorderWidth) =>
+      this(subquadrantThickBorderWidth: subquadrantThickBorderWidth);
+
+  @override
+  ViewSettings subquadrantThinBorderWidth(double subquadrantThinBorderWidth) =>
+      this(subquadrantThinBorderWidth: subquadrantThinBorderWidth);
 
   @override
 
@@ -248,6 +307,7 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
     Object? layerSpacerWidth = const $CopyWithPlaceholder(),
     Object? modelViewerPaddingWidth = const $CopyWithPlaceholder(),
     Object? ref = const $CopyWithPlaceholder(),
+    Object? relationshipGradientColors = const $CopyWithPlaceholder(),
     Object? sectionBorderColor = const $CopyWithPlaceholder(),
     Object? sectionBorderWidth = const $CopyWithPlaceholder(),
     Object? sectionColor = const $CopyWithPlaceholder(),
@@ -255,6 +315,13 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
     Object? sectionLabelFontWeight = const $CopyWithPlaceholder(),
     Object? sectionLabelMaxLines = const $CopyWithPlaceholder(),
     Object? sectionMinColumns = const $CopyWithPlaceholder(),
+    Object? strategicGradientColors = const $CopyWithPlaceholder(),
+    Object? subquadrantMaxHeight = const $CopyWithPlaceholder(),
+    Object? subquadrantMaxWidth = const $CopyWithPlaceholder(),
+    Object? subquadrantMinHeight = const $CopyWithPlaceholder(),
+    Object? subquadrantMinWidth = const $CopyWithPlaceholder(),
+    Object? subquadrantThickBorderWidth = const $CopyWithPlaceholder(),
+    Object? subquadrantThinBorderWidth = const $CopyWithPlaceholder(),
   }) {
     return ViewSettings(
       componentBorderWidth:
@@ -373,6 +440,12 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
           ? _value.ref
           // ignore: cast_nullable_to_non_nullable
           : ref as Ref,
+      relationshipGradientColors:
+          relationshipGradientColors == const $CopyWithPlaceholder() ||
+                  relationshipGradientColors == null
+              ? _value.relationshipGradientColors
+              // ignore: cast_nullable_to_non_nullable
+              : relationshipGradientColors as List<Color>,
       sectionBorderColor: sectionBorderColor == const $CopyWithPlaceholder() ||
               sectionBorderColor == null
           ? _value.sectionBorderColor
@@ -411,6 +484,48 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
           ? _value.sectionMinColumns
           // ignore: cast_nullable_to_non_nullable
           : sectionMinColumns as int,
+      strategicGradientColors:
+          strategicGradientColors == const $CopyWithPlaceholder() ||
+                  strategicGradientColors == null
+              ? _value.strategicGradientColors
+              // ignore: cast_nullable_to_non_nullable
+              : strategicGradientColors as List<Color>,
+      subquadrantMaxHeight:
+          subquadrantMaxHeight == const $CopyWithPlaceholder() ||
+                  subquadrantMaxHeight == null
+              ? _value.subquadrantMaxHeight
+              // ignore: cast_nullable_to_non_nullable
+              : subquadrantMaxHeight as double,
+      subquadrantMaxWidth:
+          subquadrantMaxWidth == const $CopyWithPlaceholder() ||
+                  subquadrantMaxWidth == null
+              ? _value.subquadrantMaxWidth
+              // ignore: cast_nullable_to_non_nullable
+              : subquadrantMaxWidth as double,
+      subquadrantMinHeight:
+          subquadrantMinHeight == const $CopyWithPlaceholder() ||
+                  subquadrantMinHeight == null
+              ? _value.subquadrantMinHeight
+              // ignore: cast_nullable_to_non_nullable
+              : subquadrantMinHeight as double,
+      subquadrantMinWidth:
+          subquadrantMinWidth == const $CopyWithPlaceholder() ||
+                  subquadrantMinWidth == null
+              ? _value.subquadrantMinWidth
+              // ignore: cast_nullable_to_non_nullable
+              : subquadrantMinWidth as double,
+      subquadrantThickBorderWidth:
+          subquadrantThickBorderWidth == const $CopyWithPlaceholder() ||
+                  subquadrantThickBorderWidth == null
+              ? _value.subquadrantThickBorderWidth
+              // ignore: cast_nullable_to_non_nullable
+              : subquadrantThickBorderWidth as double,
+      subquadrantThinBorderWidth:
+          subquadrantThinBorderWidth == const $CopyWithPlaceholder() ||
+                  subquadrantThinBorderWidth == null
+              ? _value.subquadrantThinBorderWidth
+              // ignore: cast_nullable_to_non_nullable
+              : subquadrantThinBorderWidth as double,
     );
   }
 }
