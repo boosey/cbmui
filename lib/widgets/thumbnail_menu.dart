@@ -31,10 +31,13 @@ class ThumbnailMenu extends StatelessWidget {
             );
             break;
           case _TMItem.copy:
+            () async {
+              await ModelApi.copyModel(mid: model.mid);
+            }.call();
             break;
           case _TMItem.delete:
             () async {
-              await ModelApi.deleteModel(id: model.mid);
+              await ModelApi.deleteModel(mid: model.mid);
             }.call();
             break;
           default:
