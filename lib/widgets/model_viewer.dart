@@ -4,6 +4,7 @@ import 'package:cbmui/providers/view_settings.dart';
 
 import 'package:cbmui/widgets/create_object_button.dart';
 import 'package:cbmui/widgets/mode_selector.dart';
+import 'package:cbmui/widgets/settings_view.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,6 +29,7 @@ class ModelViewer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isAnalyzeMode = ref.watch(isModelViewerAnalyzeModeProvider);
     final isEditMode = ref.watch(isModelViewerEditModeProvider);
+    final notifier = ref.watch(viewSettingsProvider.notifier);
     final modelInfo = ref.watch(modelInfoProvider(mid));
     final model = modelInfo.model;
     final settings = modelInfo.settings;
@@ -59,8 +61,19 @@ class ModelViewer extends ConsumerWidget {
                       height: 1,
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(right: 5),
+                      padding: EdgeInsets.only(
+                        right: 40,
+                      ),
                       child: ModeSelector(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: 20,
+                      ),
+                      child: IconButton(
+                        onPressed: () => notifier.showSettingsView(),
+                        icon: const Icon(Icons.settings_outlined),
+                      ),
                     ),
                   ],
                 ),
@@ -72,14 +85,22 @@ class ModelViewer extends ConsumerWidget {
                   },
                 ),
                 Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: view(
-                      model: model,
-                      isAnalyzeMode: isAnalyzeMode,
-                      settings: settings,
-                      isEditMode: isEditMode,
-                    ),
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: view(
+                          model: model,
+                          isAnalyzeMode: isAnalyzeMode,
+                          settings: settings,
+                          isEditMode: isEditMode,
+                        ),
+                      ),
+                      Visibility(
+                        visible: settings.showSettingsView,
+                        child: const Center(child: SettingsViewer()),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -107,6 +128,7 @@ class ModelViewer extends ConsumerWidget {
                   child: Padding(
                     padding: EdgeInsets.all(settings.modelViewerPaddingWidth),
                     child: InteractiveViewer(
+                      scaleFactor: 800,
                       boundaryMargin: const EdgeInsets.all(double.infinity),
                       minScale: 0.5,
                       maxScale: 3.0,

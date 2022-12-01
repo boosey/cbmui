@@ -7,15 +7,13 @@ part of 'view_settings.dart';
 // **************************************************************************
 
 abstract class _$ViewSettingsCWProxy {
+  ViewSettings analyzeSubtitleStyle(TextStyle analyzeSubtitleStyle);
+
   ViewSettings componentBorderWidth(double componentBorderWidth);
 
   ViewSettings componentColor(Color componentColor);
 
-  ViewSettings componentDefaultBorderColor(Color componentDefaultBorderColor);
-
   ViewSettings componentDropIndicatorWidth(double componentDropIndicatorWidth);
-
-  ViewSettings componentIsRatedBorderColor(Color componentIsRatedBorderColor);
 
   ViewSettings componentIsRatedColor(Color componentIsRatedColor);
 
@@ -66,6 +64,8 @@ abstract class _$ViewSettingsCWProxy {
 
   ViewSettings sectionMinColumns(int sectionMinColumns);
 
+  ViewSettings showSettingsView(bool showSettingsView);
+
   ViewSettings strategicGradientColors(List<Color> strategicGradientColors);
 
   ViewSettings subquadrantMaxHeight(double subquadrantMaxHeight);
@@ -87,11 +87,10 @@ abstract class _$ViewSettingsCWProxy {
   /// ViewSettings(...).copyWith(id: 12, name: "My name")
   /// ````
   ViewSettings call({
+    TextStyle? analyzeSubtitleStyle,
     double? componentBorderWidth,
     Color? componentColor,
-    Color? componentDefaultBorderColor,
     double? componentDropIndicatorWidth,
-    Color? componentIsRatedBorderColor,
     Color? componentIsRatedColor,
     double? componentLabelFontSize,
     FontWeight? componentLabelFontWeight,
@@ -116,6 +115,7 @@ abstract class _$ViewSettingsCWProxy {
     FontWeight? sectionLabelFontWeight,
     int? sectionLabelMaxLines,
     int? sectionMinColumns,
+    bool? showSettingsView,
     List<Color>? strategicGradientColors,
     double? subquadrantMaxHeight,
     double? subquadrantMaxWidth,
@@ -133,6 +133,10 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
   const _$ViewSettingsCWProxyImpl(this._value);
 
   @override
+  ViewSettings analyzeSubtitleStyle(TextStyle analyzeSubtitleStyle) =>
+      this(analyzeSubtitleStyle: analyzeSubtitleStyle);
+
+  @override
   ViewSettings componentBorderWidth(double componentBorderWidth) =>
       this(componentBorderWidth: componentBorderWidth);
 
@@ -141,17 +145,9 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
       this(componentColor: componentColor);
 
   @override
-  ViewSettings componentDefaultBorderColor(Color componentDefaultBorderColor) =>
-      this(componentDefaultBorderColor: componentDefaultBorderColor);
-
-  @override
   ViewSettings componentDropIndicatorWidth(
           double componentDropIndicatorWidth) =>
       this(componentDropIndicatorWidth: componentDropIndicatorWidth);
-
-  @override
-  ViewSettings componentIsRatedBorderColor(Color componentIsRatedBorderColor) =>
-      this(componentIsRatedBorderColor: componentIsRatedBorderColor);
 
   @override
   ViewSettings componentIsRatedColor(Color componentIsRatedColor) =>
@@ -249,6 +245,10 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
       this(sectionMinColumns: sectionMinColumns);
 
   @override
+  ViewSettings showSettingsView(bool showSettingsView) =>
+      this(showSettingsView: showSettingsView);
+
+  @override
   ViewSettings strategicGradientColors(List<Color> strategicGradientColors) =>
       this(strategicGradientColors: strategicGradientColors);
 
@@ -286,11 +286,10 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
   /// ViewSettings(...).copyWith(id: 12, name: "My name")
   /// ````
   ViewSettings call({
+    Object? analyzeSubtitleStyle = const $CopyWithPlaceholder(),
     Object? componentBorderWidth = const $CopyWithPlaceholder(),
     Object? componentColor = const $CopyWithPlaceholder(),
-    Object? componentDefaultBorderColor = const $CopyWithPlaceholder(),
     Object? componentDropIndicatorWidth = const $CopyWithPlaceholder(),
-    Object? componentIsRatedBorderColor = const $CopyWithPlaceholder(),
     Object? componentIsRatedColor = const $CopyWithPlaceholder(),
     Object? componentLabelFontSize = const $CopyWithPlaceholder(),
     Object? componentLabelFontWeight = const $CopyWithPlaceholder(),
@@ -315,6 +314,7 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
     Object? sectionLabelFontWeight = const $CopyWithPlaceholder(),
     Object? sectionLabelMaxLines = const $CopyWithPlaceholder(),
     Object? sectionMinColumns = const $CopyWithPlaceholder(),
+    Object? showSettingsView = const $CopyWithPlaceholder(),
     Object? strategicGradientColors = const $CopyWithPlaceholder(),
     Object? subquadrantMaxHeight = const $CopyWithPlaceholder(),
     Object? subquadrantMaxWidth = const $CopyWithPlaceholder(),
@@ -324,6 +324,12 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
     Object? subquadrantThinBorderWidth = const $CopyWithPlaceholder(),
   }) {
     return ViewSettings(
+      analyzeSubtitleStyle:
+          analyzeSubtitleStyle == const $CopyWithPlaceholder() ||
+                  analyzeSubtitleStyle == null
+              ? _value.analyzeSubtitleStyle
+              // ignore: cast_nullable_to_non_nullable
+              : analyzeSubtitleStyle as TextStyle,
       componentBorderWidth:
           componentBorderWidth == const $CopyWithPlaceholder() ||
                   componentBorderWidth == null
@@ -335,24 +341,12 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
           ? _value.componentColor
           // ignore: cast_nullable_to_non_nullable
           : componentColor as Color,
-      componentDefaultBorderColor:
-          componentDefaultBorderColor == const $CopyWithPlaceholder() ||
-                  componentDefaultBorderColor == null
-              ? _value.componentDefaultBorderColor
-              // ignore: cast_nullable_to_non_nullable
-              : componentDefaultBorderColor as Color,
       componentDropIndicatorWidth:
           componentDropIndicatorWidth == const $CopyWithPlaceholder() ||
                   componentDropIndicatorWidth == null
               ? _value.componentDropIndicatorWidth
               // ignore: cast_nullable_to_non_nullable
               : componentDropIndicatorWidth as double,
-      componentIsRatedBorderColor:
-          componentIsRatedBorderColor == const $CopyWithPlaceholder() ||
-                  componentIsRatedBorderColor == null
-              ? _value.componentIsRatedBorderColor
-              // ignore: cast_nullable_to_non_nullable
-              : componentIsRatedBorderColor as Color,
       componentIsRatedColor:
           componentIsRatedColor == const $CopyWithPlaceholder() ||
                   componentIsRatedColor == null
@@ -484,6 +478,11 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
           ? _value.sectionMinColumns
           // ignore: cast_nullable_to_non_nullable
           : sectionMinColumns as int,
+      showSettingsView: showSettingsView == const $CopyWithPlaceholder() ||
+              showSettingsView == null
+          ? _value.showSettingsView
+          // ignore: cast_nullable_to_non_nullable
+          : showSettingsView as bool,
       strategicGradientColors:
           strategicGradientColors == const $CopyWithPlaceholder() ||
                   strategicGradientColors == null

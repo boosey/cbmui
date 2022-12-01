@@ -9,11 +9,10 @@ part 'view_settings.g.dart';
 @CopyWith()
 class ViewSettings {
   final Ref ref;
+  final bool showSettingsView;
   final double componentLabelPadding;
   final double componentLabelWidth;
   final double componentBorderWidth;
-  final Color componentIsRatedBorderColor;
-  final Color componentDefaultBorderColor;
   final Color componentColor;
   final Color componentIsRatedColor;
   final double componentLabelFontSize;
@@ -48,6 +47,7 @@ class ViewSettings {
 
   ViewSettings({
     required this.ref,
+    this.showSettingsView = false,
     this.subquadrantMinWidth = 350,
     this.subquadrantMinHeight = 350,
     this.subquadrantMaxWidth = 500,
@@ -63,8 +63,6 @@ class ViewSettings {
     this.componentLabelPadding = 2,
     this.componentBorderWidth = 2,
     this.componentDropIndicatorWidth = 8,
-    this.componentIsRatedBorderColor = Colors.transparent,
-    this.componentDefaultBorderColor = Colors.transparent,
     this.componentColor = Colors.white,
     this.componentIsRatedColor = Colors.lightBlueAccent,
     this.componentLabelFontSize = 14,
@@ -118,17 +116,8 @@ class ViewSettings {
     int columnDiff,
   ) {
     final maxW = maxWidthOfSectionAreaOfAllLayersInModel(model);
-
     final percent = (columnCount / layerMaxTotalColumns);
-
     final percentAdjusted = maxW * percent;
-    // final dropAdusted = percentAdjusted +
-    //     (columnDiff > 0 ? settings.componentDropIndicatorWidth : 0);
-
-    // log("collDiff: $columnDiff rawW:${_calculateRawSectionWidth(section, columnCount, settings, isEditMode)} percentAdj: $percentAdjusted dropAdjusted: $dropAdusted");
-
-    // log("percentAdj: $percentAdjusted  maxAdjWidth: $maxWDropAdjusted percentAdjustment: $percent");
-
     return percentAdjusted.ceilToDouble();
   }
 
@@ -195,6 +184,8 @@ class ModelViewerSettingsNotifier extends StateNotifier<ViewSettings> {
   ModelViewerSettingsNotifier(super.state);
 
   void updateSettings(ViewSettings settings) => state = settings;
+  void showSettingsView() => state = state.copyWith(showSettingsView: true);
+  void hideSettingsView() => state = state.copyWith(showSettingsView: false);
 }
 
 final viewSettingsProvider =
