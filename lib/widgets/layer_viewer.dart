@@ -25,12 +25,13 @@ class LayerViewer extends ConsumerWidget {
     final modelInfo = ref.watch(modelInfoProvider(mid));
     final model = modelInfo.model;
     final layer = model.findLayer(lid);
+    final settings = modelInfo.settings;
 
     var label = LabelWidget(
       label: layer.name,
-      width: modelInfo.settings.layerLabelWidth,
-      fontSize: modelInfo.settings.layerLabelFontSize,
-      maxlines: modelInfo.settings.layerLabelMaxLines,
+      width: settings.layerLabelWidth,
+      fontSize: settings.layerLabelFontSize,
+      maxlines: settings.layerLabelMaxLines,
       onChanged: (s) async {
         layer.name = s;
         await ModelApi.saveModel(
@@ -50,7 +51,7 @@ class LayerViewer extends ConsumerWidget {
           final cols = columnCounts[s.id]!;
           final maxCols = columnCounts.values
               .fold(0, (maxC, count) => maxC = max(maxC, count));
-          final sectionWidth = modelInfo.settings.calculateAdjustedSectionWidth(
+          final sectionWidth = settings.calculateAdjustedSectionWidth(
             model,
             s,
             cols,
@@ -77,10 +78,10 @@ class LayerViewer extends ConsumerWidget {
         dev.log("before: $p1  after: $p2");
         model.moveLayer(p0, p1, p2);
       }),
-      indicatorWidth: modelInfo.settings.componentDropIndicatorWidth,
+      indicatorWidth: settings.componentDropIndicatorWidth,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(0, modelInfo.settings.layerPaddingWidth, 0,
-            modelInfo.settings.layerPaddingWidth),
+        padding: EdgeInsets.fromLTRB(
+            0, settings.layerPaddingWidth, 0, settings.layerPaddingWidth),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -97,7 +98,7 @@ class LayerViewer extends ConsumerWidget {
               children: [
                 label,
                 SizedBox(
-                  width: modelInfo.settings.layerSpacerWidth,
+                  width: settings.layerSpacerWidth,
                   height: 1,
                 ),
                 Column(

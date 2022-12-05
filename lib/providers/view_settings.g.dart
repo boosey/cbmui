@@ -9,8 +9,6 @@ part of 'view_settings.dart';
 abstract class _$ViewSettingsCWProxy {
   ViewSettings analyzeSubtitleStyle(TextStyle analyzeSubtitleStyle);
 
-  ViewSettings componentBorderWidth(double componentBorderWidth);
-
   ViewSettings componentColor(Color componentColor);
 
   ViewSettings componentDropIndicatorWidth(double componentDropIndicatorWidth);
@@ -22,8 +20,6 @@ abstract class _$ViewSettingsCWProxy {
   ViewSettings componentLabelFontWeight(FontWeight componentLabelFontWeight);
 
   ViewSettings componentLabelMaxLines(int componentLabelMaxLines);
-
-  ViewSettings componentLabelPadding(double componentLabelPadding);
 
   ViewSettings componentLabelWidth(double componentLabelWidth);
 
@@ -88,14 +84,12 @@ abstract class _$ViewSettingsCWProxy {
   /// ````
   ViewSettings call({
     TextStyle? analyzeSubtitleStyle,
-    double? componentBorderWidth,
     Color? componentColor,
     double? componentDropIndicatorWidth,
     Color? componentIsRatedColor,
     double? componentLabelFontSize,
     FontWeight? componentLabelFontWeight,
     int? componentLabelMaxLines,
-    double? componentLabelPadding,
     double? componentLabelWidth,
     double? elevation,
     double? layerLabelFontSize,
@@ -137,10 +131,6 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
       this(analyzeSubtitleStyle: analyzeSubtitleStyle);
 
   @override
-  ViewSettings componentBorderWidth(double componentBorderWidth) =>
-      this(componentBorderWidth: componentBorderWidth);
-
-  @override
   ViewSettings componentColor(Color componentColor) =>
       this(componentColor: componentColor);
 
@@ -164,10 +154,6 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
   @override
   ViewSettings componentLabelMaxLines(int componentLabelMaxLines) =>
       this(componentLabelMaxLines: componentLabelMaxLines);
-
-  @override
-  ViewSettings componentLabelPadding(double componentLabelPadding) =>
-      this(componentLabelPadding: componentLabelPadding);
 
   @override
   ViewSettings componentLabelWidth(double componentLabelWidth) =>
@@ -287,14 +273,12 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
   /// ````
   ViewSettings call({
     Object? analyzeSubtitleStyle = const $CopyWithPlaceholder(),
-    Object? componentBorderWidth = const $CopyWithPlaceholder(),
     Object? componentColor = const $CopyWithPlaceholder(),
     Object? componentDropIndicatorWidth = const $CopyWithPlaceholder(),
     Object? componentIsRatedColor = const $CopyWithPlaceholder(),
     Object? componentLabelFontSize = const $CopyWithPlaceholder(),
     Object? componentLabelFontWeight = const $CopyWithPlaceholder(),
     Object? componentLabelMaxLines = const $CopyWithPlaceholder(),
-    Object? componentLabelPadding = const $CopyWithPlaceholder(),
     Object? componentLabelWidth = const $CopyWithPlaceholder(),
     Object? elevation = const $CopyWithPlaceholder(),
     Object? layerLabelFontSize = const $CopyWithPlaceholder(),
@@ -330,12 +314,6 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
               ? _value.analyzeSubtitleStyle
               // ignore: cast_nullable_to_non_nullable
               : analyzeSubtitleStyle as TextStyle,
-      componentBorderWidth:
-          componentBorderWidth == const $CopyWithPlaceholder() ||
-                  componentBorderWidth == null
-              ? _value.componentBorderWidth
-              // ignore: cast_nullable_to_non_nullable
-              : componentBorderWidth as double,
       componentColor: componentColor == const $CopyWithPlaceholder() ||
               componentColor == null
           ? _value.componentColor
@@ -371,12 +349,6 @@ class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
               ? _value.componentLabelMaxLines
               // ignore: cast_nullable_to_non_nullable
               : componentLabelMaxLines as int,
-      componentLabelPadding:
-          componentLabelPadding == const $CopyWithPlaceholder() ||
-                  componentLabelPadding == null
-              ? _value.componentLabelPadding
-              // ignore: cast_nullable_to_non_nullable
-              : componentLabelPadding as double,
       componentLabelWidth:
           componentLabelWidth == const $CopyWithPlaceholder() ||
                   componentLabelWidth == null

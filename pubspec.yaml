@@ -44,6 +44,7 @@ dependencies:
   flutter_riverpod: ^1.0.3+1
   http: ^0.13.5
   copy_with_extension_gen: ^4.0.4
+  flutter_colorpicker: ^1.0.3
 
 dev_dependencies:
   flutter_test:

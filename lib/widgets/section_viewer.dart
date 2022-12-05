@@ -109,7 +109,15 @@ class SectionViewer extends ConsumerWidget {
                   section: section,
                 ),
               ),
-              ...rows,
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 8,
+                  bottom: 8,
+                ),
+                child: Column(
+                  children: rows,
+                ),
+              ),
             ],
           ),
         ),

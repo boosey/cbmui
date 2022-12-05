@@ -32,17 +32,12 @@ class LabelWidget extends ConsumerStatefulWidget {
 
 class _LabelWidgetState extends ConsumerState<LabelWidget> {
   late final TextEditingController labelController;
-  late final TextStyle style;
   Timer timer = Timer(const Duration(milliseconds: 0), () {});
 
   @override
   void initState() {
     super.initState();
     labelController = TextEditingController(text: widget.label);
-    style = TextStyle(
-      fontSize: widget.fontSize,
-      fontWeight: widget.fontWeight,
-    );
   }
 
   @override
@@ -71,7 +66,10 @@ class _LabelWidgetState extends ConsumerState<LabelWidget> {
       child: isEditMode
           ? TextField(
               controller: labelController,
-              style: style,
+              style: TextStyle(
+                fontSize: widget.fontSize,
+                fontWeight: widget.fontWeight,
+              ),
               textAlign: widget.alignment,
               onSubmitted: widget.onChanged,
               onChanged: (s) => onChanged(s),
@@ -79,7 +77,10 @@ class _LabelWidgetState extends ConsumerState<LabelWidget> {
           : Text(
               widget.label,
               overflow: TextOverflow.ellipsis,
-              style: style,
+              style: TextStyle(
+                fontSize: widget.fontSize,
+                fontWeight: widget.fontWeight,
+              ),
               maxLines: widget.maxlines,
               textAlign: widget.alignment,
             ),

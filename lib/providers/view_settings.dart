@@ -10,9 +10,7 @@ part 'view_settings.g.dart';
 class ViewSettings {
   final Ref ref;
   final bool showSettingsView;
-  final double componentLabelPadding;
   final double componentLabelWidth;
-  final double componentBorderWidth;
   final Color componentColor;
   final Color componentIsRatedColor;
   final double componentLabelFontSize;
@@ -60,8 +58,6 @@ class ViewSettings {
     this.layerMaxTotalColumns = 15,
     this.sectionMinColumns = 2,
     this.componentLabelWidth = 100,
-    this.componentLabelPadding = 2,
-    this.componentBorderWidth = 2,
     this.componentDropIndicatorWidth = 8,
     this.componentColor = Colors.white,
     this.componentIsRatedColor = Colors.lightBlueAccent,
