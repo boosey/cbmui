@@ -8,17 +8,17 @@ class ModelApi {
   static setRepository(Repository<Model> repo) => _repository = repo;
 
   static Future<void> createModel() async {
-    await sendPost(url: 'http://localhost:8888/models');
+    await sendPost(url: 'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models');
     await _repository.findAll(syncLocal: true);
   }
 
   static Future<void> copyModel({required String mid}) async {
-    await sendGet(url: 'http://localhost:8888/models/$mid?copy');
+    await sendGet(url: 'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/$mid?copy');
     await _repository.findAll(syncLocal: true);
   }
 
   static Future<void> deleteModel({required String mid}) async {
-    await sendDelete(url: 'http://localhost:8888/models/$mid');
+    await sendDelete(url: 'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/$mid');
     await _repository.findAll(syncLocal: true);
   }
 
@@ -28,7 +28,7 @@ class ModelApi {
   }
 
   static Future<void> createLayer({required Model model}) async {
-    await sendPost(url: 'http://localhost:8888/models/${model.id}/layers');
+    await sendPost(url: 'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/${model.id}/layers');
     await _repository.findAll(syncLocal: true);
   }
 
@@ -36,7 +36,7 @@ class ModelApi {
       {required Model model, required Layer layer}) async {
     await sendPost(
         url:
-            'http://localhost:8888/models/${model.id}/layers/${layer.id}/sections');
+            'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/${model.id}/layers/${layer.id}/sections');
 
     await _repository.findAll(syncLocal: true);
   }
@@ -48,7 +48,7 @@ class ModelApi {
   }) async {
     await sendPost(
         url:
-            'http://localhost:8888/models/${model.mid}/layers/${layer.id}/sections/${section.id}/components');
+            'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/${model.mid}/layers/${layer.id}/sections/${section.id}/components');
 
     await _repository.findAll(syncLocal: true);
   }
