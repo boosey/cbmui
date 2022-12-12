@@ -1,0 +1,3 @@
+# Build for Production
+flutter build web
+

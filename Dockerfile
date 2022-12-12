@@ -26,9 +26,7 @@ RUN mkdir /app/
 COPY . /app/
 WORKDIR /app/
 RUN flutter pub get 
-RUN flutter build web \
-  --dart-define=PROJECTS_BASE_URL=https://cebrowserapi.dal1a.ciocloud.nonprod.intranet.ibm.com/ \
-  --dart-define=ASSIGNMENTS_BASE_URL=https://cebrowserapi.dal1a.ciocloud.nonprod.intranet.ibm.com/
+RUN flutter build web 
 
 # # Stage 2 - Create the run-time image
 FROM nginx:1.21.1-alpine
