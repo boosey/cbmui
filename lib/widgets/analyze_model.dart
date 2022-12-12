@@ -15,7 +15,7 @@ class ModelAnalyzer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mi = ref.watch(modelInfoProvider(model.mid));
+    final mi = ref.watch(modelInfoProvider(model.id));
     final settings = mi.settings;
 
     Widget subquadrant(int strategic, int relationship) {

@@ -75,7 +75,7 @@ class ModelList extends ConsumerWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ModelViewer(mid: m.mid)),
+                                builder: (context) => ModelViewer(mid: m.id)),
                           );
                         },
                         child: Padding(

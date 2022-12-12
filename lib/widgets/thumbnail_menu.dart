@@ -27,17 +27,17 @@ class ThumbnailMenu extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ModelViewer(mid: model.mid)),
+                  builder: (context) => ModelViewer(mid: model.id)),
             );
             break;
           case _TMItem.copy:
             () async {
-              await ModelApi.copyModel(mid: model.mid);
+              await ModelApi.copyModel(mid: model.id);
             }.call();
             break;
           case _TMItem.delete:
             () async {
-              await ModelApi.deleteModel(mid: model.mid);
+              await ModelApi.deleteModel(mid: model.id);
             }.call();
             break;
           default:

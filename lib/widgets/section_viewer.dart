@@ -46,7 +46,7 @@ class SectionViewer extends ConsumerWidget {
             component: c,
             sid: section.id,
             lid: layer.id,
-            mid: model.mid,
+            mid: model.id,
           ),
         )
         .toList();

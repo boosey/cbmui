@@ -45,6 +45,7 @@ dependencies:
   http: ^0.13.5
   copy_with_extension_gen: ^4.0.4
   flutter_colorpicker: ^1.0.3
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - env.development
+    - env.production
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

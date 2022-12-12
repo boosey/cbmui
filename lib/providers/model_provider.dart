@@ -6,6 +6,9 @@ final modelProvider = Provider.family<Model, String>((ref, mid) {
   final dataState = ref.models.watchAll(syncLocal: true);
 
   return dataState.hasModel
-      ? dataState.model!.firstWhere((m) => m.mid == mid)
-      : Model(mid: "", name: "", isTemplate: false);
+      ? dataState.model!.firstWhere((m) => m.id == mid)
+      : Model(
+          id: "",
+          name: "",
+        );
 });

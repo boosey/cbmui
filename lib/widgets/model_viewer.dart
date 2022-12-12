@@ -169,7 +169,7 @@ class ModelViewer extends ConsumerWidget {
     return LayerViewer(
       key: ValueKey("layerviewer${l.id}"),
       lid: l.id,
-      mid: model.mid,
+      mid: model.id,
     );
   }
 

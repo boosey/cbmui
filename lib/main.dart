@@ -1,11 +1,18 @@
 import 'package:cbmui/models/component_business_model.dart';
 import 'package:cbmui/api/model_api.dart';
 import 'package:cbmui/widgets/model_list.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'main.data.dart';
 
-void main() {
+Future<void> main() async {
+  if (kReleaseMode) {
+    await dotenv.load(fileName: "env.production");
+  } else {
+    await dotenv.load(fileName: "env.development");
+  }
   runApp(
     ProviderScope(
       // TODO: Remove hack to make flutter data not crash

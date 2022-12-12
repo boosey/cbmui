@@ -9,11 +9,9 @@ part of 'component_business_model.dart';
 abstract class _$ModelCWProxy {
   Model description(String? description);
 
-  Model isTemplate(bool isTemplate);
+  Model id(String id);
 
   Model layers(List<Layer>? layers);
-
-  Model mid(String mid);
 
   Model name(String name);
 
@@ -25,9 +23,8 @@ abstract class _$ModelCWProxy {
   /// ````
   Model call({
     String? description,
-    bool? isTemplate,
+    String? id,
     List<Layer>? layers,
-    String? mid,
     String? name,
   });
 }
@@ -42,13 +39,10 @@ class _$ModelCWProxyImpl implements _$ModelCWProxy {
   Model description(String? description) => this(description: description);
 
   @override
-  Model isTemplate(bool isTemplate) => this(isTemplate: isTemplate);
+  Model id(String id) => this(id: id);
 
   @override
   Model layers(List<Layer>? layers) => this(layers: layers);
-
-  @override
-  Model mid(String mid) => this(mid: mid);
 
   @override
   Model name(String name) => this(name: name);
@@ -63,9 +57,8 @@ class _$ModelCWProxyImpl implements _$ModelCWProxy {
   /// ````
   Model call({
     Object? description = const $CopyWithPlaceholder(),
-    Object? isTemplate = const $CopyWithPlaceholder(),
+    Object? id = const $CopyWithPlaceholder(),
     Object? layers = const $CopyWithPlaceholder(),
-    Object? mid = const $CopyWithPlaceholder(),
     Object? name = const $CopyWithPlaceholder(),
   }) {
     return Model(
@@ -73,19 +66,14 @@ class _$ModelCWProxyImpl implements _$ModelCWProxy {
           ? _value.description
           // ignore: cast_nullable_to_non_nullable
           : description as String?,
-      isTemplate:
-          isTemplate == const $CopyWithPlaceholder() || isTemplate == null
-              ? _value.isTemplate
-              // ignore: cast_nullable_to_non_nullable
-              : isTemplate as bool,
+      id: id == const $CopyWithPlaceholder() || id == null
+          ? _value.id
+          // ignore: cast_nullable_to_non_nullable
+          : id as String,
       layers: layers == const $CopyWithPlaceholder()
           ? _value.layers
           // ignore: cast_nullable_to_non_nullable
           : layers as List<Layer>?,
-      mid: mid == const $CopyWithPlaceholder() || mid == null
-          ? _value.mid
-          // ignore: cast_nullable_to_non_nullable
-          : mid as String,
       name: name == const $CopyWithPlaceholder() || name == null
           ? _value.name
           // ignore: cast_nullable_to_non_nullable
@@ -151,10 +139,9 @@ extension ModelRelationshipGraphNodeX on RelationshipGraphNode<Model> {}
 // **************************************************************************
 
 Model _$ModelFromJson(Map<String, dynamic> json) => Model(
-      mid: json['mid'] as String,
+      id: json['id'] as String,
       name: json['name'] as String,
       description: json['description'] as String?,
-      isTemplate: json['isTemplate'] as bool,
       layers: (json['layers'] as List<dynamic>?)
           ?.map((e) => Layer.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -162,7 +149,7 @@ Model _$ModelFromJson(Map<String, dynamic> json) => Model(
 
 Map<String, dynamic> _$ModelToJson(Model instance) {
   final val = <String, dynamic>{
-    'mid': instance.mid,
+    'id': instance.id,
     'name': instance.name,
   };
 
@@ -173,7 +160,6 @@ Map<String, dynamic> _$ModelToJson(Model instance) {
   }
 
   writeNotNull('description', instance.description);
-  val['isTemplate'] = instance.isTemplate;
   writeNotNull('layers', instance.layers?.map((e) => e.toJson()).toList());
   return val;
 }

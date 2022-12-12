@@ -1,4 +1,5 @@
 import 'package:flutter_data/flutter_data.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import '../models/component_business_model.dart';
 
@@ -7,18 +8,21 @@ class ModelApi {
 
   static setRepository(Repository<Model> repo) => _repository = repo;
 
+  static String get baseURL =>
+      dotenv.get('BASE_URL', fallback: 'BASE URL not found');
+
   static Future<void> createModel() async {
-    await sendPost(url: 'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models');
+    await sendPost(url: '$baseURL/models');
     await _repository.findAll(syncLocal: true);
   }
 
   static Future<void> copyModel({required String mid}) async {
-    await sendGet(url: 'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/$mid?copy');
+    await sendGet(url: '$baseURL/models/$mid?copy');
     await _repository.findAll(syncLocal: true);
   }
 
   static Future<void> deleteModel({required String mid}) async {
-    await sendDelete(url: 'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/$mid');
+    await sendDelete(url: '$baseURL/models/$mid');
     await _repository.findAll(syncLocal: true);
   }
 
@@ -28,15 +32,14 @@ class ModelApi {
   }
 
   static Future<void> createLayer({required Model model}) async {
-    await sendPost(url: 'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/${model.id}/layers');
+    await sendPost(url: '$baseURL/models/${model.id}/layers');
     await _repository.findAll(syncLocal: true);
   }
 
   static Future<void> createSection(
       {required Model model, required Layer layer}) async {
     await sendPost(
-        url:
-            'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/${model.id}/layers/${layer.id}/sections');
+        url: '$baseURL/models/${model.id}/layers/${layer.id}/sections');
 
     await _repository.findAll(syncLocal: true);
   }
@@ -48,7 +51,7 @@ class ModelApi {
   }) async {
     await sendPost(
         url:
-            'https://cbmtoolapi-1-7-default.cbmtoolocpclassicinfra-b0cb653ff9243d3438a147ae8bc47c70-0000.us-south.containers.appdomain.cloud/models/${model.mid}/layers/${layer.id}/sections/${section.id}/components');
+            '$baseURL/models/${model.id}/layers/${layer.id}/sections/${section.id}/components');
 
     await _repository.findAll(syncLocal: true);
   }

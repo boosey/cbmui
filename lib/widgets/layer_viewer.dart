@@ -59,7 +59,7 @@ class LayerViewer extends ConsumerWidget {
           );
 
           return SectionViewer(
-            mid: model.mid,
+            mid: model.id,
             sid: s.id,
             lid: layer.id,
             columnCount: columnCounts[s.id]!,

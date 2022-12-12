@@ -1,4 +1,5 @@
 import 'package:flutter_data/flutter_data.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:copy_with_extension/copy_with_extension.dart';
 
@@ -12,8 +13,7 @@ mixin ModelAdapter on RemoteAdapter<Model> {
       id != null ? DataRequestMethod.PUT : DataRequestMethod.POST;
 
   @override
-  String get baseUrl => 'http://localhost:8888/';
-  // String get baseUrl => const String.fromEnvironment("MODELS_BASE_URL");
+  String get baseUrl => dotenv.get('BASE_URL', fallback: 'BASE URL not found');
 }
 
 @JsonSerializable(includeIfNull: false, explicitToJson: true)
@@ -21,25 +21,16 @@ mixin ModelAdapter on RemoteAdapter<Model> {
 @DataRepository([ModelAdapter])
 class Model extends DataModel<Model> {
   Model({
-    // this.id,
-    required this.mid,
+    required this.id,
     required this.name,
     this.description,
-    required this.isTemplate,
     this.layers,
   });
-
-  // @override
-  // @JsonKey(name: '_id')
-  // final String? id;
-  final String mid;
+  @override
+  final String id;
   late String name;
   late String? description;
-  late bool isTemplate;
   late List<Layer>? layers;
-
-  @override
-  Object? get id => mid;
 
   Layer findLayer(String lid) {
     return layers!.firstWhere((l) => l.id == lid);
