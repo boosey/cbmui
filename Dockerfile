@@ -45,4 +45,9 @@ RUN chgrp -R 0 /usr && \
   chmod -R g=u /etc/nginx && \
   chown -R 1001:0 /etc/nginx  
 
+# adding index.html 
+RUN cd /usr/share/nginx/html && \
+           mkdir nginx_status && \ 
+          touch nginx_status/index.html
+
 USER 1001
