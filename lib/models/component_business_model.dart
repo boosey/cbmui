@@ -202,6 +202,15 @@ class Component {
     this.strategic = 0,
     this.relationship = 0,
     this.notes = "",
+    this.businessContact = "",
+    this.appDevContact = "",
+    this.opsInfraContact = "",
+    this.isIbmConsulting = false,
+    this.isIbmTechnology = false,
+    this.isAppDev = false,
+    this.isBusiness = false,
+    this.isOpsInfra = false,
+    this.tags = const [],
   });
 
   final String id;
@@ -210,6 +219,15 @@ class Component {
   late int strategic;
   late int relationship;
   late String notes;
+  late bool isIbmTechnology;
+  late bool isIbmConsulting;
+  late bool isBusiness;
+  late bool isAppDev;
+  late bool isOpsInfra;
+  late String businessContact;
+  late String appDevContact;
+  late String opsInfraContact;
+  late List<String> tags;
 
   // ignore: sort_constructors_first
   factory Component.fromJson(Map<String, dynamic> json) =>

@@ -222,6 +222,17 @@ Component _$ComponentFromJson(Map<String, dynamic> json) => Component(
       strategic: json['strategic'] as int? ?? 0,
       relationship: json['relationship'] as int? ?? 0,
       notes: json['notes'] as String? ?? "",
+      businessContact: json['businessContact'] as String? ?? "",
+      appDevContact: json['appDevContact'] as String? ?? "",
+      opsInfraContact: json['opsInfraContact'] as String? ?? "",
+      isIbmConsulting: json['isIbmConsulting'] as bool? ?? false,
+      isIbmTechnology: json['isIbmTechnology'] as bool? ?? false,
+      isAppDev: json['isAppDev'] as bool? ?? false,
+      isBusiness: json['isBusiness'] as bool? ?? false,
+      isOpsInfra: json['isOpsInfra'] as bool? ?? false,
+      tags:
+          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+              const [],
     );
 
 Map<String, dynamic> _$ComponentToJson(Component instance) => <String, dynamic>{
@@ -231,4 +242,13 @@ Map<String, dynamic> _$ComponentToJson(Component instance) => <String, dynamic>{
       'strategic': instance.strategic,
       'relationship': instance.relationship,
       'notes': instance.notes,
+      'isIbmTechnology': instance.isIbmTechnology,
+      'isIbmConsulting': instance.isIbmConsulting,
+      'isBusiness': instance.isBusiness,
+      'isAppDev': instance.isAppDev,
+      'isOpsInfra': instance.isOpsInfra,
+      'businessContact': instance.businessContact,
+      'appDevContact': instance.appDevContact,
+      'opsInfraContact': instance.opsInfraContact,
+      'tags': instance.tags,
     };
