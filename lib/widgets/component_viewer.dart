@@ -202,7 +202,7 @@ class _RatingDialogState extends State<RatingDialog> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(10.0),
               child: Container(
                 decoration: const BoxDecoration(
                   border: Border.symmetric(
@@ -217,14 +217,14 @@ class _RatingDialogState extends State<RatingDialog> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: IBMDivisionSelector(
                               component: widget.component,
                               model: widget.model,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: RelationshipArea(
                               component: widget.component,
                               model: widget.model,
@@ -240,7 +240,7 @@ class _RatingDialogState extends State<RatingDialog> {
                           SizedBox(
                             width: 250,
                             child: Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: TextField(
                                 decoration: const InputDecoration(
                                   labelText: "Business Contact",
@@ -255,7 +255,7 @@ class _RatingDialogState extends State<RatingDialog> {
                           SizedBox(
                             width: 250,
                             child: Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: TextField(
                                 decoration: const InputDecoration(
                                   labelText: "Application Development Contact",
@@ -270,7 +270,7 @@ class _RatingDialogState extends State<RatingDialog> {
                           SizedBox(
                             width: 250,
                             child: Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: TextField(
                                 decoration: const InputDecoration(
                                   labelText: "Operations Contact",
