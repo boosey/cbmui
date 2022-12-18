@@ -230,9 +230,8 @@ Component _$ComponentFromJson(Map<String, dynamic> json) => Component(
       isAppDev: json['isAppDev'] as bool? ?? false,
       isBusiness: json['isBusiness'] as bool? ?? false,
       isOpsInfra: json['isOpsInfra'] as bool? ?? false,
-      tags:
-          (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-              const [],
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toSet() ??
+          const {},
     );
 
 Map<String, dynamic> _$ComponentToJson(Component instance) => <String, dynamic>{
@@ -250,5 +249,5 @@ Map<String, dynamic> _$ComponentToJson(Component instance) => <String, dynamic>{
       'businessContact': instance.businessContact,
       'appDevContact': instance.appDevContact,
       'opsInfraContact': instance.opsInfraContact,
-      'tags': instance.tags,
+      'tags': instance.tags.toList(),
     };

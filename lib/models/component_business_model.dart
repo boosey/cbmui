@@ -210,7 +210,7 @@ class Component {
     this.isAppDev = false,
     this.isBusiness = false,
     this.isOpsInfra = false,
-    this.tags = const [],
+    this.tags = const {},
   });
 
   final String id;
@@ -227,7 +227,7 @@ class Component {
   late String businessContact;
   late String appDevContact;
   late String opsInfraContact;
-  late List<String> tags;
+  late Set<String> tags;
 
   // ignore: sort_constructors_first
   factory Component.fromJson(Map<String, dynamic> json) =>

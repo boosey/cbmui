@@ -1,5 +1,6 @@
 import 'package:cbmui/models/component_business_model.dart';
 import 'package:cbmui/api/model_api.dart';
+import 'package:cbmui/providers/tags_provider.dart';
 import 'package:cbmui/widgets/model_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,8 @@ class ComponentBusinessModelsApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ModelApi.setRepository(ref.read(modelsRepositoryProvider));
+
+    ref.read(tagsProvider.notifier).reload();
 
     return MaterialApp(
       home: Scaffold(

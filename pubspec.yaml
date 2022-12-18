@@ -46,6 +46,7 @@ dependencies:
   copy_with_extension_gen: ^4.0.4
   flutter_colorpicker: ^1.0.3
   flutter_dotenv: ^5.0.2
+  super_tag_editor: ^0.0.3+3
 
 dev_dependencies:
   flutter_test:

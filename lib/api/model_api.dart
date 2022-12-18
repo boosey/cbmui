@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_data/flutter_data.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import '../models/component_business_model.dart';
 
 class ModelApi {
@@ -56,25 +59,50 @@ class ModelApi {
     await _repository.findAll(syncLocal: true);
   }
 
-  static Future<void> sendPost({required String url}) async {
+  static Future<List<String>> getTags() async {
+    var r = await sendGet(url: '$baseURL/models/tags');
+    List<dynamic> tags = jsonDecode(r.body);
+    var tags2 = <String>[];
+    for (var t in tags) {
+      tags2.add(t.toString());
+    }
+    return Future.value(tags2);
+  }
+
+  static Future<void> addTag(String newOption) async {
+    await sendPost(
+        url: '$baseURL/models/tags', body: newOption, isPlainText: true);
+    return;
+  }
+
+  static Future<void> deleteTag(String oldOption) async {
+    await sendDelete(url: '$baseURL/models/tags/$oldOption');
+    return;
+  }
+
+  static Future<void> sendPost(
+      {required String url, String body = "", bool isPlainText = false}) async {
     await http.post(
       Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: "{}",
+      headers: isPlainText
+          ? <String, String>{
+              'Content-Type': 'text/plain',
+            }
+          : <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+      body: body,
     );
     return;
   }
 
-  static Future<void> sendGet({required String url}) async {
-    await http.get(
+  static Future<Response> sendGet({required String url}) async {
+    return await http.get(
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    return;
   }
 
   static Future<void> sendDelete({required String url}) async {

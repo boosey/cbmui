@@ -7,6 +7,7 @@ import 'package:cbmui/widgets/ibm_divisions_selector.dart';
 import 'package:cbmui/widgets/relationship_area.dart';
 import 'package:cbmui/widgets/relationship_widget.dart';
 import 'package:cbmui/widgets/strategic_widget.dart';
+import 'package:cbmui/widgets/tags_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/component_business_model.dart';
@@ -168,180 +169,190 @@ class _RatingDialogState extends State<RatingDialog> {
         minHeight: 400,
         maxHeight: 800,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              widget.component.name,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                widget.component.name,
+                style:
+                    const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: StrategicWidget(
-                  componentId: widget.component.id,
-                  model: widget.model,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: StrategicWidget(
+                    componentId: widget.component.id,
+                    model: widget.model,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: RelationshipWidget(
+                    componentId: widget.component.id,
+                    model: widget.model,
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                  border: Border.symmetric(
+                    vertical: BorderSide(),
+                    horizontal: BorderSide(),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: IBMDivisionSelector(
+                              component: widget.component,
+                              model: widget.model,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: RelationshipArea(
+                              component: widget.component,
+                              model: widget.model,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 250,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                  labelText: "Business Contact",
+                                  border: OutlineInputBorder(),
+                                ),
+                                controller: lobContactController,
+                                onChanged: (s) => onTextChanged(
+                                    () => widget.component.businessContact = s),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 250,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                  labelText: "Application Development Contact",
+                                  border: OutlineInputBorder(),
+                                ),
+                                controller: adContactController,
+                                onChanged: (s) => onTextChanged(
+                                    () => widget.component.appDevContact = s),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 250,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                  labelText: "Operations Contact",
+                                  border: OutlineInputBorder(),
+                                ),
+                                controller: opsContactController,
+                                onChanged: (s) => onTextChanged(
+                                    () => widget.component.opsInfraContact = s),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: RelationshipWidget(
-                  componentId: widget.component.id,
-                  model: widget.model,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextField(
+                minLines: 3,
+                maxLines: 20,
+                decoration: const InputDecoration(
+                  labelText: "Notes",
+                  border: OutlineInputBorder(),
                 ),
+                controller: notesController,
+                onChanged: (s) => onNotesChanged(s),
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              decoration: const BoxDecoration(
-                border: Border.symmetric(
-                  vertical: BorderSide(),
-                  horizontal: BorderSide(),
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ComponentTags(
+                component: widget.component,
+                model: widget.model,
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
                   Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: IBMDivisionSelector(
-                            component: widget.component,
-                            model: widget.model,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: RelationshipArea(
-                            component: widget.component,
-                            model: widget.model,
-                          ),
-                        ),
-                      ],
+                    child: IconButton(
+                      iconSize: 36,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(
+                        Icons.check_circle,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: 250,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: TextField(
-                              decoration: const InputDecoration(
-                                labelText: "Business Contact",
-                                border: OutlineInputBorder(),
-                              ),
-                              controller: lobContactController,
-                              onChanged: (s) => onTextChanged(
-                                  () => widget.component.businessContact = s),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 250,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: TextField(
-                              decoration: const InputDecoration(
-                                labelText: "Application Development Contact",
-                                border: OutlineInputBorder(),
-                              ),
-                              controller: adContactController,
-                              onChanged: (s) => onTextChanged(
-                                  () => widget.component.appDevContact = s),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 250,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: TextField(
-                              decoration: const InputDecoration(
-                                labelText: "Operations Contact",
-                                border: OutlineInputBorder(),
-                              ),
-                              controller: opsContactController,
-                              onChanged: (s) => onTextChanged(
-                                  () => widget.component.opsInfraContact = s),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  TextButton(
+                    onPressed: () async {
+                      widget.component.relationship = 0;
+                      widget.component.strategic = 0;
+                      widget.component.isIbmConsulting = false;
+                      widget.component.isIbmTechnology = false;
+                      widget.component.isAppDev = false;
+                      widget.component.isBusiness = false;
+                      widget.component.isOpsInfra = false;
+                      widget.component.appDevContact = "";
+                      widget.component.businessContact = "";
+                      widget.component.opsInfraContact = "";
+                      widget.component.notes = "";
+                      widget.component.tags = {};
+
+                      adContactController.text = "";
+                      lobContactController.text = "";
+                      opsContactController.text = "";
+
+                      await ModelApi.saveModel(model: widget.model);
+                    },
+                    child: const Text("Clear"),
                   )
                 ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextField(
-              minLines: 3,
-              maxLines: 20,
-              decoration: const InputDecoration(
-                labelText: "Notes",
-                border: OutlineInputBorder(),
-              ),
-              controller: notesController,
-              onChanged: (s) => onNotesChanged(s),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: IconButton(
-                    iconSize: 36,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(
-                      Icons.check_circle,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    widget.component.relationship = 0;
-                    widget.component.strategic = 0;
-                    widget.component.isIbmConsulting = false;
-                    widget.component.isIbmTechnology = false;
-                    widget.component.isAppDev = false;
-                    widget.component.isBusiness = false;
-                    widget.component.isOpsInfra = false;
-                    widget.component.appDevContact = "";
-                    widget.component.businessContact = "";
-                    widget.component.opsInfraContact = "";
-                    widget.component.notes = "";
-                    widget.component.tags = [];
-
-                    adContactController.text = "";
-                    lobContactController.text = "";
-                    opsContactController.text = "";
-
-                    await ModelApi.saveModel(model: widget.model);
-                  },
-                  child: const Text("Clear"),
-                )
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
