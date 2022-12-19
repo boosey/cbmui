@@ -4,10 +4,12 @@ import 'package:cbmui/providers/model_provider.dart';
 import 'package:cbmui/providers/view_settings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/component_business_model.dart';
+import '../models/cbmodel.dart';
+import '../models/layer.dart';
+import '../models/section.dart';
 
 class ModelInfo {
-  final Model model;
+  final CBModel model;
   final ViewSettings settings;
   final Map<String, Map<String, int>> layersSectionColumnCounts = {};
   final Map<String, Map<String, double>> rawSectionWidths = {};
@@ -20,7 +22,7 @@ class ModelInfo {
     required this.settings,
   }) {
     // Column Counts
-    for (var l in model.layers!) {
+    for (var l in model.layers) {
       layersSectionColumnCounts.putIfAbsent(
           l.id, () => calculateTotalSectionColumnCountsForLayer(l));
     }
@@ -42,10 +44,10 @@ class ModelInfo {
 
   void calculateSectionInfoByLayer<T>(Map<String, Map<String, T>> repo,
       dynamic Function(Layer, Section) calculator) {
-    for (var l in model.layers!) {
+    for (var l in model.layers) {
       var insideMap = <String, T>{};
       repo.putIfAbsent(l.id, () => insideMap);
-      for (var s in l.sections!) {
+      for (var s in l.sections) {
         insideMap.putIfAbsent(s.id, () => calculator.call(l, s));
       }
     }
@@ -86,9 +88,9 @@ class ModelInfo {
   double maxWidthOfSectionAreaOfAllLayersInModel() {
     assert(layersSectionColumnCounts.isNotEmpty);
 
-    final maxW = model.layers!.map(
+    final maxW = model.layers.map(
       (l) {
-        return l.sections!.fold(
+        return l.sections.fold(
           0.0,
           (w, s) {
             return w += layersSectionColumnCounts[l.id]![s.id]!;
@@ -102,7 +104,7 @@ class ModelInfo {
 
 // done
   Map<String, int> calculateTotalSectionColumnCountsForLayer(Layer l) {
-    final sections = l.sections!;
+    final sections = l.sections;
     final columnCounts = <String, int>{};
 
     int columnsRemaining = settings.layerMaxTotalColumns -
@@ -116,10 +118,10 @@ class ModelInfo {
       final maxDepth = sections.fold(
           0,
           (curMax, s) =>
-              max(curMax, (s.components!.length / columnCounts[s.id]!).ceil()));
+              max(curMax, (s.components.length / columnCounts[s.id]!).ceil()));
 
       final sectionsAtMaxDepth = sections.where((s) =>
-          (s.components!.length / columnCounts[s.id]!).ceil() == maxDepth);
+          (s.components.length / columnCounts[s.id]!).ceil() == maxDepth);
 
       for (var s in sectionsAtMaxDepth) {
         if (columnsRemaining > 0) {
@@ -138,7 +140,7 @@ class ModelInfo {
     Section s,
   ) {
     assert(layersSectionColumnCounts.isNotEmpty);
-    return (s.components!.length / layersSectionColumnCounts[l.id]![s.id]!)
+    return (s.components.length / layersSectionColumnCounts[l.id]![s.id]!)
         .ceil();
   }
 }

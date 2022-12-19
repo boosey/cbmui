@@ -1,7 +1,8 @@
-import 'package:cbmui/models/component_business_model.dart';
 import 'package:flutter/material.dart';
 
 import '../api/model_api.dart';
+import '../models/cbmodel.dart';
+import '../models/component.dart';
 
 class RelationshipArea extends StatelessWidget {
   const RelationshipArea({
@@ -11,7 +12,7 @@ class RelationshipArea extends StatelessWidget {
   });
 
   final Component component;
-  final Model model;
+  final CBModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class RelationshipArea extends StatelessWidget {
             break;
         }
 
-        await ModelApi.saveModel(model: model);
+        await ModelApi.saveCBModel(model: model);
       },
       isSelected: [
         component.isBusiness,

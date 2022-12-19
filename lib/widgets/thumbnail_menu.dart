@@ -1,7 +1,6 @@
 import 'package:cbmui/api/model_api.dart';
 import 'package:flutter/material.dart';
-
-import '../models/component_business_model.dart';
+import '../models/cbmodel.dart';
 import 'model_viewer.dart';
 
 enum _TMItem {
@@ -16,7 +15,7 @@ class ThumbnailMenu extends StatelessWidget {
     required this.model,
   });
 
-  final Model model;
+  final CBModel model;
 
   @override
   Widget build(BuildContext context) {

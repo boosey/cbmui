@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/component_business_model.dart';
+import '../models/cbmodel.dart';
+
 import '../providers/drag_target_provider.dart';
 
 typedef MoveObjectFunction = void Function(String, String, String);
@@ -24,7 +25,7 @@ class VerticalDoubleDropZone extends ConsumerWidget {
   final Axis direction;
   final double indicatorWidth;
   final Color indicatorColor;
-  final Model model;
+  final CBModel model;
   final String id;
   final String type;
   final MoveObjectFunction onDrop;

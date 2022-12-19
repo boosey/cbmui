@@ -1,11 +1,15 @@
-import 'package:cbmui/models/component_business_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../models/cbmodel.dart';
+import '../models/component.dart';
+import '../models/layer.dart';
+import '../models/section.dart';
 
 class ModelThumbnail extends ConsumerWidget {
   const ModelThumbnail({super.key, required this.model});
 
-  final Model model;
+  final CBModel model;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,7 +18,7 @@ class ModelThumbnail extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ...model.layers!.map(
+        ...model.layers.map(
           (l) {
             return layerThumbnail(l);
           },
@@ -42,7 +46,7 @@ class ModelThumbnail extends ConsumerWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ...l.sections!.reversed.map(
+              ...l.sections.reversed.map(
                 (s) => Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: sectionThumbnail(s),
@@ -64,7 +68,7 @@ class ModelThumbnail extends ConsumerWidget {
         crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 2,
         runSpacing: 2,
-        children: s.components!
+        children: s.components
             .map(
               (c) => Padding(
                 padding: const EdgeInsets.all(8.0),

@@ -40,7 +40,7 @@ class SectionViewer extends ConsumerWidget {
     final section = layer.findSection(sid);
     final settings = modelInfo.settings;
 
-    final componentsWidgets = section.components!
+    final componentsWidgets = section.components
         .map(
           (c) => ComponentViewer(
             component: c,
@@ -59,7 +59,7 @@ class SectionViewer extends ConsumerWidget {
         width: width,
         onChanged: (s) async {
           section.name = s;
-          await ModelApi.saveModel(
+          await ModelApi.saveCBModel(
             model: model,
           );
         },
@@ -140,8 +140,8 @@ class SectionViewer extends ConsumerWidget {
               children: [
                 EditButtons(
                   onDelete: () async {
-                    layer.sections!.removeWhere((s) => section.id == s.id);
-                    await ModelApi.saveModel(
+                    layer.sections.removeWhere((s) => section.id == s.id);
+                    await ModelApi.saveCBModel(
                       model: model,
                     );
                   },

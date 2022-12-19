@@ -2,7 +2,8 @@ import 'package:cbmui/providers/model_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/component_business_model.dart';
+import '../models/cbmodel.dart';
+import '../models/component.dart';
 
 class ModelAnalyzer extends ConsumerWidget {
   ModelAnalyzer({
@@ -10,13 +11,15 @@ class ModelAnalyzer extends ConsumerWidget {
     required this.model,
   }) : super(key: key);
 
-  final Model model;
+  final CBModel model;
   final List<Component> allComponents = <Component>[];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final mi = ref.watch(modelInfoProvider(model.id));
     final settings = mi.settings;
+    final analyzeSubtitleStyle =
+        TextStyle(fontSize: settings.analyzeSubtitleFontSize);
 
     Widget subquadrant(int strategic, int relationship) {
       final thickBorder =
@@ -76,14 +79,14 @@ class ModelAnalyzer extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                 child: Column(
                   children: [
-                    Text("Importance", style: settings.analyzeSubtitleStyle),
+                    Text("Importance", style: analyzeSubtitleStyle),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text("None", style: settings.analyzeSubtitleStyle),
-                        Text("Neutral", style: settings.analyzeSubtitleStyle),
-                        Text("Tactical", style: settings.analyzeSubtitleStyle),
-                        Text("Strategic", style: settings.analyzeSubtitleStyle),
+                        Text("None", style: analyzeSubtitleStyle),
+                        Text("Neutral", style: analyzeSubtitleStyle),
+                        Text("Tactical", style: analyzeSubtitleStyle),
+                        Text("Strategic", style: analyzeSubtitleStyle),
                       ],
                     ),
                   ],
@@ -170,9 +173,9 @@ class ModelAnalyzer extends ConsumerWidget {
 
   List<Component> getAllComponents() {
     if (allComponents.isEmpty) {
-      for (var l in model.layers!) {
-        for (var s in l.sections!) {
-          for (var c in s.components!) {
+      for (var l in model.layers) {
+        for (var s in l.sections) {
+          for (var c in s.components) {
             allComponents.add(c);
           }
         }

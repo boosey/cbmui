@@ -1,7 +1,8 @@
-import 'package:cbmui/models/component_business_model.dart';
 import 'package:flutter/material.dart';
 
 import '../api/model_api.dart';
+import '../models/cbmodel.dart';
+import '../models/component.dart';
 
 class IBMDivisionSelector extends StatelessWidget {
   const IBMDivisionSelector({
@@ -11,7 +12,7 @@ class IBMDivisionSelector extends StatelessWidget {
   });
 
   final Component component;
-  final Model model;
+  final CBModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class IBMDivisionSelector extends StatelessWidget {
             break;
         }
 
-        await ModelApi.saveModel(model: model);
+        await ModelApi.saveCBModel(model: model);
       },
       isSelected: [
         component.isIbmConsulting,

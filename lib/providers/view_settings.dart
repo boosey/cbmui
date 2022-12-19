@@ -1,84 +1,54 @@
-import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_data/flutter_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../models/component_business_model.dart';
+import '../models/cbmodel.dart';
+import '../models/layer.dart';
+import '../models/section.dart';
 
+part 'view_settings.freezed.dart';
 part 'view_settings.g.dart';
 
-@CopyWith()
-class ViewSettings {
-  final Ref ref;
-  final bool showSettingsView;
-  final double componentLabelWidth;
-  final Color componentColor;
-  final Color componentIsRatedColor;
-  final double componentLabelFontSize;
-  final FontWeight componentLabelFontWeight;
-  final int componentLabelMaxLines;
-  final double componentDropIndicatorWidth;
-  final double sectionBorderWidth;
-  final double sectionLabelFontSize;
-  final FontWeight sectionLabelFontWeight;
-  final int sectionLabelMaxLines;
-  final Color sectionBorderColor;
-  final Color sectionColor;
-  final double layerLabelWidth;
-  final double layerSpacerWidth;
-  final double layerLabelFontSize;
-  final FontWeight layerLabelFontWeight;
-  final int layerLabelMaxLines;
-  final double layerPaddingWidth;
-  final int layerMaxTotalColumns;
-  final int sectionMinColumns;
-  final double modelViewerPaddingWidth;
-  final double elevation;
-  final double subquadrantMinWidth;
-  final double subquadrantMinHeight;
-  final double subquadrantMaxWidth;
-  final double subquadrantMaxHeight;
-  final double subquadrantThickBorderWidth;
-  final double subquadrantThinBorderWidth;
-  final List<Color> strategicGradientColors;
-  final List<Color> relationshipGradientColors;
-  final TextStyle analyzeSubtitleStyle;
+@freezed
+class ViewSettings with _$ViewSettings {
+  const ViewSettings._();
 
-  ViewSettings({
-    required this.ref,
-    this.showSettingsView = false,
-    this.subquadrantMinWidth = 350,
-    this.subquadrantMinHeight = 350,
-    this.subquadrantMaxWidth = 500,
-    this.subquadrantMaxHeight = 500,
-    this.subquadrantThickBorderWidth = 6,
-    this.subquadrantThinBorderWidth = 1,
-    this.strategicGradientColors = const [Colors.green, Colors.blueGrey],
-    this.relationshipGradientColors = const [Colors.blue, Colors.blueGrey],
-    this.analyzeSubtitleStyle = const TextStyle(fontSize: 24),
-    this.layerMaxTotalColumns = 15,
-    this.sectionMinColumns = 2,
-    this.componentLabelWidth = 100,
-    this.componentDropIndicatorWidth = 8,
-    this.componentColor = Colors.white,
-    this.componentIsRatedColor = Colors.lightBlueAccent,
-    this.componentLabelFontSize = 14,
-    this.componentLabelFontWeight = FontWeight.normal,
-    this.componentLabelMaxLines = 3,
-    this.sectionBorderWidth = 1,
-    this.sectionLabelFontSize = 20,
-    this.sectionLabelFontWeight = FontWeight.bold,
-    this.sectionLabelMaxLines = 1,
-    this.sectionBorderColor = Colors.black,
-    this.sectionColor = Colors.white,
-    this.layerLabelWidth = 250,
-    this.layerSpacerWidth = 20,
-    this.layerLabelFontSize = 32,
-    this.layerPaddingWidth = 5,
-    this.layerLabelFontWeight = FontWeight.bold,
-    this.layerLabelMaxLines = 3,
-    this.modelViewerPaddingWidth = 30,
-    this.elevation = 3,
-  });
+  factory ViewSettings({
+    @Default(false) bool showSettingsView,
+    @Default(350) double subquadrantMinWidth,
+    @Default(350) double subquadrantMinHeight,
+    @Default(500) double subquadrantMaxWidth,
+    @Default(500) double subquadrantMaxHeight,
+    @Default(6) double subquadrantThickBorderWidth,
+    @Default(1) double subquadrantThinBorderWidth,
+    @Default(24) double analyzeSubtitleFontSize,
+    @Default(15) int layerMaxTotalColumns,
+    @Default(2) int sectionMinColumns,
+    @Default(100) double componentLabelWidth,
+    @Default(8) double componentDropIndicatorWidth,
+    @Default(Colors.white) Color componentColor,
+    @Default(Colors.lightBlueAccent) Color componentIsRatedColor,
+    @Default(14) double componentLabelFontSize,
+    @Default(FontWeight.normal) FontWeight componentLabelFontWeight,
+    @Default(3) int componentLabelMaxLines,
+    @Default(1) double sectionBorderWidth,
+    @Default(20) double sectionLabelFontSize,
+    @Default(FontWeight.bold) FontWeight sectionLabelFontWeight,
+    @Default(1) int sectionLabelMaxLines,
+    @Default(Colors.black) Color sectionBorderColor,
+    @Default(Colors.white) Color sectionColor,
+    @Default(250) double layerLabelWidth,
+    @Default(20) double layerSpacerWidth,
+    @Default(32) double layerLabelFontSize,
+    @Default(5) double layerPaddingWidth,
+    @Default(FontWeight.bold) FontWeight layerLabelFontWeight,
+    @Default(3) int layerLabelMaxLines,
+    @Default(30) double modelViewerPaddingWidth,
+    @Default(2) double elevation,
+  }) = _ViewSettings;
+
+  factory ViewSettings.fromJson(Map<String, dynamic> json) =>
+      _$ViewSettingsFromJson(json);
 
   double get componentBaseSideLength => componentLabelWidth + 20;
 
@@ -106,7 +76,7 @@ class ViewSettings {
       16;
 
   double calculateAdjustedSectionWidth(
-    Model model,
+    CBModel model,
     Section section,
     int columnCount,
     int columnDiff,
@@ -118,13 +88,13 @@ class ViewSettings {
   }
 
   double maxWidthOfSectionAreaOfAllLayersInModel(
-    Model model,
+    CBModel model,
   ) {
-    final maxW = model.layers!.map(
+    final maxW = model.layers.map(
       (l) {
         final cc = calculateSectionColumnCountsForLayer(l);
 
-        return l.sections!.fold(
+        return l.sections.fold(
           0.0,
           (w, s) {
             return w += _calculateRawSectionWidth(
@@ -140,7 +110,7 @@ class ViewSettings {
   }
 
   Map<String, int> calculateSectionColumnCountsForLayer(Layer layer) {
-    final sections = layer.sections!;
+    final sections = layer.sections;
     final columnCounts = <String, int>{};
 
     int columnsRemaining =
@@ -172,7 +142,7 @@ class ViewSettings {
   }
 
   int depth(Section s, int columnCount) {
-    return (s.components!.length / columnCount).ceil();
+    return (s.components.length / columnCount).ceil();
   }
 }
 
@@ -186,4 +156,4 @@ class ModelViewerSettingsNotifier extends StateNotifier<ViewSettings> {
 
 final viewSettingsProvider =
     StateNotifierProvider<ModelViewerSettingsNotifier, ViewSettings>(
-        (ref) => ModelViewerSettingsNotifier(ViewSettings(ref: ref)));
+        (ref) => ModelViewerSettingsNotifier(ViewSettings()));

@@ -1,14 +1,15 @@
-import 'package:cbmui/models/component_business_model.dart';
 import 'package:flutter/material.dart';
 
 import '../api/model_api.dart';
+import '../models/cbmodel.dart';
+import '../models/component.dart';
 
 class StrategicWidget extends StatelessWidget {
   const StrategicWidget(
       {Key? key, required this.componentId, required this.model})
       : super(key: key);
 
-  final Model model;
+  final CBModel model;
   final String componentId;
 
   @override
@@ -32,7 +33,7 @@ class StrategicWidget extends StatelessWidget {
           onPressed: (index) async {
             component.strategic = index + 1;
             // if (component.relationship > 0) {
-            await ModelApi.saveModel(model: model);
+            await ModelApi.saveCBModel(model: model);
             // }
           },
           isSelected: [

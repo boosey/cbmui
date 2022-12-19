@@ -6,12 +6,13 @@ import 'package:cbmui/widgets/settings_view.dart';
 import 'package:cbmui/widgets/thumbnail_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/component_business_model.dart';
+
+import '../models/cbmodel.dart';
 
 class ModelList extends ConsumerWidget {
   const ModelList({Key? key, required this.models}) : super(key: key);
 
-  final List<Model> models;
+  final List<CBModel> models;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

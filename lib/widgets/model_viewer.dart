@@ -9,7 +9,8 @@ import 'package:cbmui/widgets/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/component_business_model.dart';
+import '../models/cbmodel.dart';
+import '../models/layer.dart';
 import '../providers/mode_provider.dart';
 
 import '../api/model_api.dart';
@@ -39,7 +40,7 @@ class ModelViewer extends ConsumerWidget {
         label: model.name,
         onChanged: (s) async {
           model.name = s;
-          await ModelApi.saveModel(
+          await ModelApi.saveCBModel(
             model: model,
           );
         },
@@ -109,7 +110,7 @@ class ModelViewer extends ConsumerWidget {
   }
 
   Widget view({
-    required Model model,
+    required CBModel model,
     required bool isAnalyzeMode,
     required ViewSettings settings,
     required bool isEditMode,
@@ -144,7 +145,7 @@ class ModelViewer extends ConsumerWidget {
                               height: 1,
                             ),
                           ),
-                          ...model.layers!.map(
+                          ...model.layers.map(
                             (l) {
                               return layerViewer(
                                 l,
@@ -165,7 +166,7 @@ class ModelViewer extends ConsumerWidget {
   }
 
   Widget layerViewer(
-      Layer l, Model model, ViewSettings settings, bool isEditMode) {
+      Layer l, CBModel model, ViewSettings settings, bool isEditMode) {
     return LayerViewer(
       key: ValueKey("layerviewer${l.id}"),
       lid: l.id,

@@ -1,508 +1,94 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names
+
 part of 'view_settings.dart';
 
 // **************************************************************************
-// CopyWithGenerator
+// JsonSerializableGenerator
 // **************************************************************************
 
-abstract class _$ViewSettingsCWProxy {
-  ViewSettings analyzeSubtitleStyle(TextStyle analyzeSubtitleStyle);
-
-  ViewSettings componentColor(Color componentColor);
-
-  ViewSettings componentDropIndicatorWidth(double componentDropIndicatorWidth);
-
-  ViewSettings componentIsRatedColor(Color componentIsRatedColor);
-
-  ViewSettings componentLabelFontSize(double componentLabelFontSize);
-
-  ViewSettings componentLabelFontWeight(FontWeight componentLabelFontWeight);
-
-  ViewSettings componentLabelMaxLines(int componentLabelMaxLines);
-
-  ViewSettings componentLabelWidth(double componentLabelWidth);
-
-  ViewSettings elevation(double elevation);
-
-  ViewSettings layerLabelFontSize(double layerLabelFontSize);
-
-  ViewSettings layerLabelFontWeight(FontWeight layerLabelFontWeight);
-
-  ViewSettings layerLabelMaxLines(int layerLabelMaxLines);
-
-  ViewSettings layerLabelWidth(double layerLabelWidth);
-
-  ViewSettings layerMaxTotalColumns(int layerMaxTotalColumns);
-
-  ViewSettings layerPaddingWidth(double layerPaddingWidth);
-
-  ViewSettings layerSpacerWidth(double layerSpacerWidth);
-
-  ViewSettings modelViewerPaddingWidth(double modelViewerPaddingWidth);
-
-  ViewSettings ref(Ref ref);
-
-  ViewSettings relationshipGradientColors(
-      List<Color> relationshipGradientColors);
-
-  ViewSettings sectionBorderColor(Color sectionBorderColor);
-
-  ViewSettings sectionBorderWidth(double sectionBorderWidth);
-
-  ViewSettings sectionColor(Color sectionColor);
-
-  ViewSettings sectionLabelFontSize(double sectionLabelFontSize);
-
-  ViewSettings sectionLabelFontWeight(FontWeight sectionLabelFontWeight);
-
-  ViewSettings sectionLabelMaxLines(int sectionLabelMaxLines);
-
-  ViewSettings sectionMinColumns(int sectionMinColumns);
-
-  ViewSettings showSettingsView(bool showSettingsView);
-
-  ViewSettings strategicGradientColors(List<Color> strategicGradientColors);
-
-  ViewSettings subquadrantMaxHeight(double subquadrantMaxHeight);
-
-  ViewSettings subquadrantMaxWidth(double subquadrantMaxWidth);
-
-  ViewSettings subquadrantMinHeight(double subquadrantMinHeight);
-
-  ViewSettings subquadrantMinWidth(double subquadrantMinWidth);
-
-  ViewSettings subquadrantThickBorderWidth(double subquadrantThickBorderWidth);
-
-  ViewSettings subquadrantThinBorderWidth(double subquadrantThinBorderWidth);
-
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ViewSettings(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
-  ///
-  /// Usage
-  /// ```dart
-  /// ViewSettings(...).copyWith(id: 12, name: "My name")
-  /// ````
-  ViewSettings call({
-    TextStyle? analyzeSubtitleStyle,
-    Color? componentColor,
-    double? componentDropIndicatorWidth,
-    Color? componentIsRatedColor,
-    double? componentLabelFontSize,
-    FontWeight? componentLabelFontWeight,
-    int? componentLabelMaxLines,
-    double? componentLabelWidth,
-    double? elevation,
-    double? layerLabelFontSize,
-    FontWeight? layerLabelFontWeight,
-    int? layerLabelMaxLines,
-    double? layerLabelWidth,
-    int? layerMaxTotalColumns,
-    double? layerPaddingWidth,
-    double? layerSpacerWidth,
-    double? modelViewerPaddingWidth,
-    Ref? ref,
-    List<Color>? relationshipGradientColors,
-    Color? sectionBorderColor,
-    double? sectionBorderWidth,
-    Color? sectionColor,
-    double? sectionLabelFontSize,
-    FontWeight? sectionLabelFontWeight,
-    int? sectionLabelMaxLines,
-    int? sectionMinColumns,
-    bool? showSettingsView,
-    List<Color>? strategicGradientColors,
-    double? subquadrantMaxHeight,
-    double? subquadrantMaxWidth,
-    double? subquadrantMinHeight,
-    double? subquadrantMinWidth,
-    double? subquadrantThickBorderWidth,
-    double? subquadrantThinBorderWidth,
-  });
-}
-
-/// Proxy class for `copyWith` functionality. This is a callable class and can be used as follows: `instanceOfViewSettings.copyWith(...)`. Additionally contains functions for specific fields e.g. `instanceOfViewSettings.copyWith.fieldName(...)`
-class _$ViewSettingsCWProxyImpl implements _$ViewSettingsCWProxy {
-  final ViewSettings _value;
-
-  const _$ViewSettingsCWProxyImpl(this._value);
-
-  @override
-  ViewSettings analyzeSubtitleStyle(TextStyle analyzeSubtitleStyle) =>
-      this(analyzeSubtitleStyle: analyzeSubtitleStyle);
-
-  @override
-  ViewSettings componentColor(Color componentColor) =>
-      this(componentColor: componentColor);
-
-  @override
-  ViewSettings componentDropIndicatorWidth(
-          double componentDropIndicatorWidth) =>
-      this(componentDropIndicatorWidth: componentDropIndicatorWidth);
-
-  @override
-  ViewSettings componentIsRatedColor(Color componentIsRatedColor) =>
-      this(componentIsRatedColor: componentIsRatedColor);
-
-  @override
-  ViewSettings componentLabelFontSize(double componentLabelFontSize) =>
-      this(componentLabelFontSize: componentLabelFontSize);
-
-  @override
-  ViewSettings componentLabelFontWeight(FontWeight componentLabelFontWeight) =>
-      this(componentLabelFontWeight: componentLabelFontWeight);
-
-  @override
-  ViewSettings componentLabelMaxLines(int componentLabelMaxLines) =>
-      this(componentLabelMaxLines: componentLabelMaxLines);
-
-  @override
-  ViewSettings componentLabelWidth(double componentLabelWidth) =>
-      this(componentLabelWidth: componentLabelWidth);
-
-  @override
-  ViewSettings elevation(double elevation) => this(elevation: elevation);
-
-  @override
-  ViewSettings layerLabelFontSize(double layerLabelFontSize) =>
-      this(layerLabelFontSize: layerLabelFontSize);
-
-  @override
-  ViewSettings layerLabelFontWeight(FontWeight layerLabelFontWeight) =>
-      this(layerLabelFontWeight: layerLabelFontWeight);
-
-  @override
-  ViewSettings layerLabelMaxLines(int layerLabelMaxLines) =>
-      this(layerLabelMaxLines: layerLabelMaxLines);
-
-  @override
-  ViewSettings layerLabelWidth(double layerLabelWidth) =>
-      this(layerLabelWidth: layerLabelWidth);
-
-  @override
-  ViewSettings layerMaxTotalColumns(int layerMaxTotalColumns) =>
-      this(layerMaxTotalColumns: layerMaxTotalColumns);
-
-  @override
-  ViewSettings layerPaddingWidth(double layerPaddingWidth) =>
-      this(layerPaddingWidth: layerPaddingWidth);
-
-  @override
-  ViewSettings layerSpacerWidth(double layerSpacerWidth) =>
-      this(layerSpacerWidth: layerSpacerWidth);
-
-  @override
-  ViewSettings modelViewerPaddingWidth(double modelViewerPaddingWidth) =>
-      this(modelViewerPaddingWidth: modelViewerPaddingWidth);
-
-  @override
-  ViewSettings ref(Ref ref) => this(ref: ref);
-
-  @override
-  ViewSettings relationshipGradientColors(
-          List<Color> relationshipGradientColors) =>
-      this(relationshipGradientColors: relationshipGradientColors);
-
-  @override
-  ViewSettings sectionBorderColor(Color sectionBorderColor) =>
-      this(sectionBorderColor: sectionBorderColor);
-
-  @override
-  ViewSettings sectionBorderWidth(double sectionBorderWidth) =>
-      this(sectionBorderWidth: sectionBorderWidth);
-
-  @override
-  ViewSettings sectionColor(Color sectionColor) =>
-      this(sectionColor: sectionColor);
-
-  @override
-  ViewSettings sectionLabelFontSize(double sectionLabelFontSize) =>
-      this(sectionLabelFontSize: sectionLabelFontSize);
-
-  @override
-  ViewSettings sectionLabelFontWeight(FontWeight sectionLabelFontWeight) =>
-      this(sectionLabelFontWeight: sectionLabelFontWeight);
-
-  @override
-  ViewSettings sectionLabelMaxLines(int sectionLabelMaxLines) =>
-      this(sectionLabelMaxLines: sectionLabelMaxLines);
-
-  @override
-  ViewSettings sectionMinColumns(int sectionMinColumns) =>
-      this(sectionMinColumns: sectionMinColumns);
-
-  @override
-  ViewSettings showSettingsView(bool showSettingsView) =>
-      this(showSettingsView: showSettingsView);
-
-  @override
-  ViewSettings strategicGradientColors(List<Color> strategicGradientColors) =>
-      this(strategicGradientColors: strategicGradientColors);
-
-  @override
-  ViewSettings subquadrantMaxHeight(double subquadrantMaxHeight) =>
-      this(subquadrantMaxHeight: subquadrantMaxHeight);
-
-  @override
-  ViewSettings subquadrantMaxWidth(double subquadrantMaxWidth) =>
-      this(subquadrantMaxWidth: subquadrantMaxWidth);
-
-  @override
-  ViewSettings subquadrantMinHeight(double subquadrantMinHeight) =>
-      this(subquadrantMinHeight: subquadrantMinHeight);
-
-  @override
-  ViewSettings subquadrantMinWidth(double subquadrantMinWidth) =>
-      this(subquadrantMinWidth: subquadrantMinWidth);
-
-  @override
-  ViewSettings subquadrantThickBorderWidth(
-          double subquadrantThickBorderWidth) =>
-      this(subquadrantThickBorderWidth: subquadrantThickBorderWidth);
-
-  @override
-  ViewSettings subquadrantThinBorderWidth(double subquadrantThinBorderWidth) =>
-      this(subquadrantThinBorderWidth: subquadrantThinBorderWidth);
-
-  @override
-
-  /// This function **does support** nullification of nullable fields. All `null` values passed to `non-nullable` fields will be ignored. You can also use `ViewSettings(...).copyWith.fieldName(...)` to override fields one at a time with nullification support.
-  ///
-  /// Usage
-  /// ```dart
-  /// ViewSettings(...).copyWith(id: 12, name: "My name")
-  /// ````
-  ViewSettings call({
-    Object? analyzeSubtitleStyle = const $CopyWithPlaceholder(),
-    Object? componentColor = const $CopyWithPlaceholder(),
-    Object? componentDropIndicatorWidth = const $CopyWithPlaceholder(),
-    Object? componentIsRatedColor = const $CopyWithPlaceholder(),
-    Object? componentLabelFontSize = const $CopyWithPlaceholder(),
-    Object? componentLabelFontWeight = const $CopyWithPlaceholder(),
-    Object? componentLabelMaxLines = const $CopyWithPlaceholder(),
-    Object? componentLabelWidth = const $CopyWithPlaceholder(),
-    Object? elevation = const $CopyWithPlaceholder(),
-    Object? layerLabelFontSize = const $CopyWithPlaceholder(),
-    Object? layerLabelFontWeight = const $CopyWithPlaceholder(),
-    Object? layerLabelMaxLines = const $CopyWithPlaceholder(),
-    Object? layerLabelWidth = const $CopyWithPlaceholder(),
-    Object? layerMaxTotalColumns = const $CopyWithPlaceholder(),
-    Object? layerPaddingWidth = const $CopyWithPlaceholder(),
-    Object? layerSpacerWidth = const $CopyWithPlaceholder(),
-    Object? modelViewerPaddingWidth = const $CopyWithPlaceholder(),
-    Object? ref = const $CopyWithPlaceholder(),
-    Object? relationshipGradientColors = const $CopyWithPlaceholder(),
-    Object? sectionBorderColor = const $CopyWithPlaceholder(),
-    Object? sectionBorderWidth = const $CopyWithPlaceholder(),
-    Object? sectionColor = const $CopyWithPlaceholder(),
-    Object? sectionLabelFontSize = const $CopyWithPlaceholder(),
-    Object? sectionLabelFontWeight = const $CopyWithPlaceholder(),
-    Object? sectionLabelMaxLines = const $CopyWithPlaceholder(),
-    Object? sectionMinColumns = const $CopyWithPlaceholder(),
-    Object? showSettingsView = const $CopyWithPlaceholder(),
-    Object? strategicGradientColors = const $CopyWithPlaceholder(),
-    Object? subquadrantMaxHeight = const $CopyWithPlaceholder(),
-    Object? subquadrantMaxWidth = const $CopyWithPlaceholder(),
-    Object? subquadrantMinHeight = const $CopyWithPlaceholder(),
-    Object? subquadrantMinWidth = const $CopyWithPlaceholder(),
-    Object? subquadrantThickBorderWidth = const $CopyWithPlaceholder(),
-    Object? subquadrantThinBorderWidth = const $CopyWithPlaceholder(),
-  }) {
-    return ViewSettings(
-      analyzeSubtitleStyle:
-          analyzeSubtitleStyle == const $CopyWithPlaceholder() ||
-                  analyzeSubtitleStyle == null
-              ? _value.analyzeSubtitleStyle
-              // ignore: cast_nullable_to_non_nullable
-              : analyzeSubtitleStyle as TextStyle,
-      componentColor: componentColor == const $CopyWithPlaceholder() ||
-              componentColor == null
-          ? _value.componentColor
-          // ignore: cast_nullable_to_non_nullable
-          : componentColor as Color,
-      componentDropIndicatorWidth:
-          componentDropIndicatorWidth == const $CopyWithPlaceholder() ||
-                  componentDropIndicatorWidth == null
-              ? _value.componentDropIndicatorWidth
-              // ignore: cast_nullable_to_non_nullable
-              : componentDropIndicatorWidth as double,
-      componentIsRatedColor:
-          componentIsRatedColor == const $CopyWithPlaceholder() ||
-                  componentIsRatedColor == null
-              ? _value.componentIsRatedColor
-              // ignore: cast_nullable_to_non_nullable
-              : componentIsRatedColor as Color,
-      componentLabelFontSize:
-          componentLabelFontSize == const $CopyWithPlaceholder() ||
-                  componentLabelFontSize == null
-              ? _value.componentLabelFontSize
-              // ignore: cast_nullable_to_non_nullable
-              : componentLabelFontSize as double,
-      componentLabelFontWeight:
-          componentLabelFontWeight == const $CopyWithPlaceholder() ||
-                  componentLabelFontWeight == null
-              ? _value.componentLabelFontWeight
-              // ignore: cast_nullable_to_non_nullable
-              : componentLabelFontWeight as FontWeight,
-      componentLabelMaxLines:
-          componentLabelMaxLines == const $CopyWithPlaceholder() ||
-                  componentLabelMaxLines == null
-              ? _value.componentLabelMaxLines
-              // ignore: cast_nullable_to_non_nullable
-              : componentLabelMaxLines as int,
-      componentLabelWidth:
-          componentLabelWidth == const $CopyWithPlaceholder() ||
-                  componentLabelWidth == null
-              ? _value.componentLabelWidth
-              // ignore: cast_nullable_to_non_nullable
-              : componentLabelWidth as double,
-      elevation: elevation == const $CopyWithPlaceholder() || elevation == null
-          ? _value.elevation
-          // ignore: cast_nullable_to_non_nullable
-          : elevation as double,
-      layerLabelFontSize: layerLabelFontSize == const $CopyWithPlaceholder() ||
-              layerLabelFontSize == null
-          ? _value.layerLabelFontSize
-          // ignore: cast_nullable_to_non_nullable
-          : layerLabelFontSize as double,
-      layerLabelFontWeight:
-          layerLabelFontWeight == const $CopyWithPlaceholder() ||
-                  layerLabelFontWeight == null
-              ? _value.layerLabelFontWeight
-              // ignore: cast_nullable_to_non_nullable
-              : layerLabelFontWeight as FontWeight,
-      layerLabelMaxLines: layerLabelMaxLines == const $CopyWithPlaceholder() ||
-              layerLabelMaxLines == null
-          ? _value.layerLabelMaxLines
-          // ignore: cast_nullable_to_non_nullable
-          : layerLabelMaxLines as int,
-      layerLabelWidth: layerLabelWidth == const $CopyWithPlaceholder() ||
-              layerLabelWidth == null
-          ? _value.layerLabelWidth
-          // ignore: cast_nullable_to_non_nullable
-          : layerLabelWidth as double,
-      layerMaxTotalColumns:
-          layerMaxTotalColumns == const $CopyWithPlaceholder() ||
-                  layerMaxTotalColumns == null
-              ? _value.layerMaxTotalColumns
-              // ignore: cast_nullable_to_non_nullable
-              : layerMaxTotalColumns as int,
-      layerPaddingWidth: layerPaddingWidth == const $CopyWithPlaceholder() ||
-              layerPaddingWidth == null
-          ? _value.layerPaddingWidth
-          // ignore: cast_nullable_to_non_nullable
-          : layerPaddingWidth as double,
-      layerSpacerWidth: layerSpacerWidth == const $CopyWithPlaceholder() ||
-              layerSpacerWidth == null
-          ? _value.layerSpacerWidth
-          // ignore: cast_nullable_to_non_nullable
-          : layerSpacerWidth as double,
-      modelViewerPaddingWidth:
-          modelViewerPaddingWidth == const $CopyWithPlaceholder() ||
-                  modelViewerPaddingWidth == null
-              ? _value.modelViewerPaddingWidth
-              // ignore: cast_nullable_to_non_nullable
-              : modelViewerPaddingWidth as double,
-      ref: ref == const $CopyWithPlaceholder() || ref == null
-          ? _value.ref
-          // ignore: cast_nullable_to_non_nullable
-          : ref as Ref,
-      relationshipGradientColors:
-          relationshipGradientColors == const $CopyWithPlaceholder() ||
-                  relationshipGradientColors == null
-              ? _value.relationshipGradientColors
-              // ignore: cast_nullable_to_non_nullable
-              : relationshipGradientColors as List<Color>,
-      sectionBorderColor: sectionBorderColor == const $CopyWithPlaceholder() ||
-              sectionBorderColor == null
-          ? _value.sectionBorderColor
-          // ignore: cast_nullable_to_non_nullable
-          : sectionBorderColor as Color,
-      sectionBorderWidth: sectionBorderWidth == const $CopyWithPlaceholder() ||
-              sectionBorderWidth == null
-          ? _value.sectionBorderWidth
-          // ignore: cast_nullable_to_non_nullable
-          : sectionBorderWidth as double,
-      sectionColor:
-          sectionColor == const $CopyWithPlaceholder() || sectionColor == null
-              ? _value.sectionColor
-              // ignore: cast_nullable_to_non_nullable
-              : sectionColor as Color,
-      sectionLabelFontSize:
-          sectionLabelFontSize == const $CopyWithPlaceholder() ||
-                  sectionLabelFontSize == null
-              ? _value.sectionLabelFontSize
-              // ignore: cast_nullable_to_non_nullable
-              : sectionLabelFontSize as double,
-      sectionLabelFontWeight:
-          sectionLabelFontWeight == const $CopyWithPlaceholder() ||
-                  sectionLabelFontWeight == null
-              ? _value.sectionLabelFontWeight
-              // ignore: cast_nullable_to_non_nullable
-              : sectionLabelFontWeight as FontWeight,
-      sectionLabelMaxLines:
-          sectionLabelMaxLines == const $CopyWithPlaceholder() ||
-                  sectionLabelMaxLines == null
-              ? _value.sectionLabelMaxLines
-              // ignore: cast_nullable_to_non_nullable
-              : sectionLabelMaxLines as int,
-      sectionMinColumns: sectionMinColumns == const $CopyWithPlaceholder() ||
-              sectionMinColumns == null
-          ? _value.sectionMinColumns
-          // ignore: cast_nullable_to_non_nullable
-          : sectionMinColumns as int,
-      showSettingsView: showSettingsView == const $CopyWithPlaceholder() ||
-              showSettingsView == null
-          ? _value.showSettingsView
-          // ignore: cast_nullable_to_non_nullable
-          : showSettingsView as bool,
-      strategicGradientColors:
-          strategicGradientColors == const $CopyWithPlaceholder() ||
-                  strategicGradientColors == null
-              ? _value.strategicGradientColors
-              // ignore: cast_nullable_to_non_nullable
-              : strategicGradientColors as List<Color>,
-      subquadrantMaxHeight:
-          subquadrantMaxHeight == const $CopyWithPlaceholder() ||
-                  subquadrantMaxHeight == null
-              ? _value.subquadrantMaxHeight
-              // ignore: cast_nullable_to_non_nullable
-              : subquadrantMaxHeight as double,
-      subquadrantMaxWidth:
-          subquadrantMaxWidth == const $CopyWithPlaceholder() ||
-                  subquadrantMaxWidth == null
-              ? _value.subquadrantMaxWidth
-              // ignore: cast_nullable_to_non_nullable
-              : subquadrantMaxWidth as double,
-      subquadrantMinHeight:
-          subquadrantMinHeight == const $CopyWithPlaceholder() ||
-                  subquadrantMinHeight == null
-              ? _value.subquadrantMinHeight
-              // ignore: cast_nullable_to_non_nullable
-              : subquadrantMinHeight as double,
+_$_ViewSettings _$$_ViewSettingsFromJson(Map<String, dynamic> json) =>
+    _$_ViewSettings(
+      showSettingsView: json['showSettingsView'] as bool? ?? false,
       subquadrantMinWidth:
-          subquadrantMinWidth == const $CopyWithPlaceholder() ||
-                  subquadrantMinWidth == null
-              ? _value.subquadrantMinWidth
-              // ignore: cast_nullable_to_non_nullable
-              : subquadrantMinWidth as double,
+          (json['subquadrantMinWidth'] as num?)?.toDouble() ?? 350,
+      subquadrantMinHeight:
+          (json['subquadrantMinHeight'] as num?)?.toDouble() ?? 350,
+      subquadrantMaxWidth:
+          (json['subquadrantMaxWidth'] as num?)?.toDouble() ?? 500,
+      subquadrantMaxHeight:
+          (json['subquadrantMaxHeight'] as num?)?.toDouble() ?? 500,
       subquadrantThickBorderWidth:
-          subquadrantThickBorderWidth == const $CopyWithPlaceholder() ||
-                  subquadrantThickBorderWidth == null
-              ? _value.subquadrantThickBorderWidth
-              // ignore: cast_nullable_to_non_nullable
-              : subquadrantThickBorderWidth as double,
+          (json['subquadrantThickBorderWidth'] as num?)?.toDouble() ?? 6,
       subquadrantThinBorderWidth:
-          subquadrantThinBorderWidth == const $CopyWithPlaceholder() ||
-                  subquadrantThinBorderWidth == null
-              ? _value.subquadrantThinBorderWidth
-              // ignore: cast_nullable_to_non_nullable
-              : subquadrantThinBorderWidth as double,
+          (json['subquadrantThinBorderWidth'] as num?)?.toDouble() ?? 1,
+      analyzeSubtitleFontSize:
+          (json['analyzeSubtitleFontSize'] as num?)?.toDouble() ?? 24,
+      layerMaxTotalColumns: json['layerMaxTotalColumns'] as int? ?? 15,
+      sectionMinColumns: json['sectionMinColumns'] as int? ?? 2,
+      componentLabelWidth:
+          (json['componentLabelWidth'] as num?)?.toDouble() ?? 100,
+      componentDropIndicatorWidth:
+          (json['componentDropIndicatorWidth'] as num?)?.toDouble() ?? 8,
+      componentColor: json['componentColor'] ?? Colors.white,
+      componentIsRatedColor:
+          json['componentIsRatedColor'] ?? Colors.lightBlueAccent,
+      componentLabelFontSize:
+          (json['componentLabelFontSize'] as num?)?.toDouble() ?? 14,
+      componentLabelFontWeight:
+          json['componentLabelFontWeight'] ?? FontWeight.normal,
+      componentLabelMaxLines: json['componentLabelMaxLines'] as int? ?? 3,
+      sectionBorderWidth: (json['sectionBorderWidth'] as num?)?.toDouble() ?? 1,
+      sectionLabelFontSize:
+          (json['sectionLabelFontSize'] as num?)?.toDouble() ?? 20,
+      sectionLabelFontWeight: json['sectionLabelFontWeight'] ?? FontWeight.bold,
+      sectionLabelMaxLines: json['sectionLabelMaxLines'] as int? ?? 1,
+      sectionBorderColor: json['sectionBorderColor'] ?? Colors.black,
+      sectionColor: json['sectionColor'] ?? Colors.white,
+      layerLabelWidth: (json['layerLabelWidth'] as num?)?.toDouble() ?? 250,
+      layerSpacerWidth: (json['layerSpacerWidth'] as num?)?.toDouble() ?? 20,
+      layerLabelFontSize:
+          (json['layerLabelFontSize'] as num?)?.toDouble() ?? 32,
+      layerPaddingWidth: (json['layerPaddingWidth'] as num?)?.toDouble() ?? 5,
+      layerLabelFontWeight: json['layerLabelFontWeight'] ?? FontWeight.bold,
+      layerLabelMaxLines: json['layerLabelMaxLines'] as int? ?? 3,
+      modelViewerPaddingWidth:
+          (json['modelViewerPaddingWidth'] as num?)?.toDouble() ?? 30,
+      elevation: (json['elevation'] as num?)?.toDouble() ?? 2,
     );
-  }
-}
 
-extension $ViewSettingsCopyWith on ViewSettings {
-  /// Returns a callable class that can be used as follows: `instanceOfViewSettings.copyWith(...)` or like so:`instanceOfViewSettings.copyWith.fieldName(...)`.
-  // ignore: library_private_types_in_public_api
-  _$ViewSettingsCWProxy get copyWith => _$ViewSettingsCWProxyImpl(this);
-}
+Map<String, dynamic> _$$_ViewSettingsToJson(_$_ViewSettings instance) =>
+    <String, dynamic>{
+      'showSettingsView': instance.showSettingsView,
+      'subquadrantMinWidth': instance.subquadrantMinWidth,
+      'subquadrantMinHeight': instance.subquadrantMinHeight,
+      'subquadrantMaxWidth': instance.subquadrantMaxWidth,
+      'subquadrantMaxHeight': instance.subquadrantMaxHeight,
+      'subquadrantThickBorderWidth': instance.subquadrantThickBorderWidth,
+      'subquadrantThinBorderWidth': instance.subquadrantThinBorderWidth,
+      'analyzeSubtitleFontSize': instance.analyzeSubtitleFontSize,
+      'layerMaxTotalColumns': instance.layerMaxTotalColumns,
+      'sectionMinColumns': instance.sectionMinColumns,
+      'componentLabelWidth': instance.componentLabelWidth,
+      'componentDropIndicatorWidth': instance.componentDropIndicatorWidth,
+      'componentColor': instance.componentColor,
+      'componentIsRatedColor': instance.componentIsRatedColor,
+      'componentLabelFontSize': instance.componentLabelFontSize,
+      'componentLabelFontWeight': instance.componentLabelFontWeight,
+      'componentLabelMaxLines': instance.componentLabelMaxLines,
+      'sectionBorderWidth': instance.sectionBorderWidth,
+      'sectionLabelFontSize': instance.sectionLabelFontSize,
+      'sectionLabelFontWeight': instance.sectionLabelFontWeight,
+      'sectionLabelMaxLines': instance.sectionLabelMaxLines,
+      'sectionBorderColor': instance.sectionBorderColor,
+      'sectionColor': instance.sectionColor,
+      'layerLabelWidth': instance.layerLabelWidth,
+      'layerSpacerWidth': instance.layerSpacerWidth,
+      'layerLabelFontSize': instance.layerLabelFontSize,
+      'layerPaddingWidth': instance.layerPaddingWidth,
+      'layerLabelFontWeight': instance.layerLabelFontWeight,
+      'layerLabelMaxLines': instance.layerLabelMaxLines,
+      'modelViewerPaddingWidth': instance.modelViewerPaddingWidth,
+      'elevation': instance.elevation,
+    };

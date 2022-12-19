@@ -10,7 +10,8 @@ import 'package:cbmui/widgets/strategic_widget.dart';
 import 'package:cbmui/widgets/tags_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/component_business_model.dart';
+import '../models/cbmodel.dart';
+import '../models/component.dart';
 import '../providers/mode_provider.dart';
 import '../api/model_api.dart';
 import 'label_widget.dart';
@@ -81,7 +82,7 @@ class ComponentViewer extends ConsumerWidget {
                     maxlines: 4,
                     onChanged: (s) async {
                       component.name = s;
-                      await ModelApi.saveModel(
+                      await ModelApi.saveCBModel(
                         model: model,
                       );
                     },
@@ -89,9 +90,8 @@ class ComponentViewer extends ConsumerWidget {
                 ),
                 EditButtons(
                   onDelete: () async {
-                    section.components!
-                        .removeWhere((t) => component.id == t.id);
-                    await ModelApi.saveModel(
+                    section.components.removeWhere((t) => component.id == t.id);
+                    await ModelApi.saveCBModel(
                       model: model,
                     );
                   },
@@ -113,7 +113,7 @@ class RatingDialog extends StatefulWidget {
   }) : super(key: key);
 
   final Component component;
-  final Model model;
+  final CBModel model;
 
   @override
   State<RatingDialog> createState() => _RatingDialogState();
@@ -155,7 +155,7 @@ class _RatingDialogState extends State<RatingDialog> {
     timer.cancel();
     timer = Timer(const Duration(milliseconds: 1500), () async {
       updateField.call();
-      await ModelApi.saveModel(model: widget.model);
+      await ModelApi.saveCBModel(model: widget.model);
       timer.cancel();
     });
   }
@@ -344,7 +344,7 @@ class _RatingDialogState extends State<RatingDialog> {
                       lobContactController.text = "";
                       opsContactController.text = "";
 
-                      await ModelApi.saveModel(model: widget.model);
+                      await ModelApi.saveCBModel(model: widget.model);
                     },
                     child: const Text("Clear"),
                   )

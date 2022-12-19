@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:super_tag_editor/tag_editor.dart';
 
-import '../models/component_business_model.dart';
+import '../models/cbmodel.dart';
+import '../models/component.dart';
 
 class ComponentTags extends ConsumerWidget {
   const ComponentTags(
       {super.key, required this.component, required this.model});
 
   final Component component;
-  final Model model;
+  final CBModel model;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,17 +59,17 @@ class ComponentTags extends ConsumerWidget {
     if (t.isNotEmpty) {
       if (!allTags.contains(t)) {
         await ModelApi.addTag(t);
-        await notifier.reload();
+        await notifier.refresh();
       }
 
       component.tags.add(t);
-      await ModelApi.saveModel(model: model);
+      await ModelApi.saveCBModel(model: model);
     }
   }
 
   Future<void> onDelete(int index) async {
     component.tags.removeWhere((t) => t == component.tags.elementAt(index));
-    await ModelApi.saveModel(model: model);
+    await ModelApi.saveCBModel(model: model);
   }
 }
 

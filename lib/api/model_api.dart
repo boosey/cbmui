@@ -1,54 +1,60 @@
 import 'dart:convert';
 
-import 'package:flutter_data/flutter_data.dart';
+import 'package:cbmui/providers/model_list_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import '../models/component_business_model.dart';
+import '../models/cbmodel.dart';
+import '../models/layer.dart';
+import '../models/section.dart';
 
 class ModelApi {
-  static late Repository<Model> _repository;
+  static Ref? ref;
+  static String get baseURL => dotenv.get('BASE_URL');
 
-  static setRepository(Repository<Model> repo) => _repository = repo;
-
-  static String get baseURL =>
-      dotenv.get('BASE_URL', fallback: 'BASE URL not found');
+  static Future<void> refreshModels() async {
+    return ref!.read(modelListProvider.notifier).refresh();
+  }
 
   static Future<void> createModel() async {
     await sendPost(url: '$baseURL/models');
-    await _repository.findAll(syncLocal: true);
+    await ModelApi.refreshModels();
   }
 
   static Future<void> copyModel({required String mid}) async {
     await sendGet(url: '$baseURL/models/$mid?copy');
-    await _repository.findAll(syncLocal: true);
+    await ModelApi.refreshModels();
   }
 
   static Future<void> deleteModel({required String mid}) async {
     await sendDelete(url: '$baseURL/models/$mid');
-    await _repository.findAll(syncLocal: true);
+    await ModelApi.refreshModels();
   }
 
-  static Future<void> saveModel({required Model model}) async {
-    await model.save();
-    await _repository.findAll(syncLocal: true);
+  static Future<void> saveCBModel({required CBModel model}) async {
+    await sendPut(
+      url: '$baseURL/models/${model.id}',
+      model: model,
+    );
+    await ModelApi.refreshModels();
   }
 
-  static Future<void> createLayer({required Model model}) async {
+  static Future<void> createLayer({required CBModel model}) async {
     await sendPost(url: '$baseURL/models/${model.id}/layers');
-    await _repository.findAll(syncLocal: true);
+    await ModelApi.refreshModels();
   }
 
   static Future<void> createSection(
-      {required Model model, required Layer layer}) async {
+      {required CBModel model, required Layer layer}) async {
     await sendPost(
         url: '$baseURL/models/${model.id}/layers/${layer.id}/sections');
 
-    await _repository.findAll(syncLocal: true);
+    await ModelApi.refreshModels();
   }
 
   static Future<void> createComponent({
-    required Model model,
+    required CBModel model,
     required Layer layer,
     required Section section,
   }) async {
@@ -56,7 +62,17 @@ class ModelApi {
         url:
             '$baseURL/models/${model.id}/layers/${layer.id}/sections/${section.id}/components');
 
-    await _repository.findAll(syncLocal: true);
+    await ModelApi.refreshModels();
+  }
+
+  static Future<List<CBModel>> getModels() async {
+    var r = await sendGet(url: '$baseURL/models');
+    List<dynamic> models = jsonDecode(r.body);
+    var models2 = <CBModel>[];
+    for (var m in models) {
+      models2.add(CBModel.fromJson(m));
+    }
+    return Future.value(models2);
   }
 
   static Future<List<String>> getTags() async {
@@ -105,21 +121,21 @@ class ModelApi {
     );
   }
 
-  static Future<void> sendDelete({required String url}) async {
+  static Future<int> sendDelete({required String url}) async {
     await http.delete(Uri.parse(url), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     });
-    return;
+    return Future.value(1);
   }
 
   static Future<void> sendPut(
-      {required String url, required Model model}) async {
-    await http.post(
+      {required String url, required CBModel model}) async {
+    await http.put(
       Uri.parse(url),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: Model,
+      body: jsonEncode(model.toJson()),
     );
     return;
   }

@@ -34,7 +34,7 @@ class LayerViewer extends ConsumerWidget {
       maxlines: settings.layerLabelMaxLines,
       onChanged: (s) async {
         layer.name = s;
-        await ModelApi.saveModel(
+        await ModelApi.saveCBModel(
           model: model,
         );
       },
@@ -44,7 +44,7 @@ class LayerViewer extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
-      children: layer.sections!.map(
+      children: layer.sections.map(
         (s) {
           final columnCounts =
               modelInfo.calculateTotalSectionColumnCountsForLayer(layer);
@@ -64,7 +64,7 @@ class LayerViewer extends ConsumerWidget {
             lid: layer.id,
             columnCount: columnCounts[s.id]!,
             width: sectionWidth,
-            displayLabel: layer.sections!.length > 1,
+            displayLabel: layer.sections.length > 1,
           );
         },
       ).toList(),
@@ -86,10 +86,7 @@ class LayerViewer extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             EditButtons(onDelete: () async {
-              model.layers!.removeWhere((l) => layer.id == l.id);
-              await ModelApi.saveModel(
-                model: model,
-              );
+              await model.deleteLayer(lid);
             }),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,

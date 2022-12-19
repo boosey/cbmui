@@ -1,14 +1,10 @@
-import 'package:cbmui/main.data.dart';
-import 'package:flutter_data/flutter_data.dart';
-import '../models/component_business_model.dart';
+import 'package:cbmui/providers/model_list_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final modelProvider = Provider.family<Model, String>((ref, mid) {
-  final dataState = ref.models.watchAll(syncLocal: true);
+import '../models/cbmodel.dart';
 
-  return dataState.hasModel
-      ? dataState.model!.firstWhere((m) => m.id == mid)
-      : Model(
-          id: "",
-          name: "",
-        );
+final modelProvider = Provider.family<CBModel, String>((ref, mid) {
+  final models = ref.watch(modelListProvider);
+
+  return models.firstWhere((m) => m.id == mid);
 });

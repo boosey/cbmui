@@ -1,4 +1,4 @@
-import 'package:flutter_data/flutter_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum Mode {
   edit,
