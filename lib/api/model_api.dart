@@ -27,8 +27,38 @@ class ModelApi {
     await ModelApi.refreshModels();
   }
 
-  static Future<void> deleteModel({required String mid}) async {
+  static Future<void> deleteModel({
+    required String mid,
+  }) async {
     await sendDelete(url: '$baseURL/models/$mid');
+    await ModelApi.refreshModels();
+  }
+
+  static Future<void> deleteLayer({
+    required String mid,
+    required String lid,
+  }) async {
+    await sendDelete(url: '$baseURL/models/$mid/layers/$lid');
+    await ModelApi.refreshModels();
+  }
+
+  static Future<void> deleteSection({
+    required String mid,
+    required String lid,
+    required String sid,
+  }) async {
+    await sendDelete(url: '$baseURL/models/$mid/layers/$lid/sections/$sid');
+    await ModelApi.refreshModels();
+  }
+
+  static Future<void> deleteComponent({
+    required String mid,
+    required String lid,
+    required String sid,
+    required String cid,
+  }) async {
+    await sendDelete(
+        url: '$baseURL/models/$mid/layers/$lid/sections/$sid/components/$cid');
     await ModelApi.refreshModels();
   }
 

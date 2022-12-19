@@ -34,8 +34,6 @@ class ComponentViewer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final modelInfo = ref.watch(modelInfoProvider(mid));
     final model = modelInfo.model;
-    final layer = model.findLayer(lid);
-    final section = layer.findSection(sid);
     final settings = modelInfo.settings;
     final isRated = component.strategic > 0 && component.relationship > 0;
 
@@ -90,9 +88,10 @@ class ComponentViewer extends ConsumerWidget {
                 ),
                 EditButtons(
                   onDelete: () async {
-                    section.components.removeWhere((t) => component.id == t.id);
-                    await ModelApi.saveCBModel(
-                      model: model,
+                    await model.deleteComponent(
+                      lid,
+                      sid,
+                      component.id,
                     );
                   },
                 )

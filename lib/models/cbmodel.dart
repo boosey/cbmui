@@ -1,3 +1,4 @@
+import 'dart:developer' as dev;
 import 'package:cbmui/models/section.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../api/model_api.dart';
@@ -28,7 +29,12 @@ class CBModel with _$CBModel {
   }
 
   Layer findLayer(String lid) {
-    return layers.firstWhere((l) => l.id == lid);
+    try {
+      return layers.firstWhere((l) => l.id == lid);
+    } catch (e) {
+      dev.log('$DateTime.now() couldnt find layer: $lid');
+    }
+    return Layer(id: '12345676890', name: 'Error Layer');
   }
 
   Component findComponent(String cid, CBModel model) {
@@ -45,8 +51,15 @@ class CBModel with _$CBModel {
   }
 
   Future<void> deleteLayer(String lid) async {
-    layers.removeWhere((l) => l.id == lid);
-    await save();
+    await ModelApi.deleteLayer(mid: id, lid: lid);
+  }
+
+  Future<void> deleteSection(String lid, String sid) async {
+    await ModelApi.deleteSection(mid: id, lid: lid, sid: sid);
+  }
+
+  Future<void> deleteComponent(String lid, String sid, String cid) async {
+    await ModelApi.deleteComponent(mid: id, lid: lid, sid: sid, cid: cid);
   }
 
   void moveComponent(

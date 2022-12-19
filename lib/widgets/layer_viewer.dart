@@ -75,7 +75,6 @@ class LayerViewer extends ConsumerWidget {
       type: "layer",
       model: model,
       onDrop: ((p0, p1, p2) {
-        dev.log("before: $p1  after: $p2");
         model.moveLayer(p0, p1, p2);
       }),
       indicatorWidth: settings.componentDropIndicatorWidth,

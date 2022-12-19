@@ -140,9 +140,9 @@ class SectionViewer extends ConsumerWidget {
               children: [
                 EditButtons(
                   onDelete: () async {
-                    layer.sections.removeWhere((s) => section.id == s.id);
-                    await ModelApi.saveCBModel(
-                      model: model,
+                    await model.deleteSection(
+                      lid,
+                      sid,
                     );
                   },
                 ),
